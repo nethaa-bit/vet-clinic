@@ -1,3 +1,4 @@
+--Drop tables in case they already exist in database--
 DROP TABLE SCHEDULE;
 DROP TABLE PAYMENT;
 DROP TABLE CREDITCARD;
@@ -9,7 +10,7 @@ DROP TABLE STAFF;
 DROP TABLE CUSTOMER;
 DROP TABLE SERVICE;
 
-
+--Create tables--
 CREATE TABLE SERVICE (
 serviceID VARCHAR(5) NOT NULL,
 serviceTitle VARCHAR(20) NOT NULL,
