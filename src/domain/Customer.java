@@ -58,6 +58,12 @@ public class Customer {
     public void setCustPhoneNum(String custPhoneNum) {
         this.custPhoneNum = custPhoneNum;
     }
+
+    public Object[] getObjects() {
+        Object[] objList ={custIC, custName, custGender, custAddress, custPhoneNum};
+        
+        return objList;
+    }
     
     
 }

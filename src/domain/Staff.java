@@ -6,7 +6,7 @@ public class Staff {
     private String staffName;
     private String staffAddress;
     private String staffPhone;
-    private String staffPostition;
+    private String staffPosition;
     private String staffQualification;
     private String password;
     private String securityAns;
@@ -14,23 +14,23 @@ public class Staff {
     public Staff() {
     }
 
-    public Staff(String staffIC, String staffName, String staffAddress, String staffPhone, String staffPostition, String staffQualification, String password, String securityAns) {
+    public Staff(String staffIC, String staffName, String staffAddress, String staffPhone, String staffPosition, String staffQualification, String password, String securityAns) {
         this.staffIC = staffIC;
         this.staffName = staffName;
         this.staffAddress = staffAddress;
         this.staffPhone = staffPhone;
-        this.staffPostition = staffPostition;
+        this.staffPosition = staffPosition;
         this.staffQualification = staffQualification;
         this.password = password;
         this.securityAns = securityAns;
     }
 
-    public Staff(String staffIC, String staffName, String staffAddress, String staffPhone, String staffPostition, String staffQualification) {
+    public Staff(String staffIC, String staffName, String staffAddress, String staffPhone, String staffPosition, String staffQualification) {
         this.staffIC = staffIC;
         this.staffName = staffName;
         this.staffAddress = staffAddress;
         this.staffPhone = staffPhone;
-        this.staffPostition = staffPostition;
+        this.staffPosition = staffPosition;
         this.staffQualification = staffQualification;
     }
 
@@ -74,12 +74,12 @@ public class Staff {
         this.staffPhone = staffPhone;
     }
 
-    public String getStaffPostition() {
-        return staffPostition;
+    public String getStaffPosition() {
+        return staffPosition;
     }
 
-    public void setStaffPostition(String staffPostition) {
-        this.staffPostition = staffPostition;
+    public void setStaffPosition(String staffPosition) {
+        this.staffPosition = staffPosition;
     }
 
     public String getPassword() {

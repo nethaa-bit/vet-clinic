@@ -71,9 +71,10 @@ PRIMARY KEY (transID)
 
 CREATE TABLE TRANSACTION_SERVICE (
 transID CHAR(15) references TRANSACTION1(transID),
+serviceID VARCHAR(5) references SERVICE(serviceID),
 staffIC CHAR(12) references STAFF(staffIC),
 remarks VARCHAR(250),
-PRIMARY KEY (transID, staffIC)
+PRIMARY KEY (transID, serviceID)
 );
 
 CREATE TABLE CreditCard (

@@ -83,7 +83,7 @@ public class CreditCard {
     }
 
 
-    public Object[] getObjects() {
+    public Object[] getAsObjects() {
         Object[] objList = {ccNum,ccExpiryDate,issuingAgent,cvc,cardHolderName,cardName,customer};
         return objList;
     }
