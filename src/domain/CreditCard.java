@@ -81,5 +81,13 @@ public class CreditCard {
     public void setCardName(String cardName) {
         this.cardName = cardName;
     }
+
+
+    public Object[] getObjects() {
+        Object[] objList = {ccNum,ccExpiryDate,issuingAgent,cvc,cardHolderName,cardName,customer};
+        return objList;
+    }
+    
+   
    
 }
