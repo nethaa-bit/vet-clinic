@@ -5,7 +5,8 @@
  */
 package ui;
 
-import javax.swing.JPanel;
+import java.awt.Color;
+import javax.swing.*;
 
 /**
  *
@@ -39,7 +40,12 @@ public class StaffPanel extends javax.swing.JPanel {
 
     public StaffPanel() {
         initComponents();
+        jTextField1.setOpaque(false);
+        jTextField1.setBackground(new Color(0,0,0,0));
+        jTextField1.setBorder(null);
         setDynamicPanel();
+        
+        
     }
 
     /**
@@ -52,6 +58,7 @@ public class StaffPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         dynamicPanel = new javax.swing.JPanel();
@@ -89,7 +96,11 @@ public class StaffPanel extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
 
+        jPanel2.setBackground(new java.awt.Color(0, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/SearchTextBox.png"))); // NOI18N
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 240, 30));
 
         jTextField1.setToolTipText("search by NRIC or Name");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -105,35 +116,37 @@ public class StaffPanel extends javax.swing.JPanel {
 
         dynamicPanel.setLayout(new java.awt.CardLayout());
 
+        jpSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Staff IC", "Name", "Address", "Phone", "Position", "Qualification"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
-        javax.swing.GroupLayout jpSearchLayout = new javax.swing.GroupLayout(jpSearch);
-        jpSearch.setLayout(jpSearchLayout);
-        jpSearchLayout.setHorizontalGroup(
-            jpSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpSearchLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(178, Short.MAX_VALUE))
-        );
-        jpSearchLayout.setVerticalGroup(
-            jpSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jpSearchLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(170, Short.MAX_VALUE))
-        );
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setColumnSelectionAllowed(true);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 21, 623, 300));
 
         dynamicPanel.add(jpSearch, "card2");
 
@@ -301,6 +314,7 @@ public class StaffPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

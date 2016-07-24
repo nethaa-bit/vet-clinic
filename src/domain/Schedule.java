@@ -5,8 +5,10 @@
  */
 package domain;
 
+
+
 import java.sql.Time;
-import java.util.Date;
+import java.util.*;
 
 /**
  *
@@ -80,4 +82,12 @@ public class Schedule {
     public void setCustPhoneNum(String custPhoneNum) {
         this.custPhoneNum = custPhoneNum;
     }
+
+    public Object[] getObjects() {
+        Object[] objList ={staffIC,timeSlotNum,appTime,appDate,custName,custPhoneNum};
+        
+        return objList;
+    }
+    
+    
 }

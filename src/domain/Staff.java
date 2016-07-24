@@ -97,6 +97,11 @@ public class Staff {
     public void setSecurityAns(String securityAns) {
         this.securityAns = securityAns;
     }
+
+    public Object[] getObjects() {
+        Object[] objList ={staffIC,staffName,staffAddress,staffPhone,staffPosition,staffQualification,password,securityAns};
+        return objList;
+    }
     
     
 }

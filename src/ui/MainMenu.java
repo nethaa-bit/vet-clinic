@@ -29,6 +29,19 @@ public class MainMenu extends javax.swing.JFrame {
         JMenuItem auth = new JMenuItem("Authorize access");
         JMenuItem changePw = new JMenuItem("Change password");
         
+        changePw.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    jPanel3.removeAll();
+                    jPanel3.repaint();
+                    jPanel3.revalidate();
+            
+                    //Adding Pannel
+                    jPanel3.add(new ChangePasswordPanel());
+                    jPanel3.repaint();
+                    jPanel3.revalidate();
+                }
+        });
+        
         jPopupMenu7.add(calcBil);
         //
 //        jPopupMenu8.add(detRep);
@@ -260,11 +273,21 @@ public class MainMenu extends javax.swing.JFrame {
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
         jLabel11.setText("jLabel8");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 64, 64));
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 70, 64));
 
         jLabel12.setFont(new java.awt.Font("Papyrus", 1, 14)); // NOI18N
-        jLabel12.setText("AMC");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
+        jLabel12.setText("  AMC");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 40, -1));
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Schedule.png"))); // NOI18N
         jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -465,6 +488,23 @@ public class MainMenu extends javax.swing.JFrame {
     private void jPopupMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPopupMenu1MouseClicked
 
     }//GEN-LAST:event_jPopupMenu1MouseClicked
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        // TODO add your handling code here:
+                jPanel3.removeAll();
+                jPanel3.repaint();
+                jPanel3.revalidate();
+            
+                //Adding Pannel
+                jPanel3.add(new DefaultPanel());
+                jPanel3.repaint();
+                jPanel3.revalidate();         
+    }//GEN-LAST:event_jLabel11MouseClicked
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        // TODO add your handling code here:
+        jLabel11MouseClicked(evt);
+    }//GEN-LAST:event_jLabel12MouseClicked
 
 
     

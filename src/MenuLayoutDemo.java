@@ -26,7 +26,7 @@
  * facility. Licensee represents and warrants that it will not use or
  * redistribute the Software for such purposes.
  */
-package ui;
+
 
 import java.awt.BorderLayout;
 import java.awt.Color;

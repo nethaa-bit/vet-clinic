@@ -89,5 +89,12 @@ public class Payment {
     public void setCc(CreditCard cc) {
         this.cc = cc;
     }
+
+    public Object[] getObjects() {
+        Object[] objList ={paymentID,amountPaid,methodOfPayment,paymentDate,transaction,staff,cc};
+        
+        return objList;
+    }
+    
     
 }

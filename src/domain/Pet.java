@@ -117,6 +117,9 @@ public class Pet {
         return "Pet{" + "petID=" + petID + ", petName=" + petName + ", petHeight=" + petHeight + ", petWeight=" + petWeight + ", petLength=" + petLength + ", animalType=" + animalType + ", breed=" + breed + ", petDOB=" + petDOB + ", petGender=" + petGender + ", customer=" + customer + '}';
     }
 
-
+    public Object[] getObjects() {
+        Object[] objList ={petID,petName,petHeight, petWeight,petLength ,animalType,breed, petDOB,petGender,customer };
+        return objList;
+    }    
   
 }
