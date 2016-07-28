@@ -5,6 +5,9 @@
  */
 package ui;
 
+import java.awt.Color;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Cheng
@@ -14,8 +17,31 @@ public class PaymentPanel extends javax.swing.JPanel {
     /**
      * Creates new form PaymentPanel
      */
+     public void setDynamicPanel() {
+        JPanel targetPanel = new JPanel();
+        if(MainMenu.action.equals("add")){
+             targetPanel=jpAdd;
+        }
+        else if (MainMenu.action.equals("search")){
+            targetPanel=jpSearch;
+        }
+        
+        dynamicPanel.removeAll();
+        dynamicPanel.repaint();
+        dynamicPanel.revalidate();
+            
+        //Adding Pannel
+        dynamicPanel.add(targetPanel);
+        dynamicPanel.repaint();
+        dynamicPanel.revalidate();
+    }
+    
     public PaymentPanel() {
         initComponents();
+        jTextField1.setOpaque(false);
+        jTextField1.setBackground(new Color(255,255,255,127));
+        jTextField1.setBorder(null);
+        setDynamicPanel();
     }
 
     /**
@@ -29,9 +55,9 @@ public class PaymentPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        dynamicPanel = new javax.swing.JPanel();
         jpAdd = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
@@ -46,30 +72,32 @@ public class PaymentPanel extends javax.swing.JPanel {
         jTextField5 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jpSearch = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.setToolTipText("search by NRIC or Name");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 40, -1, -1));
+
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 240, 30));
+        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 260, 30));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, -1, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 103));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 103));
+        dynamicPanel.setLayout(new java.awt.CardLayout());
 
-        jPanel3.setLayout(new java.awt.CardLayout());
-
+        jpAdd.setBackground(new java.awt.Color(204, 204, 255));
         jpAdd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Payment ID :");
@@ -85,10 +113,10 @@ public class PaymentPanel extends javax.swing.JPanel {
         jpAdd.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 80, -1));
 
         jLabel4.setText("Method Of Payment :");
-        jpAdd.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
+        jpAdd.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jpAdd.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, -1, -1));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "Credit Card" }));
+        jpAdd.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, -1, -1));
 
         jLabel5.setText("Payment Date :");
         jpAdd.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, -1, -1));
@@ -114,10 +142,12 @@ public class PaymentPanel extends javax.swing.JPanel {
         jpAdd.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, -1));
 
         jTextField6.setToolTipText("Enter credit card no.");
-        jpAdd.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 140, -1));
+        jpAdd.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 140, -1));
+        jpAdd.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, -1, -1));
 
-        jPanel3.add(jpAdd, "card3");
+        dynamicPanel.add(jpAdd, "card3");
 
+        jpSearch.setBackground(new java.awt.Color(204, 204, 255));
         jpSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -150,9 +180,9 @@ public class PaymentPanel extends javax.swing.JPanel {
 
         jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 690, 140));
 
-        jPanel3.add(jpSearch, "card2");
+        dynamicPanel.add(jpSearch, "card2");
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 970, 400));
+        jPanel1.add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 970, 400));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -168,17 +198,19 @@ public class PaymentPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField5ActionPerformed
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel dynamicPanel;
     private javax.swing.JComboBox<String> jComboBox1;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -189,7 +221,6 @@ public class PaymentPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;

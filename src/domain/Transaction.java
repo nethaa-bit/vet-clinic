@@ -66,7 +66,7 @@ public class Transaction {
     
     //Not sure if this method will work as intended
     
-    private class ServiceDetail{
+  class ServiceDetail{
         
         private Service service;
         private Staff staffIC;

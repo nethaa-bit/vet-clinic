@@ -5,6 +5,9 @@
  */
 package ui;
 
+import java.awt.Color;
+import javax.swing.JPanel;
+
 /**
  *
  * @author lysan
@@ -14,8 +17,31 @@ public class CustomerPanel extends javax.swing.JPanel {
     /**
      * Creates new form CustomerPanel
      */
+     public void setDynamicPanel() {
+        JPanel targetPanel = new JPanel();
+        if(MainMenu.action.equals("add")){
+             targetPanel=jpAdd;
+        }
+        else if (MainMenu.action.equals("search")){
+            targetPanel=jpSearch;
+        }
+        
+        dynamicPanel.removeAll();
+        dynamicPanel.repaint();
+        dynamicPanel.revalidate();
+            
+        //Adding Pannel
+        dynamicPanel.add(targetPanel);
+        dynamicPanel.repaint();
+        dynamicPanel.revalidate();
+    }
+    
     public CustomerPanel() {
         initComponents();
+        jTextField1.setOpaque(false);
+        jTextField1.setBackground(new Color(255,255,255,127));
+        jTextField1.setBorder(null);
+        setDynamicPanel();
     }
 
     /**
@@ -29,13 +55,13 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        SearchStaff = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        dynamicPanel = new javax.swing.JPanel();
+        jpSearch = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        AddNewStaff = new javax.swing.JPanel();
+        jpAdd = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -55,59 +81,88 @@ public class CustomerPanel extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jTextField11 = new javax.swing.JTextField();
 
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.setText("Enter here to search");
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 240, 30));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel2.setBackground(new java.awt.Color(255, 229, 204));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, -1, -1));
 
-        jPanel3.setLayout(new java.awt.CardLayout());
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 260, 30));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 110));
+
+        dynamicPanel.setLayout(new java.awt.CardLayout());
+
+        jpSearch.setBackground(new java.awt.Color(255, 229, 204));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Customer IC", "Name", "Gender", "Address", "Phone Number"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
-        javax.swing.GroupLayout SearchStaffLayout = new javax.swing.GroupLayout(SearchStaff);
-        SearchStaff.setLayout(SearchStaffLayout);
-        SearchStaffLayout.setHorizontalGroup(
-            SearchStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SearchStaffLayout.createSequentialGroup()
-                .addGap(91, 91, 91)
+        javax.swing.GroupLayout jpSearchLayout = new javax.swing.GroupLayout(jpSearch);
+        jpSearch.setLayout(jpSearchLayout);
+        jpSearchLayout.setHorizontalGroup(
+            jpSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpSearchLayout.createSequentialGroup()
+                .addContainerGap(161, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(46, 46, 46))
         );
-        SearchStaffLayout.setVerticalGroup(
-            SearchStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SearchStaffLayout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(464, Short.MAX_VALUE))
+        jpSearchLayout.setVerticalGroup(
+            jpSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpSearchLayout.createSequentialGroup()
+                .addGap(95, 95, 95)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(255, Short.MAX_VALUE))
         );
 
-        jPanel3.add(SearchStaff, "card2");
+        dynamicPanel.add(jpSearch, "card2");
 
-        AddNewStaff.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jpAdd.setBackground(new java.awt.Color(255, 229, 204));
+        jpAdd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("NRIC :");
-        AddNewStaff.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, -1, -1));
+        jpAdd.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, -1, -1));
 
         jTextField2.setToolTipText("Enter your IC");
-        AddNewStaff.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 122, -1));
+        jpAdd.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 122, -1));
 
         jLabel3.setText("Name :");
-        AddNewStaff.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 29, -1, -1));
+        jpAdd.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 29, -1, -1));
 
         jTextField3.setToolTipText("Enter your name");
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
@@ -115,19 +170,19 @@ public class CustomerPanel extends javax.swing.JPanel {
                 jTextField3ActionPerformed(evt);
             }
         });
-        AddNewStaff.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 117, -1));
+        jpAdd.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 117, -1));
 
         jLabel4.setText("Door & Street :");
-        AddNewStaff.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
+        jpAdd.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
         jTextField4.setToolTipText("Enter state");
-        AddNewStaff.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 80, -1));
+        jpAdd.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 80, -1));
 
         jLabel5.setText("Neighbourhood :");
-        AddNewStaff.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, -1, -1));
+        jpAdd.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, -1, -1));
 
-        jLabel6.setText("Postal Code:");
-        AddNewStaff.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
+        jLabel6.setText("Postal Code :");
+        jpAdd.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
         jTextField6.setToolTipText("Enter address");
         jTextField6.addActionListener(new java.awt.event.ActionListener() {
@@ -135,13 +190,13 @@ public class CustomerPanel extends javax.swing.JPanel {
                 jTextField6ActionPerformed(evt);
             }
         });
-        AddNewStaff.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 130, -1));
+        jpAdd.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 130, -1));
 
         jLabel7.setText("City :");
-        AddNewStaff.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, -1, -1));
+        jpAdd.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, -1, -1));
 
-        jLabel9.setText("state");
-        AddNewStaff.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
+        jLabel9.setText("State :");
+        jpAdd.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
 
         jTextField7.setToolTipText("Enter postal code");
         jTextField7.addActionListener(new java.awt.event.ActionListener() {
@@ -149,7 +204,7 @@ public class CustomerPanel extends javax.swing.JPanel {
                 jTextField7ActionPerformed(evt);
             }
         });
-        AddNewStaff.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 80, -1));
+        jpAdd.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 80, -1));
 
         jTextField8.setToolTipText("Enter city");
         jTextField8.addActionListener(new java.awt.event.ActionListener() {
@@ -157,7 +212,7 @@ public class CustomerPanel extends javax.swing.JPanel {
                 jTextField8ActionPerformed(evt);
             }
         });
-        AddNewStaff.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 90, -1));
+        jpAdd.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, 90, -1));
 
         jTextField10.setToolTipText("Enter address");
         jTextField10.addActionListener(new java.awt.event.ActionListener() {
@@ -165,16 +220,16 @@ public class CustomerPanel extends javax.swing.JPanel {
                 jTextField10ActionPerformed(evt);
             }
         });
-        AddNewStaff.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 120, -1));
+        jpAdd.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 120, -1));
 
         jLabel10.setText("Gender :");
-        AddNewStaff.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
+        jpAdd.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        AddNewStaff.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, -1, -1));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
+        jpAdd.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, -1, -1));
 
         jLabel11.setText("Phone No. :");
-        AddNewStaff.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, -1, -1));
+        jpAdd.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, -1, -1));
 
         jTextField11.setToolTipText("Example: 01012345678");
         jTextField11.addActionListener(new java.awt.event.ActionListener() {
@@ -182,45 +237,13 @@ public class CustomerPanel extends javax.swing.JPanel {
                 jTextField11ActionPerformed(evt);
             }
         });
-        AddNewStaff.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 110, -1));
+        jpAdd.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 110, -1));
 
-        jPanel3.add(AddNewStaff, "card3");
+        dynamicPanel.add(jpAdd, "card3");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jPanel1.add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 103, 830, 450));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 884, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 921, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -6, 830, 540));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
@@ -247,10 +270,13 @@ public class CustomerPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField7ActionPerformed
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel AddNewStaff;
-    private javax.swing.JPanel SearchStaff;
+    private javax.swing.JPanel dynamicPanel;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -264,7 +290,6 @@ public class CustomerPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
@@ -276,5 +301,7 @@ public class CustomerPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JPanel jpAdd;
+    private javax.swing.JPanel jpSearch;
     // End of variables declaration//GEN-END:variables
 }

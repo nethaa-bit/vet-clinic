@@ -14,13 +14,20 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu() {
         initComponents();
+        jPanel3.removeAll();
+        jPanel3.repaint();
+        jPanel3.revalidate();
+        jPanel3.add(new DefaultPanel());
+        jPanel3.repaint();
+        jPanel3.revalidate();
         addPopupOptions(jPopupMenu1,"staff");
-        addPopupOptions(jPopupMenu2,"appointemnt");
+        addPopupOptions(jPopupMenu2,"appointment");
         addPopupOptions(jPopupMenu3,"pet");
         addPopupOptions(jPopupMenu4,"customer");
         addPopupOptions(jPopupMenu5,"service");
         addPopupOptions(jPopupMenu6,"transaction");
         addPopupOptions(jPopupMenu7,"payment");
+        
         
 //        JMenuItem sumRep = new JMenuItem("Generate summary report");
 //        JMenuItem excRep = new JMenuItem("Generate exception report");
@@ -82,6 +89,21 @@ public class MainMenu extends javax.swing.JFrame {
                 }
                 else if(moduleObject.equals("customer")){ 
                     targetPanel= new CustomerPanel();
+                }
+                else if(moduleObject.equals("transaction")){
+                    targetPanel= new TransactionPanel();
+                }
+                else if(moduleObject.equals("service")){
+                    targetPanel= new ServicePanel();
+                }
+                else if(moduleObject.equals("appointment")){
+                    targetPanel= new SchedulePanel();
+                }
+                else if(moduleObject.equals("pet")){
+                    targetPanel= new PetPanel();
+                }
+                else if(moduleObject.equals("payment")){
+                    targetPanel= new PaymentPanel();
                 }
      
                 //Remove all panel
@@ -178,6 +200,8 @@ public class MainMenu extends javax.swing.JFrame {
         jPopupMenu9.getAccessibleContext().setAccessibleParent(jLabel1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -281,13 +305,13 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 70, 64));
 
         jLabel12.setFont(new java.awt.Font("Papyrus", 1, 14)); // NOI18N
-        jLabel12.setText("  AMC");
+        jLabel12.setText(" AMC");
         jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel12MouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 40, -1));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 60, -1));
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Schedule.png"))); // NOI18N
         jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -354,24 +378,12 @@ public class MainMenu extends javax.swing.JFrame {
         });
         jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, -1, -1));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setLayout(new java.awt.CardLayout());
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 114));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setMinimumSize(new java.awt.Dimension(800, 430));
+        jPanel3.setLayout(new java.awt.CardLayout());
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 800, 480));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -379,7 +391,7 @@ public class MainMenu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
