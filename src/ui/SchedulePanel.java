@@ -147,7 +147,7 @@ public class SchedulePanel extends javax.swing.JPanel {
 
         jLabel3.setText("Time Slot Number :");
         jpAdd.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, -1, -1));
-        jpAdd.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, 90, -1));
+        jpAdd.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, 100, -1));
 
         jLabel4.setText("Appointment Time :");
         jpAdd.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, -1));
@@ -160,9 +160,9 @@ public class SchedulePanel extends javax.swing.JPanel {
 
         jLabel7.setText("Customer Name :");
         jpAdd.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 90, -1));
-        jpAdd.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 90, -1));
+        jpAdd.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 100, -1));
         jpAdd.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 120, -1));
-        jpAdd.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, -1, -1));
+        jpAdd.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, 100, -1));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {

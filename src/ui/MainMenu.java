@@ -1,6 +1,8 @@
 
 package ui;
 
+
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
@@ -14,12 +16,8 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu() {
         initComponents();
-        jPanel3.removeAll();
-        jPanel3.repaint();
-        jPanel3.revalidate();
-        jPanel3.add(new DefaultPanel());
-        jPanel3.repaint();
-        jPanel3.revalidate();
+        setDefaultPanel();
+        
         addPopupOptions(jPopupMenu1,"staff");
         addPopupOptions(jPopupMenu2,"appointment");
         addPopupOptions(jPopupMenu3,"pet");
@@ -38,14 +36,14 @@ public class MainMenu extends javax.swing.JFrame {
         
         changePw.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    jPanel3.removeAll();
-                    jPanel3.repaint();
-                    jPanel3.revalidate();
+                    jpContent.removeAll();
+                    jpContent.repaint();
+                    jpContent.revalidate();
             
                     //Adding Pannel
-                    jPanel3.add(new ChangePasswordPanel());
-                    jPanel3.repaint();
-                    jPanel3.revalidate();
+                    jpContent.add(new ChangePasswordPanel());
+                    jpContent.repaint();
+                    jpContent.revalidate();
                 }
         });
         
@@ -107,14 +105,14 @@ public class MainMenu extends javax.swing.JFrame {
                 }
      
                 //Remove all panel
-                jPanel3.removeAll();
-                jPanel3.repaint();
-                jPanel3.revalidate();
+                jpContent.removeAll();
+                jpContent.repaint();
+                jpContent.revalidate();
             
                 //Adding Pannel
-                jPanel3.add(targetPanel);
-                jPanel3.repaint();
-                jPanel3.revalidate();       
+                jpContent.add(targetPanel);
+                jpContent.repaint();
+                jpContent.revalidate();       
                 
                 
                 }
@@ -131,6 +129,14 @@ public class MainMenu extends javax.swing.JFrame {
         
         
     };
+    private void setDefaultPanel(){
+        jpContent.removeAll();
+        jpContent.repaint();
+        jpContent.revalidate();
+        jpContent.add(new DefaultPanel());
+        jpContent.repaint();
+        jpContent.revalidate();
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -150,30 +156,29 @@ public class MainMenu extends javax.swing.JFrame {
         jPopupMenu7 = new javax.swing.JPopupMenu();
         jPopupMenu8 = new javax.swing.JPopupMenu();
         jPopupMenu9 = new javax.swing.JPopupMenu();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        jpMain = new javax.swing.JPanel();
+        jpMenu = new javax.swing.JPanel();
+        jlblSec = new javax.swing.JLabel();
+        jlblReport = new javax.swing.JLabel();
+        jlblPayment = new javax.swing.JLabel();
+        jlblStaff = new javax.swing.JLabel();
+        jlblService = new javax.swing.JLabel();
+        jlblCust = new javax.swing.JLabel();
+        jlblTrans = new javax.swing.JLabel();
+        jlblSchedule = new javax.swing.JLabel();
+        jlblPet = new javax.swing.JLabel();
+        jlblStaffIcon = new javax.swing.JLabel();
+        jlblIcon = new javax.swing.JLabel();
+        jlblTitle = new javax.swing.JLabel();
+        jlblScheduleIcon = new javax.swing.JLabel();
+        jlblPetIcon = new javax.swing.JLabel();
+        jlblCustIcon = new javax.swing.JLabel();
+        jlblServiceIcon = new javax.swing.JLabel();
+        jlblPaymentIcon = new javax.swing.JLabel();
+        jlblSecIcon = new javax.swing.JLabel();
+        jlblTransIcon = new javax.swing.JLabel();
+        jlblReportIcon = new javax.swing.JLabel();
+        jpContent = new javax.swing.JPanel();
 
         jPopupMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -181,342 +186,349 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
         jPopupMenu1.getAccessibleContext().setAccessibleDescription("");
-        jPopupMenu1.getAccessibleContext().setAccessibleParent(jLabel4);
+        jPopupMenu1.getAccessibleContext().setAccessibleParent(jlblStaff);
 
-        jPopupMenu2.getAccessibleContext().setAccessibleParent(jLabel8);
+        jPopupMenu2.getAccessibleContext().setAccessibleParent(jlblSchedule);
 
-        jPopupMenu3.getAccessibleContext().setAccessibleParent(jLabel9);
+        jPopupMenu3.getAccessibleContext().setAccessibleParent(jlblPet);
 
-        jPopupMenu4.getAccessibleContext().setAccessibleParent(jLabel6);
+        jPopupMenu4.getAccessibleContext().setAccessibleParent(jlblCust);
 
-        jPopupMenu5.getAccessibleContext().setAccessibleParent(jLabel5);
+        jPopupMenu5.getAccessibleContext().setAccessibleParent(jlblService);
 
-        jPopupMenu6.getAccessibleContext().setAccessibleParent(jLabel7);
+        jPopupMenu6.getAccessibleContext().setAccessibleParent(jlblTrans);
 
-        jPopupMenu7.getAccessibleContext().setAccessibleParent(jLabel3);
+        jPopupMenu7.getAccessibleContext().setAccessibleParent(jlblPayment);
 
-        jPopupMenu8.getAccessibleContext().setAccessibleParent(jLabel2);
+        jPopupMenu8.getAccessibleContext().setAccessibleParent(jlblReport);
 
-        jPopupMenu9.getAccessibleContext().setAccessibleParent(jLabel1);
+        jPopupMenu9.getAccessibleContext().setAccessibleParent(jlblSec);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Main Menu - Veterinary Clinic System");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(MainMenu.class.getResource("/images/logo.png"))
+        );
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jpMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jpMenu.setBackground(new java.awt.Color(255, 255, 255));
+        jpMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
-        jLabel1.setText("Security");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblSec.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
+        jlblSec.setText("Security");
+        jlblSec.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                jlblSecMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 90, 50, -1));
+        jpMenu.add(jlblSec, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 90, 50, -1));
 
-        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
-        jLabel2.setText(" Report");
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblReport.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
+        jlblReport.setText(" Report");
+        jlblReport.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+                jlblReportMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 40, -1));
+        jpMenu.add(jlblReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 90, 40, -1));
 
-        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
-        jLabel3.setText("Payment");
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblPayment.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
+        jlblPayment.setText("Payment");
+        jlblPayment.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
+                jlblPaymentMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, -1, -1));
+        jpMenu.add(jlblPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
-        jLabel4.setText("Staff");
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblStaff.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
+        jlblStaff.setText("Staff");
+        jlblStaff.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
+                jlblStaffMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, -1, -1));
+        jpMenu.add(jlblStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
-        jLabel5.setText("Service");
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblService.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
+        jlblService.setText("Service");
+        jlblService.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
+                jlblServiceMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, -1, -1));
+        jpMenu.add(jlblService, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
-        jLabel6.setText("Customer");
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblCust.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
+        jlblCust.setText("Customer");
+        jlblCust.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel6MouseClicked(evt);
+                jlblCustMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, -1, -1));
+        jpMenu.add(jlblCust, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
-        jLabel7.setText("Transaction");
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblTrans.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
+        jlblTrans.setText("Transaction");
+        jlblTrans.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel7MouseClicked(evt);
+                jlblTransMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, -1, -1));
+        jpMenu.add(jlblTrans, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
-        jLabel8.setText("Schedule");
-        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblSchedule.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
+        jlblSchedule.setText("Schedule");
+        jlblSchedule.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel8MouseClicked(evt);
+                jlblScheduleMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, -1, -1));
+        jpMenu.add(jlblSchedule, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
-        jLabel9.setText("Pet");
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblPet.setFont(new java.awt.Font("SansSerif", 1, 11)); // NOI18N
+        jlblPet.setText("Pet");
+        jlblPet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel9MouseClicked(evt);
+                jlblPetMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 30, -1));
+        jpMenu.add(jlblPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, 30, -1));
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Staff.png"))); // NOI18N
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblStaffIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Staff.png"))); // NOI18N
+        jlblStaffIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel10MouseClicked(evt);
+                jlblStaffIconMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, -1, -1));
+        jpMenu.add(jlblStaffIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, -1, -1));
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
-        jLabel11.setText("jLabel8");
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        jlblIcon.setText("jLabel8");
+        jlblIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel11MouseClicked(evt);
+                jlblIconMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 70, 64));
+        jpMenu.add(jlblIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 70, 64));
 
-        jLabel12.setFont(new java.awt.Font("Papyrus", 1, 14)); // NOI18N
-        jLabel12.setText(" AMC");
-        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblTitle.setFont(new java.awt.Font("Papyrus", 1, 14)); // NOI18N
+        jlblTitle.setText(" AMC");
+        jlblTitle.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel12MouseClicked(evt);
+                jlblTitleMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 60, -1));
+        jpMenu.add(jlblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 60, -1));
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Schedule.png"))); // NOI18N
-        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblScheduleIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Schedule.png"))); // NOI18N
+        jlblScheduleIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel13MouseClicked(evt);
+                jlblScheduleIconMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, -1, -1));
+        jpMenu.add(jlblScheduleIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, -1, -1));
 
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Pet.png"))); // NOI18N
-        jLabel15.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblPetIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Pet.png"))); // NOI18N
+        jlblPetIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel15MouseClicked(evt);
+                jlblPetIconMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, -1, -1));
+        jpMenu.add(jlblPetIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, -1, -1));
 
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Customer.png"))); // NOI18N
-        jLabel16.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblCustIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Customer.png"))); // NOI18N
+        jlblCustIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel16MouseClicked(evt);
+                jlblCustIconMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
+        jpMenu.add(jlblCustIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 20, -1, -1));
 
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/service (1).png"))); // NOI18N
-        jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblServiceIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/service (1).png"))); // NOI18N
+        jlblServiceIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel17MouseClicked(evt);
+                jlblServiceIconMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, -1, -1));
+        jpMenu.add(jlblServiceIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 20, -1, -1));
 
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Payment.png"))); // NOI18N
-        jLabel18.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblPaymentIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Payment.png"))); // NOI18N
+        jlblPaymentIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel18MouseClicked(evt);
+                jlblPaymentIconMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, -1, -1));
+        jpMenu.add(jlblPaymentIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, -1, -1));
 
-        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Security.png"))); // NOI18N
-        jLabel19.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblSecIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Security.png"))); // NOI18N
+        jlblSecIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel19MouseClicked(evt);
+                jlblSecIconMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
+        jpMenu.add(jlblSecIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
 
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Transaction.png"))); // NOI18N
-        jLabel20.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblTransIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Transaction.png"))); // NOI18N
+        jlblTransIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel20MouseClicked(evt);
+                jlblTransIconMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, -1));
+        jpMenu.add(jlblTransIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, -1));
 
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Report.png"))); // NOI18N
-        jLabel21.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblReportIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Report.png"))); // NOI18N
+        jlblReportIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel21MouseClicked(evt);
+                jlblReportIconMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, -1, -1));
+        jpMenu.add(jlblReportIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 114));
+        jpMain.add(jpMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 114));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setMinimumSize(new java.awt.Dimension(800, 430));
-        jPanel3.setLayout(new java.awt.CardLayout());
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 800, 480));
+        jpContent.setBackground(new java.awt.Color(255, 255, 255));
+        jpContent.setMinimumSize(new java.awt.Dimension(800, 430));
+        jpContent.setLayout(new java.awt.CardLayout());
+        jpMain.add(jpContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 820, 480));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jpMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
   
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+    private void jlblStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblStaffMouseClicked
         // TODO add your handling code here:
          jPopupMenu1.show(evt.getComponent(), 0, 15);   
         
-    }//GEN-LAST:event_jLabel4MouseClicked
+    }//GEN-LAST:event_jlblStaffMouseClicked
 
-    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+    private void jlblStaffIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblStaffIconMouseClicked
         // TODO add your handling code here:
-        evt.setSource(jLabel4);
-        jLabel4MouseClicked(evt);
-    }//GEN-LAST:event_jLabel10MouseClicked
+        evt.setSource(jlblStaff);
+        jlblStaffMouseClicked(evt);
+    }//GEN-LAST:event_jlblStaffIconMouseClicked
 
-    private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+    private void jlblScheduleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblScheduleMouseClicked
         jPopupMenu2.show(evt.getComponent(), 0, 15);
-    }//GEN-LAST:event_jLabel8MouseClicked
+    }//GEN-LAST:event_jlblScheduleMouseClicked
 
-    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+    private void jlblScheduleIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblScheduleIconMouseClicked
         // TODO add your handling code here:
-        evt.setSource(jLabel8);
-        jLabel8MouseClicked(evt);
-    }//GEN-LAST:event_jLabel13MouseClicked
+        evt.setSource(jlblSchedule);
+        jlblScheduleMouseClicked(evt);
+    }//GEN-LAST:event_jlblScheduleIconMouseClicked
 
-    private void jLabel15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel15MouseClicked
-        evt.setSource(jLabel9);
-        jLabel9MouseClicked(evt);
-    }//GEN-LAST:event_jLabel15MouseClicked
+    private void jlblPetIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblPetIconMouseClicked
+        evt.setSource(jlblPet);
+        jlblPetMouseClicked(evt);
+    }//GEN-LAST:event_jlblPetIconMouseClicked
 
-    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+    private void jlblPetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblPetMouseClicked
         jPopupMenu3.show(evt.getComponent(), 0, 15);
-    }//GEN-LAST:event_jLabel9MouseClicked
+    }//GEN-LAST:event_jlblPetMouseClicked
 
-    private void jLabel16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel16MouseClicked
-        evt.setSource(jLabel6);
-        jLabel6MouseClicked(evt);
-    }//GEN-LAST:event_jLabel16MouseClicked
+    private void jlblCustIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblCustIconMouseClicked
+        evt.setSource(jlblCust);
+        jlblCustMouseClicked(evt);
+    }//GEN-LAST:event_jlblCustIconMouseClicked
 
-    private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
-        evt.setSource(jLabel5);
-        jLabel5MouseClicked(evt);
-    }//GEN-LAST:event_jLabel17MouseClicked
+    private void jlblServiceIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblServiceIconMouseClicked
+        evt.setSource(jlblService);
+        jlblServiceMouseClicked(evt);
+    }//GEN-LAST:event_jlblServiceIconMouseClicked
 
-    private void jLabel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MouseClicked
+    private void jlblTransIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblTransIconMouseClicked
         // TODO add your handling code here:
-        evt.setSource(jLabel7);
-        jLabel7MouseClicked(evt);
-    }//GEN-LAST:event_jLabel20MouseClicked
+        evt.setSource(jlblTrans);
+        jlblTransMouseClicked(evt);
+    }//GEN-LAST:event_jlblTransIconMouseClicked
 
-    private void jLabel18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel18MouseClicked
+    private void jlblPaymentIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblPaymentIconMouseClicked
         // TODO add your handling code here:
-        evt.setSource(jLabel3);
-        jLabel3MouseClicked(evt);
-    }//GEN-LAST:event_jLabel18MouseClicked
+        evt.setSource(jlblPayment);
+        jlblPaymentMouseClicked(evt);
+    }//GEN-LAST:event_jlblPaymentIconMouseClicked
 
-    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+    private void jlblPaymentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblPaymentMouseClicked
         // TODO add your handling code here:
         jPopupMenu7.show(evt.getComponent(), 0, 15);
-    }//GEN-LAST:event_jLabel3MouseClicked
+    }//GEN-LAST:event_jlblPaymentMouseClicked
 
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+    private void jlblCustMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblCustMouseClicked
         // TODO add your handling code here:
         jPopupMenu4.show(evt.getComponent(), 0, 15);
-    }//GEN-LAST:event_jLabel6MouseClicked
+    }//GEN-LAST:event_jlblCustMouseClicked
 
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+    private void jlblServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblServiceMouseClicked
         // TODO add your handling code here:
         jPopupMenu5.show(evt.getComponent(), 0, 15);
-    }//GEN-LAST:event_jLabel5MouseClicked
+    }//GEN-LAST:event_jlblServiceMouseClicked
 
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+    private void jlblTransMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblTransMouseClicked
         // TODO add your handling code here:
          jPopupMenu6.show(evt.getComponent(), 0, 15);
-    }//GEN-LAST:event_jLabel7MouseClicked
+    }//GEN-LAST:event_jlblTransMouseClicked
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+    private void jlblReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblReportMouseClicked
         // TODO add your handling code here:
-        jPopupMenu8.show(evt.getComponent(), 0, 15);
-    }//GEN-LAST:event_jLabel2MouseClicked
+        jpContent.removeAll();
+        jpContent.repaint();
+        jpContent.revalidate();
+            
+        //Adding Pannel
+        jpContent.add(new ReportPanel());
+        jpContent.repaint();
+        jpContent.revalidate();
+    }//GEN-LAST:event_jlblReportMouseClicked
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+    private void jlblSecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblSecMouseClicked
         // TODO add your handling code here:
         jPopupMenu9.show(evt.getComponent(), 0, 15);
-    }//GEN-LAST:event_jLabel1MouseClicked
+    }//GEN-LAST:event_jlblSecMouseClicked
 
-    private void jLabel21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel21MouseClicked
+    private void jlblReportIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblReportIconMouseClicked
         // TODO add your handling code here:
-        evt.setSource(jLabel2);
-        jLabel2MouseClicked(evt);
-    }//GEN-LAST:event_jLabel21MouseClicked
+        evt.setSource(jlblReport);
+        jlblReportMouseClicked(evt);
+    }//GEN-LAST:event_jlblReportIconMouseClicked
 
-    private void jLabel19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel19MouseClicked
+    private void jlblSecIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblSecIconMouseClicked
         // TODO add your handling code here:
-        evt.setSource(jLabel1);
-        jLabel1MouseClicked(evt);
-    }//GEN-LAST:event_jLabel19MouseClicked
+        evt.setSource(jlblSec);
+        jlblSecMouseClicked(evt);
+    }//GEN-LAST:event_jlblSecIconMouseClicked
 
     private void jPopupMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPopupMenu1MouseClicked
 
     }//GEN-LAST:event_jPopupMenu1MouseClicked
 
-    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+    private void jlblIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblIconMouseClicked
         // TODO add your handling code here:
-                jPanel3.removeAll();
-                jPanel3.repaint();
-                jPanel3.revalidate();
+                jpContent.removeAll();
+                jpContent.repaint();
+                jpContent.revalidate();
             
                 //Adding Pannel
-                jPanel3.add(new DefaultPanel());
-                jPanel3.repaint();
-                jPanel3.revalidate();         
-    }//GEN-LAST:event_jLabel11MouseClicked
+                jpContent.add(new DefaultPanel());
+                jpContent.repaint();
+                jpContent.revalidate();         
+    }//GEN-LAST:event_jlblIconMouseClicked
 
-    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+    private void jlblTitleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblTitleMouseClicked
         // TODO add your handling code here:
-        jLabel11MouseClicked(evt);
-    }//GEN-LAST:event_jLabel12MouseClicked
+        jlblIconMouseClicked(evt);
+    }//GEN-LAST:event_jlblTitleMouseClicked
 
 
     
@@ -561,30 +573,6 @@ public class MainMenu extends javax.swing.JFrame {
 
            
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JPopupMenu jPopupMenu3;
@@ -594,5 +582,28 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JPopupMenu jPopupMenu7;
     private javax.swing.JPopupMenu jPopupMenu8;
     private javax.swing.JPopupMenu jPopupMenu9;
+    private javax.swing.JLabel jlblCust;
+    private javax.swing.JLabel jlblCustIcon;
+    private javax.swing.JLabel jlblIcon;
+    private javax.swing.JLabel jlblPayment;
+    private javax.swing.JLabel jlblPaymentIcon;
+    private javax.swing.JLabel jlblPet;
+    private javax.swing.JLabel jlblPetIcon;
+    private javax.swing.JLabel jlblReport;
+    private javax.swing.JLabel jlblReportIcon;
+    private javax.swing.JLabel jlblSchedule;
+    private javax.swing.JLabel jlblScheduleIcon;
+    private javax.swing.JLabel jlblSec;
+    private javax.swing.JLabel jlblSecIcon;
+    private javax.swing.JLabel jlblService;
+    private javax.swing.JLabel jlblServiceIcon;
+    private javax.swing.JLabel jlblStaff;
+    private javax.swing.JLabel jlblStaffIcon;
+    private javax.swing.JLabel jlblTitle;
+    private javax.swing.JLabel jlblTrans;
+    private javax.swing.JLabel jlblTransIcon;
+    private javax.swing.JPanel jpContent;
+    private javax.swing.JPanel jpMain;
+    private javax.swing.JPanel jpMenu;
     // End of variables declaration//GEN-END:variables
 }

@@ -67,6 +67,9 @@ public class TransactionPanel extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         jpSearch = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -78,16 +81,16 @@ public class TransactionPanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, -1));
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 260, 30));
+        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 260, 30));
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 103));
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 70));
 
         dynamicPanel.setLayout(new java.awt.CardLayout());
 
@@ -95,25 +98,25 @@ public class TransactionPanel extends javax.swing.JPanel {
         jpAdd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setText("Transaction ID :");
-        jpAdd.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(69, 59, 87, 23));
+        jpAdd.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 87, 23));
 
         jTextField2.setToolTipText("Enter transaction ID");
         jTextField2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jpAdd.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, 80, -1));
+        jpAdd.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 80, -1));
 
         jLabel3.setText("Transaction Date :");
-        jpAdd.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, -1, -1));
+        jpAdd.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, -1, -1));
 
         jLabel4.setText("Transaction Time :");
-        jpAdd.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(69, 100, -1, -1));
+        jpAdd.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
 
         jLabel5.setText("Pet ID :");
-        jpAdd.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, -1, -1));
+        jpAdd.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, -1, -1));
 
         jTextField3.setToolTipText("Enter pet ID");
         jTextField3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jpAdd.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 110, 80, -1));
-        jpAdd.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, -1, -1));
+        jpAdd.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 90, 20));
+        jpAdd.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 100, -1));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -121,13 +124,52 @@ public class TransactionPanel extends javax.swing.JPanel {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        jpAdd.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 100, -1, -1));
+        jpAdd.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, -1, -1));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
-        jpAdd.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, -1));
+        jpAdd.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, -1, -1));
 
         jLabel6.setText("hours                  minutes");
-        jpAdd.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 130, 20));
+        jpAdd.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 130, 20));
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Service", "Staff ", "Remarks"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jTable2.setColumnSelectionAllowed(true);
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jTable2);
+        jTable2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTable2.getColumnModel().getColumn(1).setPreferredWidth(20);
+            jTable2.getColumnModel().getColumn(2).setPreferredWidth(50);
+        }
+
+        jpAdd.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 530, 220));
+
+        jButton1.setText("Add Service");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jpAdd.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, -1, -1));
 
         dynamicPanel.add(jpAdd, "card3");
 
@@ -166,7 +208,7 @@ public class TransactionPanel extends javax.swing.JPanel {
 
         dynamicPanel.add(jpSearch, "card2");
 
-        add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 960, 360));
+        add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 960, 440));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -177,9 +219,14 @@ public class TransactionPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
@@ -191,7 +238,9 @@ public class TransactionPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

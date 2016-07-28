@@ -110,16 +110,16 @@ public class StaffPanel extends javax.swing.JPanel {
                 jLabel1MouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 40, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, -1));
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 260, 30));
+        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 260, 30));
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 110));
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 80));
 
         dynamicPanel.setLayout(new java.awt.CardLayout());
 
@@ -175,7 +175,7 @@ public class StaffPanel extends javax.swing.JPanel {
         jLabel15.setText("Security Question :");
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 69, -1, -1));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is your first pet's name?", "What is your favourite colour?", "Where is your hometown?", " " }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is your first pet's name?", "What is your favourite colour?", "Where is your hometown?" }));
         jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 66, -1, -1));
 
         jLabel16.setText("Security Answer :");
@@ -202,7 +202,7 @@ public class StaffPanel extends javax.swing.JPanel {
         });
         jPanel1.add(jTextField20, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 120, -1));
 
-        jpAddUpdate.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 234, 790, 100));
+        jpAddUpdate.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 234, 650, 100));
 
         jTextField11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,11 +293,11 @@ public class StaffPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 623, 180));
+        jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 620, 270));
 
         dynamicPanel.add(jpSearch, "card2");
 
-        add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 107, -1, 500));
+        add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 77, 930, 530));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed

@@ -81,16 +81,16 @@ public class ServicePanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 40, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, -1, -1));
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 260, 30));
+        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 260, 30));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 103));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 70));
 
         dynamicPanel.setLayout(new java.awt.CardLayout());
 
@@ -125,7 +125,7 @@ public class ServicePanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(jTable1);
 
-        jpSearch.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, -1, 90));
+        jpSearch.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 550, 280));
 
         dynamicPanel.add(jpSearch, "card3");
 
@@ -149,7 +149,7 @@ public class ServicePanel extends javax.swing.JPanel {
         });
         jpAdd.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, 70, -1));
 
-        jLabel4.setText("Unit Price :");
+        jLabel4.setText("Unit Price (RM) :");
         jpAdd.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, -1, -1));
 
         jTextField4.setToolTipText("Enter service title");
@@ -171,7 +171,7 @@ public class ServicePanel extends javax.swing.JPanel {
 
         dynamicPanel.add(jpAdd, "card2");
 
-        jPanel1.add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 99, 860, 450));
+        jPanel1.add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 69, 970, 480));
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 0, 970, 560));
     }// </editor-fold>//GEN-END:initComponents

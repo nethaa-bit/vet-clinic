@@ -16,8 +16,8 @@ public class ChangePasswordPanel extends javax.swing.JPanel {
      */
     public ChangePasswordPanel() {
         initComponents();
-        jComboBox1.setEnabled(false);
-        jTextField1.setEnabled(false);
+        jcbRecoveryQ.setEnabled(false);
+        jtfRecoveryA.setEnabled(false);
     }
 
     /**
@@ -29,89 +29,87 @@ public class ChangePasswordPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jlblOld = new javax.swing.JLabel();
+        jtfOld = new javax.swing.JPasswordField();
+        jtfNew = new javax.swing.JPasswordField();
+        jtfConfirm = new javax.swing.JPasswordField();
+        jchkSetRecQ = new javax.swing.JCheckBox();
+        jcbRecoveryQ = new javax.swing.JComboBox<>();
+        jtfRecoveryA = new javax.swing.JTextField();
+        jlblRecoveryA = new javax.swing.JLabel();
+        jlblRecoveryQ = new javax.swing.JLabel();
         button1 = new java.awt.Button();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jPasswordField2 = new javax.swing.JPasswordField();
-        jPasswordField3 = new javax.swing.JPasswordField();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jlblConfirm = new javax.swing.JLabel();
+        jlblNew = new javax.swing.JLabel();
 
-        setLayout(new java.awt.CardLayout());
+        setBackground(new java.awt.Color(209, 169, 149));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jlblOld.setText("Old Password :");
+        add(jlblOld, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, -1, -1));
+        add(jtfOld, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 180, -1));
+        add(jtfNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 180, -1));
+        add(jtfConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 180, -1));
 
-        jLabel3.setText("Old Password :");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, -1, -1));
-
-        jLabel4.setText("New Password :");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, -1, -1));
-
-        jLabel5.setText("Confirm New Password :");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, -1, -1));
-
-        jLabel1.setText("Recovery Question : ");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, -1, -1));
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, 180, -1));
-
-        jLabel2.setText("Recovery Answer   : ");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, -1, -1));
-
-        jTextField1.setText("Case-Insensitive");
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, 180, -1));
-
-        button1.setLabel("Confirm");
-        jPanel1.add(button1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 320, -1, -1));
-        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 180, -1));
-        jPanel1.add(jPasswordField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 180, -1));
-        jPanel1.add(jPasswordField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, 180, -1));
-
-        jCheckBox1.setText("Set new recovery question and answer");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        jchkSetRecQ.setBackground(new java.awt.Color(209, 169, 149));
+        jchkSetRecQ.setText("Set new recovery question and answer");
+        jchkSetRecQ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                jchkSetRecQActionPerformed(evt);
             }
         });
-        jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, -1, -1));
+        add(jchkSetRecQ, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, -1, -1));
 
-        add(jPanel1, "card2");
+        jcbRecoveryQ.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is your first pet's name?", "What is your favourite colour?", "Where is your hometown?" }));
+        add(jcbRecoveryQ, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 180, -1));
+        add(jtfRecoveryA, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 180, -1));
+
+        jlblRecoveryA.setText("Recovery Answer   : ");
+        add(jlblRecoveryA, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
+
+        jlblRecoveryQ.setText("Recovery Question : ");
+        add(jlblRecoveryQ, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, -1, -1));
+
+        button1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        button1.setLabel("Confirm");
+        add(button1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, 70, -1));
+
+        jlblConfirm.setText("Confirm New Password :");
+        add(jlblConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
+
+        jlblNew.setText("New Password :");
+        add(jlblNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void jchkSetRecQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchkSetRecQActionPerformed
         // TODO add your handling code here:
         
-        if(jCheckBox1.isSelected()==true){
-            jComboBox1.setEnabled(true);
-            jTextField1.setEnabled(true);
+        if(jchkSetRecQ.isSelected()==true){
+            jcbRecoveryQ.setEnabled(true);
+            jtfRecoveryA.setEnabled(true);
         }
-        else{
-            jComboBox1.setEnabled(false);
-            jTextField1.setEnabled(false);
+        else {
+            jtfRecoveryA.setText("");
+            jcbRecoveryQ.setEnabled(false);
+            jtfRecoveryA.setEnabled(false);  
+
+        
         }
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_jchkSetRecQActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button button1;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JPasswordField jPasswordField3;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JComboBox<String> jcbRecoveryQ;
+    private javax.swing.JCheckBox jchkSetRecQ;
+    private javax.swing.JLabel jlblConfirm;
+    private javax.swing.JLabel jlblNew;
+    private javax.swing.JLabel jlblOld;
+    private javax.swing.JLabel jlblRecoveryA;
+    private javax.swing.JLabel jlblRecoveryQ;
+    private javax.swing.JPasswordField jtfConfirm;
+    private javax.swing.JPasswordField jtfNew;
+    private javax.swing.JPasswordField jtfOld;
+    private javax.swing.JTextField jtfRecoveryA;
     // End of variables declaration//GEN-END:variables
 }

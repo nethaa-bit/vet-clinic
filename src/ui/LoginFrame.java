@@ -7,6 +7,7 @@ package ui;
 
 import java.awt.Color;
 import javafx.scene.layout.Background;
+import java.awt.Toolkit;
 
 /**
  *
@@ -32,105 +33,107 @@ public class LoginFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        jtfUsername = new javax.swing.JTextField();
+        jlblUsername = new javax.swing.JLabel();
+        jlblPassword = new javax.swing.JLabel();
+        jtfPassword = new javax.swing.JPasswordField();
+        jlblLogin2 = new javax.swing.JLabel();
+        jlblLogin = new javax.swing.JLabel();
+        jlblReset2 = new javax.swing.JLabel();
+        jlblReset = new javax.swing.JLabel();
+        jlblLogo = new javax.swing.JLabel();
+        jlblTitle = new javax.swing.JLabel();
+        jblForgot = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login - Veterinary Clinic System");
+        setIconImage(Toolkit.getDefaultToolkit().getImage(LoginFrame.class.getResource("/images/logo.png")));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField1.setToolTipText("Enter your username (staff IC) here");
-        jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jtfUsername.setToolTipText("Enter your username (staff IC) here");
+        jtfUsername.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jtfUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jtfUsernameActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 140, 30));
+        jPanel1.add(jtfUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 140, 30));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Username :");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, -1, -1));
+        jlblUsername.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        jlblUsername.setForeground(new java.awt.Color(255, 255, 255));
+        jlblUsername.setText("Username :");
+        jPanel1.add(jlblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Password :");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, -1, -1));
+        jlblPassword.setFont(new java.awt.Font("Segoe UI Emoji", 1, 18)); // NOI18N
+        jlblPassword.setForeground(new java.awt.Color(255, 255, 255));
+        jlblPassword.setText("Password :");
+        jPanel1.add(jlblPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, -1, -1));
 
-        jPasswordField1.setToolTipText("Enter your password here");
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        jtfPassword.setToolTipText("Enter your password here");
+        jtfPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                jtfPasswordActionPerformed(evt);
             }
         });
-        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 200, 140, 30));
+        jPanel1.add(jtfPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 200, 140, 30));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/key.png"))); // NOI18N
-        jLabel4.setToolTipText("Click to login.");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, -1, -1));
+        jlblLogin2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/key.png"))); // NOI18N
+        jlblLogin2.setToolTipText("Click to login.");
+        jPanel1.add(jlblLogin2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Login");
-        jLabel5.setToolTipText("Click to login.");
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblLogin.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jlblLogin.setForeground(new java.awt.Color(255, 255, 255));
+        jlblLogin.setText("Login");
+        jlblLogin.setToolTipText("Click to login.");
+        jlblLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
+                jlblLoginMouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, -1, -1));
+        jPanel1.add(jlblLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, -1, -1));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reset.png"))); // NOI18N
-        jLabel6.setToolTipText("Click to reset above fields.");
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblReset2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reset.png"))); // NOI18N
+        jlblReset2.setToolTipText("Click to reset above fields.");
+        jlblReset2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel6MouseClicked(evt);
+                jlblReset2MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 270, -1, -1));
+        jPanel1.add(jlblReset2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 270, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Reset");
-        jLabel7.setToolTipText("Click to reset above fields.");
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblReset.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jlblReset.setForeground(new java.awt.Color(255, 255, 255));
+        jlblReset.setText("Reset");
+        jlblReset.setToolTipText("Click to reset above fields.");
+        jlblReset.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel7MouseClicked(evt);
+                jlblResetMouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 280, -1, -1));
+        jPanel1.add(jlblReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 280, -1, -1));
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
-        jLabel8.setText("jLabel8");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 64, 64));
+        jlblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
+        jlblLogo.setText("jLabel8");
+        jPanel1.add(jlblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 64, 64));
 
-        jLabel9.setFont(new java.awt.Font("Papyrus", 1, 14)); // NOI18N
-        jLabel9.setText("Animal Medical Centre\n");
-        jLabel9.setToolTipText("");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, -1, -1));
+        jlblTitle.setFont(new java.awt.Font("Papyrus", 1, 14)); // NOI18N
+        jlblTitle.setText("Animal Medical Centre\n");
+        jlblTitle.setToolTipText("");
+        jPanel1.add(jlblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("<html><u>Forgot Password?</u></html>");
-        jLabel10.setToolTipText("Click to recover your password.");
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+        jblForgot.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
+        jblForgot.setForeground(new java.awt.Color(255, 255, 255));
+        jblForgot.setText("<html><u>Forgot Password?</u></html>");
+        jblForgot.setToolTipText("Click to recover your password.");
+        jblForgot.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel10MouseClicked(evt);
+                jblForgotMouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, -1, -1));
+        jPanel1.add(jblForgot, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -166,36 +169,38 @@ public class LoginFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jtfUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfUsernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jtfUsernameActionPerformed
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void jtfPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfPasswordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_jtfPasswordActionPerformed
 
-    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+    private void jblForgotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jblForgotMouseClicked
         // TODO add your handling code here:
         PasswordRecoveryDialog d = new PasswordRecoveryDialog(this, false);
         d.setVisible(true);
-    }//GEN-LAST:event_jLabel10MouseClicked
+    }//GEN-LAST:event_jblForgotMouseClicked
 
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+    private void jlblResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblResetMouseClicked
         // TODO add your handling code here:
-        jPasswordField1.setText("");
-        jTextField1.setText("");
-    }//GEN-LAST:event_jLabel7MouseClicked
+        jtfPassword.setText("");
+        jtfUsername.setText("");
+    }//GEN-LAST:event_jlblResetMouseClicked
 
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+    private void jlblReset2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblReset2MouseClicked
         // TODO add your handling code here:
-        jLabel7MouseClicked(evt);
-    }//GEN-LAST:event_jLabel6MouseClicked
+        jlblResetMouseClicked(evt);
+    }//GEN-LAST:event_jlblReset2MouseClicked
 
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+    private void jlblLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblLoginMouseClicked
         // TODO add your handling code here:
         MainMenu m =new MainMenu();
+        m.setVisible(true);
+        this.setVisible(false);
         
-    }//GEN-LAST:event_jLabel5MouseClicked
+    }//GEN-LAST:event_jlblLoginMouseClicked
 
     /**
      * @param args the command line arguments
@@ -206,6 +211,7 @@ public class LoginFrame extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -233,19 +239,19 @@ public class LoginFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jblForgot;
+    private javax.swing.JLabel jlblLogin;
+    private javax.swing.JLabel jlblLogin2;
+    private javax.swing.JLabel jlblLogo;
+    private javax.swing.JLabel jlblPassword;
+    private javax.swing.JLabel jlblReset;
+    private javax.swing.JLabel jlblReset2;
+    private javax.swing.JLabel jlblTitle;
+    private javax.swing.JLabel jlblUsername;
+    private javax.swing.JPasswordField jtfPassword;
+    private javax.swing.JTextField jtfUsername;
     // End of variables declaration//GEN-END:variables
 }
