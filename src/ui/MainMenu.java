@@ -179,6 +179,8 @@ public class MainMenu extends javax.swing.JFrame {
         jlblTransIcon = new javax.swing.JLabel();
         jlblReportIcon = new javax.swing.JLabel();
         jpContent = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jPopupMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -209,6 +211,7 @@ public class MainMenu extends javax.swing.JFrame {
         setIconImage(Toolkit.getDefaultToolkit().getImage(MainMenu.class.getResource("/images/logo.png"))
         );
 
+        jpMain.setBackground(new java.awt.Color(255, 255, 255));
         jpMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jpMenu.setBackground(new java.awt.Color(255, 255, 255));
@@ -385,12 +388,19 @@ public class MainMenu extends javax.swing.JFrame {
         });
         jpMenu.add(jlblReportIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, -1, -1));
 
-        jpMain.add(jpMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 114));
+        jpMain.add(jpMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 820, 114));
 
         jpContent.setBackground(new java.awt.Color(255, 255, 255));
         jpContent.setMinimumSize(new java.awt.Dimension(800, 430));
         jpContent.setLayout(new java.awt.CardLayout());
-        jpMain.add(jpContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 820, 480));
+        jpMain.add(jpContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 820, 480));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel1.setText("Welcome, Xiao Liow");
+        jpMain.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        jButton1.setText("Log Out");
+        jpMain.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -573,6 +583,8 @@ public class MainMenu extends javax.swing.JFrame {
 
            
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JPopupMenu jPopupMenu3;

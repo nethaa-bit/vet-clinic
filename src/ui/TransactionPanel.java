@@ -6,6 +6,7 @@
 package ui;
 
 import java.awt.Color;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -70,9 +71,13 @@ public class TransactionPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jpSearch = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -161,15 +166,31 @@ public class TransactionPanel extends javax.swing.JPanel {
             jTable2.getColumnModel().getColumn(2).setPreferredWidth(50);
         }
 
-        jpAdd.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 530, 220));
+        jpAdd.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 530, 190));
 
-        jButton1.setText("Add Service");
+        jButton1.setText("Remove Service Item");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jpAdd.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, -1, -1));
+        jpAdd.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, -1, -1));
+
+        jButton2.setText("Add Service Item");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jpAdd.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, -1, -1));
+
+        jButton3.setText("Edit Service Item");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jpAdd.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, -1, -1));
 
         dynamicPanel.add(jpAdd, "card3");
 
@@ -204,7 +225,18 @@ public class TransactionPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, -1, 140));
+        jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 570, 230));
+
+        jButton5.setText("Modify Transaction");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, -1, -1));
+
+        jButton6.setText("Delete Transaction");
+        jpSearch.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, -1, -1));
 
         dynamicPanel.add(jpSearch, "card2");
 
@@ -223,10 +255,28 @@ public class TransactionPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        AddServiceDialog asd = new AddServiceDialog((JFrame)this.getParent().getParent().getParent().getParent().getParent().getParent(), false);
+        asd.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private com.toedter.calendar.JDateChooser jDateChooser1;

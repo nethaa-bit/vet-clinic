@@ -73,9 +73,12 @@ public class PaymentPanel extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jButton1 = new javax.swing.JButton();
         jpSearch = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -145,6 +148,9 @@ public class PaymentPanel extends javax.swing.JPanel {
         jpAdd.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 140, -1));
         jpAdd.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, -1, -1));
 
+        jButton1.setText("Add Payment");
+        jpAdd.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, -1, -1));
+
         dynamicPanel.add(jpAdd, "card3");
 
         jpSearch.setBackground(new java.awt.Color(204, 204, 255));
@@ -180,6 +186,22 @@ public class PaymentPanel extends javax.swing.JPanel {
 
         jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 690, 140));
 
+        jButton5.setText("Modify Payment");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, -1, -1));
+
+        jButton6.setText("Delete Payment");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 270, -1, -1));
+
         dynamicPanel.add(jpSearch, "card2");
 
         jPanel1.add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 970, 400));
@@ -206,9 +228,20 @@ public class PaymentPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;

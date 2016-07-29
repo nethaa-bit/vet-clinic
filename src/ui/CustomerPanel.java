@@ -61,6 +61,8 @@ public class CustomerPanel extends javax.swing.JPanel {
         jpSearch = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jpAdd = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
@@ -80,6 +82,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jTextField11 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -135,6 +138,22 @@ public class CustomerPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 630, 250));
+
+        jButton5.setText("Modify Customer");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, -1, -1));
+
+        jButton6.setText("Delete Customer");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, -1, -1));
 
         dynamicPanel.add(jpSearch, "card2");
 
@@ -225,6 +244,9 @@ public class CustomerPanel extends javax.swing.JPanel {
         });
         jpAdd.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 110, -1));
 
+        jButton1.setText("Add Customer");
+        jpAdd.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, -1, -1));
+
         dynamicPanel.add(jpAdd, "card3");
 
         jPanel1.add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 103, 1010, 450));
@@ -260,9 +282,20 @@ public class CustomerPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

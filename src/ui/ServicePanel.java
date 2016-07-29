@@ -61,6 +61,8 @@ public class ServicePanel extends javax.swing.JPanel {
         jpSearch = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jpAdd = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
@@ -71,6 +73,7 @@ public class ServicePanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -127,6 +130,17 @@ public class ServicePanel extends javax.swing.JPanel {
 
         jpSearch.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 550, 280));
 
+        jButton5.setText("Modify Service");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, -1, -1));
+
+        jButton6.setText("Delete Service");
+        jpSearch.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 370, -1, -1));
+
         dynamicPanel.add(jpSearch, "card3");
 
         jpAdd.setBackground(new java.awt.Color(229, 204, 255));
@@ -169,6 +183,9 @@ public class ServicePanel extends javax.swing.JPanel {
 
         jpAdd.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 290, 120));
 
+        jButton1.setText("Add Service");
+        jpAdd.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, -1, -1));
+
         dynamicPanel.add(jpAdd, "card2");
 
         jPanel1.add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 69, 970, 480));
@@ -188,9 +205,16 @@ public class ServicePanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

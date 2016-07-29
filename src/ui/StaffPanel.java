@@ -94,9 +94,12 @@ public class StaffPanel extends javax.swing.JPanel {
         jTextField18 = new javax.swing.JTextField();
         jTextField19 = new javax.swing.JTextField();
         jTextField21 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jpSearch = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -260,6 +263,9 @@ public class StaffPanel extends javax.swing.JPanel {
         });
         jpAddUpdate.add(jTextField21, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 110, 110, -1));
 
+        jButton1.setText("Add Staff");
+        jpAddUpdate.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 350, -1, -1));
+
         dynamicPanel.add(jpAddUpdate, "card3");
 
         jpSearch.setBackground(new java.awt.Color(202, 233, 239));
@@ -294,6 +300,22 @@ public class StaffPanel extends javax.swing.JPanel {
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 620, 270));
+
+        jButton5.setText("Modify Staff");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, -1, -1));
+
+        jButton6.setText("Delete Staff");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, -1, -1));
 
         dynamicPanel.add(jpSearch, "card2");
 
@@ -365,9 +387,20 @@ public class StaffPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField21ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;

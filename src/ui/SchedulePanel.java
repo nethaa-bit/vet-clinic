@@ -60,6 +60,8 @@ public class SchedulePanel extends javax.swing.JPanel {
         jpSearch = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jpAdd = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
@@ -75,6 +77,7 @@ public class SchedulePanel extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -129,6 +132,22 @@ public class SchedulePanel extends javax.swing.JPanel {
 
         jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 620, 180));
 
+        jButton5.setText("Modify Schedule");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, -1, -1));
+
+        jButton6.setText("Delete Schedule");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 290, -1, -1));
+
         dynamicPanel.add(jpSearch, "card2");
 
         jpAdd.setBackground(new java.awt.Color(204, 255, 204));
@@ -172,11 +191,14 @@ public class SchedulePanel extends javax.swing.JPanel {
         });
         jpAdd.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, -1, -1));
 
-        jLabel8.setText("hours                  minutes");
-        jpAdd.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 130, 20));
+        jLabel8.setText("hours                minutes");
+        jpAdd.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 150, 20));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
         jpAdd.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, -1, -1));
+
+        jButton1.setText("Add Schedule");
+        jpAdd.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, -1));
 
         dynamicPanel.add(jpAdd, "card3");
 
@@ -195,9 +217,20 @@ public class SchedulePanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private com.toedter.calendar.JDateChooser jDateChooser1;
