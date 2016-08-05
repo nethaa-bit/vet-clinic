@@ -9,18 +9,43 @@ import java.awt.Color;
 import javax.swing.*;
 import control.MaintainStaff;
 import domain.Staff;
-import javax.swing.table.TableModel;
+import java.util.regex.*;
+
 
 public class StaffPanel extends javax.swing.JPanel {
     
     MaintainStaff staffControl;
+//    List<Staff> staffList = new ArrayList<Staff>();
+    /**
+     * Creates new form StaffFrame
+     */
 
+
+    public StaffPanel() {
+        
+        initComponents();
+        staffControl = new MaintainStaff();
+        
+        jlblCross.setVisible(false);
+        jlblCheck.setVisible(false);
+        jtfSearch.setOpaque(false);
+        jtfSearch.setBackground(new Color(255,255,255,127));
+        jtfSearch.setBorder(null);
+        setDynamicPanel();
+        
+        
+    }
     public void setDynamicPanel() {
         JPanel targetPanel = new JPanel();
         if(MainMenu.action.equals("add")){
              targetPanel=jpAddUpdate;
         }
         else if (MainMenu.action.equals("search")){
+            targetPanel=jpSearch;
+        }else if(MainMenu.action.equals("modify")){
+             targetPanel=jpSearch;
+        }
+        else if (MainMenu.action.equals("delete")){
             targetPanel=jpSearch;
         }
         
@@ -33,24 +58,70 @@ public class StaffPanel extends javax.swing.JPanel {
         dynamicPanel.repaint();
         dynamicPanel.revalidate();
     }
-
-    /**
-     * Creates new form StaffFrame
-     */
-
-
-    public StaffPanel() {
+    
+    public Staff validateInput(){
         
-        initComponents();
-        staffControl = new MaintainStaff();
-        jTextField1.setOpaque(false);
-        jTextField1.setBackground(new Color(255,255,255,127));
-        jTextField1.setBorder(null);
-        setDynamicPanel();
+        Staff staff;
+        boolean valid =true;
         
+        String ic=jtfIc.getText();
+        String name = jtfName.getText();
+        String postcode = jtfPostCode.getText();
+        String door = jtfDoor.getText();
+        String neighbour = jtfNeighbour.getText();
+        String city = jtfCity.getText();
+        String state = jtfState.getText();
+        String password =jtfPassword.getText();
+        String phone = jtfPhoneNum.getText();
         
+        valid = password.equals(jtfConfirmPass.getText())?true:false;
+        if(!Pattern.matches("\\d{12}", ic)){valid =false;}
+        if(!Pattern.matches("\\d{2,4}-\\d{7,8}", phone)){valid =false;}
+        if(!Pattern.matches("\\d{5}", postcode)){valid =false;}
+  
+        //Prepare answer string
+        String question = (String)jcbQuestion.getSelectedItem();
+        String answer = jtfAnswer.getText();
+        
+        switch(question){
+         
+             case "What is your first pet's name?"  : 
+                answer="p"+answer;
+                break;
+             case "What is your favourite colour?"  : 
+                answer="c"+answer;
+                break;
+             case "Where is your hometown?"         :
+                 answer="h"+answer;
+                break;
+         }
+ 
+         if(valid==true){
+           String fulladdress = ""+door+"_"+neighbour+"_"+postcode+"_"+city+"_"+state;
+           staff = new Staff(ic,name,fulladdress,phone,(String)jcbPosition.getSelectedItem(),(String)jcbQualification.getSelectedItem(),password,answer);
+         }
+         else {
+             staff=null;
+         }
+         
+         return staff;
     }
-
+    
+    public void resetFields(){
+        jtfAnswer.setText("");
+        jtfCity.setText("");;
+        jtfConfirmPass.setText("");;
+        jtfDoor.setText("");;
+        jtfIc.setText("");;
+        jtfName.setText("");;
+        jtfNeighbour.setText("");;
+        jtfPassword.setText("");;
+        jtfPhoneNum.setText("");;
+        jtfPostCode.setText("");;
+        jtfSearch.setText("");;
+        jtfState.setText("");;
+    }
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,8 +132,8 @@ public class StaffPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jlblSearch = new javax.swing.JLabel();
+        jtfSearch = new javax.swing.JTextField();
         dynamicPanel = new javax.swing.JPanel();
         jpAddUpdate = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -75,52 +146,50 @@ public class StaffPanel extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jcbQualification = new javax.swing.JComboBox<>();
+        jcbPosition = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        jcbQuestion = new javax.swing.JComboBox<>();
         jLabel16 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
-        jTextField20 = new javax.swing.JTextField();
-        jTextField11 = new javax.swing.JTextField();
-        jTextField13 = new javax.swing.JTextField();
-        jTextField14 = new javax.swing.JTextField();
-        jTextField15 = new javax.swing.JTextField();
-        jTextField17 = new javax.swing.JTextField();
-        jTextField18 = new javax.swing.JTextField();
-        jTextField19 = new javax.swing.JTextField();
-        jTextField21 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jtfPassword = new javax.swing.JTextField();
+        jtfAnswer = new javax.swing.JTextField();
+        jtfConfirmPass = new javax.swing.JTextField();
+        jlblCheck = new javax.swing.JLabel();
+        jlblCross = new javax.swing.JLabel();
+        jtfName = new javax.swing.JTextField();
+        jtfDoor = new javax.swing.JTextField();
+        jtfPostCode = new javax.swing.JTextField();
+        jtfState = new javax.swing.JTextField();
+        jtfNeighbour = new javax.swing.JTextField();
+        jtfPhoneNum = new javax.swing.JTextField();
+        jtfIc = new javax.swing.JTextField();
+        jtfCity = new javax.swing.JTextField();
+        jbtAdd = new javax.swing.JButton();
         jpSearch = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jtStaff = new javax.swing.JTable();
+        jbtModifyStaff = new javax.swing.JButton();
+        jbtDeleteStaff = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(202, 233, 239));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblSearch.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        jlblSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                jlblSearchMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, -1));
+        jPanel2.add(jlblSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, -1));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 260, 30));
+        jtfSearch.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel2.add(jtfSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 260, 30));
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 80));
 
@@ -159,11 +228,11 @@ public class StaffPanel extends javax.swing.JPanel {
         jLabel12.setText("Staff Qualification :");
         jpAddUpdate.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 190, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PMR", "SPM", "Diploma or equivalent", "Advanced Diploma", "Bachelor's Degree", "Graduate Diploma", "Masters Degree", "PhD" }));
-        jpAddUpdate.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, -1, -1));
+        jcbQualification.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PMR", "SPM", "Diploma or equivalent", "Advanced Diploma", "Bachelor's Degree", "Graduate Diploma", "Masters Degree", "PhD" }));
+        jpAddUpdate.add(jcbQualification, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, -1, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Senior Veterinerian", "Veterinerian", "Receptionist", "Laboratory Technician ", "Medical Assistant", "Clerk", "General Staff" }));
-        jpAddUpdate.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, -1, -1));
+        jcbPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Senior Veterinerian", "Veterinerian", "Receptionist", "Laboratory Technician ", "Medical Assistant", "Clerk", "General Staff" }));
+        jpAddUpdate.add(jcbPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(202, 233, 239));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -178,164 +247,102 @@ public class StaffPanel extends javax.swing.JPanel {
         jLabel15.setText("Security Question :");
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 69, -1, -1));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is your first pet's name?", "What is your favourite colour?", "Where is your hometown?" }));
-        jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 66, -1, -1));
+        jcbQuestion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is your first pet's name?", "What is your favourite colour?", "Where is your hometown?" }));
+        jPanel1.add(jcbQuestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 66, -1, -1));
 
         jLabel16.setText("Security Answer :");
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, -1, -1));
+        jPanel1.add(jtfPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 120, -1));
+        jPanel1.add(jtfAnswer, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 60, 120, -1));
 
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
+        jtfConfirmPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfConfirmPassKeyReleased(evt);
             }
         });
-        jPanel1.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 120, -1));
+        jPanel1.add(jtfConfirmPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 120, -1));
 
-        jTextField12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField12ActionPerformed(evt);
+        jlblCheck.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/checkmark.png"))); // NOI18N
+        jlblCheck.setToolTipText("Passwords match!");
+        jPanel1.add(jlblCheck, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, 20, 20));
+
+        jlblCross.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/crossmark.png"))); // NOI18N
+        jlblCross.setToolTipText("Passwords do not match!");
+        jPanel1.add(jlblCross, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, 20, 20));
+
+        jpAddUpdate.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 234, 680, 100));
+        jpAddUpdate.add(jtfName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 120, -1));
+        jpAddUpdate.add(jtfDoor, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 180, -1));
+        jpAddUpdate.add(jtfPostCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 90, -1));
+        jpAddUpdate.add(jtfState, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 120, -1));
+        jpAddUpdate.add(jtfNeighbour, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 120, -1));
+        jpAddUpdate.add(jtfPhoneNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 150, 110, -1));
+        jpAddUpdate.add(jtfIc, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 120, -1));
+        jpAddUpdate.add(jtfCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 110, 110, -1));
+
+        jbtAdd.setText("Add Staff");
+        jbtAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtAddMouseClicked(evt);
             }
         });
-        jPanel1.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 60, 120, -1));
-
-        jTextField20.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField20ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jTextField20, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 120, -1));
-
-        jpAddUpdate.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 234, 650, 100));
-
-        jTextField11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField11ActionPerformed(evt);
-            }
-        });
-        jpAddUpdate.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 120, -1));
-
-        jTextField13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField13ActionPerformed(evt);
-            }
-        });
-        jpAddUpdate.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 180, -1));
-
-        jTextField14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField14ActionPerformed(evt);
-            }
-        });
-        jpAddUpdate.add(jTextField14, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 90, -1));
-
-        jTextField15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField15ActionPerformed(evt);
-            }
-        });
-        jpAddUpdate.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 120, -1));
-
-        jTextField17.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField17ActionPerformed(evt);
-            }
-        });
-        jpAddUpdate.add(jTextField17, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 120, -1));
-
-        jTextField18.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField18ActionPerformed(evt);
-            }
-        });
-        jpAddUpdate.add(jTextField18, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 150, 110, -1));
-
-        jTextField19.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField19ActionPerformed(evt);
-            }
-        });
-        jpAddUpdate.add(jTextField19, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 120, -1));
-
-        jTextField21.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField21ActionPerformed(evt);
-            }
-        });
-        jpAddUpdate.add(jTextField21, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 110, 110, -1));
-
-        jButton1.setText("Add Staff");
-        jpAddUpdate.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 350, -1, -1));
+        jpAddUpdate.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 350, -1, -1));
 
         dynamicPanel.add(jpAddUpdate, "card3");
 
         jpSearch.setBackground(new java.awt.Color(202, 233, 239));
         jpSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtStaff.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Staff IC", "Name", "Address", "Phone", "Position", "Qualification"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTable1.setColumnSelectionAllowed(true);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        ));
+        jtStaff.setColumnSelectionAllowed(true);
+        jtStaff.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jtStaff);
+        jtStaff.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 620, 270));
 
-        jButton5.setText("Modify Staff");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jbtModifyStaff.setText("Modify Staff");
+        jbtModifyStaff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jbtModifyStaffActionPerformed(evt);
             }
         });
-        jpSearch.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, -1, -1));
+        jpSearch.add(jbtModifyStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, -1, -1));
 
-        jButton6.setText("Delete Staff");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        jbtDeleteStaff.setText("Delete Staff");
+        jbtDeleteStaff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                jbtDeleteStaffActionPerformed(evt);
             }
         });
-        jpSearch.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, -1, -1));
+        jpSearch.add(jbtDeleteStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, -1, -1));
 
         dynamicPanel.add(jpSearch, "card2");
 
         add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 77, 930, 530));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+    private void jlblSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblSearchMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        // TODO add your handling code here:
-        String queryStr =jTextField1.getText();
-        Staff s = staffControl.searchRecord(queryStr);
-        MainMenu.action="search";
-        setDynamicPanel();
+//        String queryStr =jTextField1.getText();
+//        Staff s = staffControl.searchRecord(queryStr);
+//        
+////        MainMenu.action="search";
+////        setDynamicPanel();
+//        
+//        Binding b = bindingGroup.getBinding("jTable1");
+//        b.unbind();
+//        staffList.clear();
+//        staffList.add(s); // Whatever you do to refill the list
+//        b.bind();
+//        jTable1.repaint();
 ////        TableModel tModel = new TableModel();
 //        Object[][] data = {s.getObjects()};
 //        String[] columnNames = {"m","n","j","nw","m","n","j","nw"};
@@ -345,66 +352,50 @@ public class StaffPanel extends javax.swing.JPanel {
         
         
         
-    }//GEN-LAST:event_jLabel1MouseClicked
+    }//GEN-LAST:event_jlblSearchMouseClicked
 
-    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+    private void jbtModifyStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtModifyStaffActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField11ActionPerformed
+    }//GEN-LAST:event_jbtModifyStaffActionPerformed
 
-    private void jTextField12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField12ActionPerformed
+    private void jbtDeleteStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDeleteStaffActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField12ActionPerformed
+    }//GEN-LAST:event_jbtDeleteStaffActionPerformed
 
-    private void jTextField13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField13ActionPerformed
+    private void jbtAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField13ActionPerformed
+        Staff staff = validateInput();
+        if(staff!=null){
+         //write to database
+        }
+        else{
+            int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Your input seems to have data that is invalid or in incorrect format. Would you like to reset all fields?", "Invalid Data!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+            if(reply==JOptionPane.YES_OPTION){
+                resetFields();
+            }              
+        }   
+    }//GEN-LAST:event_jbtAddMouseClicked
 
-    private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField14ActionPerformed
+    private void jtfConfirmPassKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfConfirmPassKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField14ActionPerformed
-
-    private void jTextField15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField15ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField15ActionPerformed
-
-    private void jTextField17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField17ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField17ActionPerformed
-
-    private void jTextField18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField18ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField18ActionPerformed
-
-    private void jTextField19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField19ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField19ActionPerformed
-
-    private void jTextField20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField20ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField20ActionPerformed
-
-    private void jTextField21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField21ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField21ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+        if(jtfPassword.getText()==null){
+            jlblCross.setVisible(false);
+            jlblCheck.setVisible(false);
+        }
+        else if(jtfPassword.getText().equals(jtfConfirmPass.getText())){
+            jlblCross.setVisible(false);
+            jlblCheck.setVisible(true);
+        }
+        else{
+            jlblCross.setVisible(true);
+            jlblCheck.setVisible(false);
+        }
+    }//GEN-LAST:event_jtfConfirmPassKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -422,20 +413,29 @@ public class StaffPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField17;
-    private javax.swing.JTextField jTextField18;
-    private javax.swing.JTextField jTextField19;
-    private javax.swing.JTextField jTextField20;
-    private javax.swing.JTextField jTextField21;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JButton jbtAdd;
+    private javax.swing.JButton jbtDeleteStaff;
+    private javax.swing.JButton jbtModifyStaff;
+    private javax.swing.JComboBox<String> jcbPosition;
+    private javax.swing.JComboBox<String> jcbQualification;
+    private javax.swing.JComboBox<String> jcbQuestion;
+    private javax.swing.JLabel jlblCheck;
+    private javax.swing.JLabel jlblCross;
+    private javax.swing.JLabel jlblSearch;
     private javax.swing.JPanel jpAddUpdate;
     private javax.swing.JPanel jpSearch;
+    private javax.swing.JTable jtStaff;
+    private javax.swing.JTextField jtfAnswer;
+    private javax.swing.JTextField jtfCity;
+    private javax.swing.JTextField jtfConfirmPass;
+    private javax.swing.JTextField jtfDoor;
+    private javax.swing.JTextField jtfIc;
+    private javax.swing.JTextField jtfName;
+    private javax.swing.JTextField jtfNeighbour;
+    private javax.swing.JTextField jtfPassword;
+    private javax.swing.JTextField jtfPhoneNum;
+    private javax.swing.JTextField jtfPostCode;
+    private javax.swing.JTextField jtfSearch;
+    private javax.swing.JTextField jtfState;
     // End of variables declaration//GEN-END:variables
 }
