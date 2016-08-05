@@ -64,6 +64,8 @@ public class Transaction {
         this.serviceList = serviceList;
     }
     
+    
+    
     //Not sure if this method will work as intended
     
   class ServiceDetail{

@@ -20,9 +20,9 @@ public class TransactionPanel extends javax.swing.JPanel {
      */
     public TransactionPanel() {
         initComponents();
-        jTextField1.setOpaque(false);
-        jTextField1.setBackground(new Color(255,255,255,127));
-        jTextField1.setBorder(null);
+        jtfSearch.setOpaque(false);
+        jtfSearch.setBackground(new Color(255,255,255,127));
+        jtfSearch.setBorder(null);
         setDynamicPanel();
     }
 
@@ -32,7 +32,7 @@ public class TransactionPanel extends javax.swing.JPanel {
              targetPanel=jpAdd;
         }
         else if (MainMenu.action.equals("search")){
-            targetPanel=jpSearch;
+            targetPanel=jtTrans1;
         }
         
         dynamicPanel.removeAll();
@@ -55,29 +55,29 @@ public class TransactionPanel extends javax.swing.JPanel {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jtfSearch = new javax.swing.JTextField();
         dynamicPanel = new javax.swing.JPanel();
         jpAdd = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jtfTransId = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jtfPetId = new javax.swing.JTextField();
+        jdpTransDate = new com.toedter.calendar.JDateChooser();
+        jcbHours = new javax.swing.JComboBox<>();
+        jcbMins = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jpSearch = new javax.swing.JPanel();
+        jtTrans = new javax.swing.JTable();
+        jbtRemoveService = new javax.swing.JButton();
+        jbtAddService = new javax.swing.JButton();
+        jbtDeleteService = new javax.swing.JButton();
+        jtTrans1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jbtModifyTrans = new javax.swing.JButton();
+        jbtDeleteTrans = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -88,12 +88,12 @@ public class TransactionPanel extends javax.swing.JPanel {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, -1));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jtfSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jtfSearchActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 260, 30));
+        jPanel2.add(jtfSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 260, 30));
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 70));
 
@@ -105,9 +105,9 @@ public class TransactionPanel extends javax.swing.JPanel {
         jLabel2.setText("Transaction ID :");
         jpAdd.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 87, 23));
 
-        jTextField2.setToolTipText("Enter transaction ID");
-        jTextField2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jpAdd.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 80, -1));
+        jtfTransId.setToolTipText("Enter transaction ID");
+        jtfTransId.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jpAdd.add(jtfTransId, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 80, -1));
 
         jLabel3.setText("Transaction Date :");
         jpAdd.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, -1, -1));
@@ -118,26 +118,26 @@ public class TransactionPanel extends javax.swing.JPanel {
         jLabel5.setText("Pet ID :");
         jpAdd.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, -1, -1));
 
-        jTextField3.setToolTipText("Enter pet ID");
-        jTextField3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jpAdd.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 90, 20));
-        jpAdd.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 100, -1));
+        jtfPetId.setToolTipText("Enter pet ID");
+        jtfPetId.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jpAdd.add(jtfPetId, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 70, 90, 20));
+        jpAdd.add(jdpTransDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 100, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jcbHours.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+        jcbHours.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jcbHoursActionPerformed(evt);
             }
         });
-        jpAdd.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, -1, -1));
+        jpAdd.add(jcbHours, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, -1, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
-        jpAdd.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, -1, -1));
+        jcbMins.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
+        jpAdd.add(jcbMins, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, -1, -1));
 
         jLabel6.setText("hours                  minutes");
-        jpAdd.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 130, 20));
+        jpAdd.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 150, 20));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jtTrans.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -156,46 +156,46 @@ public class TransactionPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jTable2.setColumnSelectionAllowed(true);
-        jTable2.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTable2);
-        jTable2.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(20);
-            jTable2.getColumnModel().getColumn(1).setPreferredWidth(20);
-            jTable2.getColumnModel().getColumn(2).setPreferredWidth(50);
+        jtTrans.setColumnSelectionAllowed(true);
+        jtTrans.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jtTrans);
+        jtTrans.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (jtTrans.getColumnModel().getColumnCount() > 0) {
+            jtTrans.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jtTrans.getColumnModel().getColumn(1).setPreferredWidth(20);
+            jtTrans.getColumnModel().getColumn(2).setPreferredWidth(50);
         }
 
         jpAdd.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 530, 190));
 
-        jButton1.setText("Remove Service Item");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbtRemoveService.setText("Remove Service Item");
+        jbtRemoveService.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbtRemoveServiceActionPerformed(evt);
             }
         });
-        jpAdd.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, -1, -1));
+        jpAdd.add(jbtRemoveService, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, -1, -1));
 
-        jButton2.setText("Add Service Item");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jbtAddService.setText("Add Service Item");
+        jbtAddService.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jbtAddServiceActionPerformed(evt);
             }
         });
-        jpAdd.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, -1, -1));
+        jpAdd.add(jbtAddService, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, -1, -1));
 
-        jButton3.setText("Edit Service Item");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jbtDeleteService.setText("Edit Service Item");
+        jbtDeleteService.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jbtDeleteServiceActionPerformed(evt);
             }
         });
-        jpAdd.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, -1, -1));
+        jpAdd.add(jbtDeleteService, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, -1, -1));
 
         dynamicPanel.add(jpAdd, "card3");
 
-        jpSearch.setBackground(new java.awt.Color(255, 204, 204));
-        jpSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jtTrans1.setBackground(new java.awt.Color(255, 204, 204));
+        jtTrans1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -225,61 +225,53 @@ public class TransactionPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 570, 230));
+        jtTrans1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 570, 230));
 
-        jButton5.setText("Modify Transaction");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jbtModifyTrans.setText("Modify Transaction");
+        jbtModifyTrans.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jbtModifyTransActionPerformed(evt);
             }
         });
-        jpSearch.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, -1, -1));
+        jtTrans1.add(jbtModifyTrans, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, -1, -1));
 
-        jButton6.setText("Delete Transaction");
-        jpSearch.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, -1, -1));
+        jbtDeleteTrans.setText("Delete Transaction");
+        jtTrans1.add(jbtDeleteTrans, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, -1, -1));
 
-        dynamicPanel.add(jpSearch, "card2");
+        dynamicPanel.add(jtTrans1, "card2");
 
         add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 960, 440));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jtfSearchActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void jcbHoursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbHoursActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_jcbHoursActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jbtRemoveServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRemoveServiceActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jbtRemoveServiceActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jbtAddServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddServiceActionPerformed
         // TODO add your handling code here:
         AddServiceDialog asd = new AddServiceDialog((JFrame)this.getParent().getParent().getParent().getParent().getParent().getParent(), false);
         asd.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jbtAddServiceActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void jbtDeleteServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDeleteServiceActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jbtDeleteServiceActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jbtModifyTransActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtModifyTransActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jbtModifyTransActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -290,11 +282,19 @@ public class TransactionPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JButton jbtAddService;
+    private javax.swing.JButton jbtDeleteService;
+    private javax.swing.JButton jbtDeleteTrans;
+    private javax.swing.JButton jbtModifyTrans;
+    private javax.swing.JButton jbtRemoveService;
+    private javax.swing.JComboBox<String> jcbHours;
+    private javax.swing.JComboBox<String> jcbMins;
+    private com.toedter.calendar.JDateChooser jdpTransDate;
     private javax.swing.JPanel jpAdd;
-    private javax.swing.JPanel jpSearch;
+    private javax.swing.JTable jtTrans;
+    private javax.swing.JPanel jtTrans1;
+    private javax.swing.JTextField jtfPetId;
+    private javax.swing.JTextField jtfSearch;
+    private javax.swing.JTextField jtfTransId;
     // End of variables declaration//GEN-END:variables
 }
