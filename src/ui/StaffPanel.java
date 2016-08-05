@@ -8,7 +8,7 @@ package ui;
 import java.awt.Color;
 import javax.swing.*;
 import control.MaintainStaff;
-import domain.Staff;
+import domain.*;
 import java.util.regex.*;
 
 
@@ -58,10 +58,10 @@ public class StaffPanel extends javax.swing.JPanel {
         dynamicPanel.repaint();
         dynamicPanel.revalidate();
     }
-    
     public Staff validateInput(){
         
         Staff staff;
+        String passwordhash="";
         boolean valid =true;
         
         String ic=jtfIc.getText();
@@ -74,7 +74,13 @@ public class StaffPanel extends javax.swing.JPanel {
         String password =jtfPassword.getText();
         String phone = jtfPhoneNum.getText();
         
+        //validate all input
         valid = password.equals(jtfConfirmPass.getText())?true:false;
+        valid = name.equals(null)?false:true;
+        valid = door.equals(null)?false:true;
+        valid = city.equals(null)?false:true;
+        valid = state.equals(null)?false:true;
+        try{passwordhash = PasswordHash.createHash(password);}catch(Exception ex){valid=false;}
         if(!Pattern.matches("\\d{12}", ic)){valid =false;}
         if(!Pattern.matches("\\d{2,4}-\\d{7,8}", phone)){valid =false;}
         if(!Pattern.matches("\\d{5}", postcode)){valid =false;}
@@ -82,9 +88,7 @@ public class StaffPanel extends javax.swing.JPanel {
         //Prepare answer string
         String question = (String)jcbQuestion.getSelectedItem();
         String answer = jtfAnswer.getText();
-        
         switch(question){
-         
              case "What is your first pet's name?"  : 
                 answer="p"+answer;
                 break;
@@ -94,11 +98,12 @@ public class StaffPanel extends javax.swing.JPanel {
              case "Where is your hometown?"         :
                  answer="h"+answer;
                 break;
-         }
- 
+         }       
+        
+        //If all fields are valid, write to Staff Object
          if(valid==true){
            String fulladdress = ""+door+"_"+neighbour+"_"+postcode+"_"+city+"_"+state;
-           staff = new Staff(ic,name,fulladdress,phone,(String)jcbPosition.getSelectedItem(),(String)jcbQualification.getSelectedItem(),password,answer);
+           staff = new Staff(ic,name,fulladdress,phone,(String)jcbPosition.getSelectedItem(),(String)jcbQualification.getSelectedItem(),passwordhash,answer);
          }
          else {
              staff=null;
@@ -106,7 +111,6 @@ public class StaffPanel extends javax.swing.JPanel {
          
          return staff;
     }
-    
     public void resetFields(){
         jtfAnswer.setText("");
         jtfCity.setText("");;
