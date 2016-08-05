@@ -31,15 +31,16 @@ public class AddServiceDialog extends javax.swing.JDialog {
         jlblService = new javax.swing.JLabel();
         jlblStaff = new javax.swing.JLabel();
         jlblRemarks = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jcbService = new javax.swing.JComboBox<>();
+        jcbStaff = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jtaRemarks = new javax.swing.JTextArea();
         jbtConfirm = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add or Modify Service Item");
+        setBackground(new java.awt.Color(255, 204, 204));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlblService.setText("Service :");
@@ -51,15 +52,15 @@ public class AddServiceDialog extends javax.swing.JDialog {
         jlblRemarks.setText(" Remarks :");
         getContentPane().add(jlblRemarks, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Grooming", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 130, -1));
+        jcbService.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Grooming", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(jcbService, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 130, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Xiao Liow", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 130, -1));
+        jcbStaff.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Xiao Liow", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(jcbStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 130, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jtaRemarks.setColumns(20);
+        jtaRemarks.setRows(5);
+        jScrollPane1.setViewportView(jtaRemarks);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 180, 110));
 
@@ -115,14 +116,14 @@ public class AddServiceDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton jbtConfirm;
+    private javax.swing.JComboBox<String> jcbService;
+    private javax.swing.JComboBox<String> jcbStaff;
     private javax.swing.JLabel jlblRemarks;
     private javax.swing.JLabel jlblService;
     private javax.swing.JLabel jlblStaff;
+    private javax.swing.JTextArea jtaRemarks;
     // End of variables declaration//GEN-END:variables
 }

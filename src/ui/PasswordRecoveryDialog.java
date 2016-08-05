@@ -30,14 +30,14 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        jcbRecoverQues = new javax.swing.JComboBox<>();
+        jtfRecoverAns = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jbtNext = new javax.swing.JButton();
+        jbtCancel = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jtfUsername = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -56,15 +56,15 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is your first pet's name?", "What is your favourite colour?", "Where is your hometown?" }));
-        jPanel3.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 170, -1));
+        jcbRecoverQues.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is your first pet's name?", "What is your favourite colour?", "Where is your hometown?" }));
+        jPanel3.add(jcbRecoverQues, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 170, -1));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jtfRecoverAns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jtfRecoverAnsActionPerformed(evt);
             }
         });
-        jPanel3.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 170, -1));
+        jPanel3.add(jtfRecoverAns, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 170, -1));
 
         jLabel1.setText(" Username : ");
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 70, -1));
@@ -72,26 +72,26 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         jLabel2.setText("Recovery Answer   : ");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
 
-        jButton1.setText("Next");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbtNext.setText("Next");
+        jbtNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbtNextActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, -1, -1));
+        jPanel3.add(jbtNext, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, -1, -1));
 
-        jButton2.setText("Cancel");
-        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, -1, -1));
+        jbtCancel.setText("Cancel");
+        jPanel3.add(jbtCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, -1, -1));
 
         jLabel3.setText("Please choose your recovery question and enter your answer: ");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, -1));
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        jtfUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                jtfUsernameActionPerformed(evt);
             }
         });
-        jPanel3.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 170, -1));
+        jPanel3.add(jtfUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 170, -1));
 
         jLabel7.setText("Recovery Question : ");
         jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
@@ -131,7 +131,7 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jbtNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNextActionPerformed
         // TODO add your handling code here:
         //add check password method here
         if (true==true){
@@ -145,11 +145,11 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         jPanel1.revalidate();
         
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jbtNextActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jtfRecoverAnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfRecoverAnsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jtfRecoverAnsActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -169,9 +169,9 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButton4MouseClicked
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void jtfUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfUsernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_jtfUsernameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -216,11 +216,8 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -230,9 +227,12 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JButton jbtCancel;
+    private javax.swing.JButton jbtNext;
+    private javax.swing.JComboBox<String> jcbRecoverQues;
+    private javax.swing.JTextField jtfRecoverAns;
+    private javax.swing.JTextField jtfUsername;
     // End of variables declaration//GEN-END:variables
 }

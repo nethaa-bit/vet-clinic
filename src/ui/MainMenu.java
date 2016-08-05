@@ -84,6 +84,7 @@ public class MainMenu extends javax.swing.JFrame {
                 
                 if(moduleObject.equals("staff")){ 
                     targetPanel= new StaffPanel();
+                 
                 }
                 else if(moduleObject.equals("customer")){ 
                     targetPanel= new CustomerPanel();
@@ -157,6 +158,7 @@ public class MainMenu extends javax.swing.JFrame {
         jPopupMenu8 = new javax.swing.JPopupMenu();
         jPopupMenu9 = new javax.swing.JPopupMenu();
         jpMain = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jpMenu = new javax.swing.JPanel();
         jlblSec = new javax.swing.JLabel();
         jlblReport = new javax.swing.JLabel();
@@ -180,7 +182,6 @@ public class MainMenu extends javax.swing.JFrame {
         jlblReportIcon = new javax.swing.JLabel();
         jpContent = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         jPopupMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -207,12 +208,19 @@ public class MainMenu extends javax.swing.JFrame {
         jPopupMenu9.getAccessibleContext().setAccessibleParent(jlblSec);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Main Menu - Veterinary Clinic System");
         setIconImage(Toolkit.getDefaultToolkit().getImage(MainMenu.class.getResource("/images/logo.png"))
         );
 
         jpMain.setBackground(new java.awt.Color(255, 255, 255));
         jpMain.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Exit.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+        jpMain.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 0, 60, -1));
 
         jpMenu.setBackground(new java.awt.Color(255, 255, 255));
         jpMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -399,9 +407,6 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel1.setText("Welcome, Xiao Liow");
         jpMain.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jButton1.setText("Log Out");
-        jpMain.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, -1, -1));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -540,6 +545,12 @@ public class MainMenu extends javax.swing.JFrame {
         jlblIconMouseClicked(evt);
     }//GEN-LAST:event_jlblTitleMouseClicked
 
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        // TODO add your handling code here:
+        //call new login frame
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_jLabel2MouseClicked
+
 
     
     /**
@@ -583,8 +594,8 @@ public class MainMenu extends javax.swing.JFrame {
 
            
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JPopupMenu jPopupMenu3;

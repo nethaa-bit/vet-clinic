@@ -38,9 +38,9 @@ public class ServicePanel extends javax.swing.JPanel {
         
     public ServicePanel() {
         initComponents();
-        jTextField1.setOpaque(false);
-        jTextField1.setBackground(new Color(255,255,255,127));
-        jTextField1.setBorder(null);
+        jtfSearch.setOpaque(false);
+        jtfSearch.setBackground(new Color(255,255,255,127));
+        jtfSearch.setBorder(null);
         setDynamicPanel();
     }
 
@@ -56,24 +56,24 @@ public class ServicePanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jtfSearch = new javax.swing.JTextField();
         dynamicPanel = new javax.swing.JPanel();
         jpSearch = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jtService = new javax.swing.JTable();
+        jtfModifyService = new javax.swing.JButton();
+        jtfDeleteService = new javax.swing.JButton();
         jpAdd = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jtfServiceId = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jtfPrice = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        jtfTitle = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        jtaDescrip = new javax.swing.JTextArea();
+        jbtAddService = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -86,12 +86,12 @@ public class ServicePanel extends javax.swing.JPanel {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, -1, -1));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jtfSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jtfSearchActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 260, 30));
+        jPanel2.add(jtfSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 260, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 70));
 
@@ -100,7 +100,7 @@ public class ServicePanel extends javax.swing.JPanel {
         jpSearch.setBackground(new java.awt.Color(229, 204, 255));
         jpSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtService.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -126,20 +126,20 @@ public class ServicePanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(jtService);
 
         jpSearch.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 550, 280));
 
-        jButton5.setText("Modify Service");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jtfModifyService.setText("Modify Service");
+        jtfModifyService.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jtfModifyServiceActionPerformed(evt);
             }
         });
-        jpSearch.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, -1, -1));
+        jpSearch.add(jtfModifyService, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, -1, -1));
 
-        jButton6.setText("Delete Service");
-        jpSearch.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 370, -1, -1));
+        jtfDeleteService.setText("Delete Service");
+        jpSearch.add(jtfDeleteService, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 370, -1, -1));
 
         dynamicPanel.add(jpSearch, "card3");
 
@@ -149,42 +149,42 @@ public class ServicePanel extends javax.swing.JPanel {
         jLabel2.setText("Service ID :");
         jpAdd.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
 
-        jTextField2.setToolTipText("Enter service ID");
-        jpAdd.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 90, -1));
+        jtfServiceId.setToolTipText("Enter service ID");
+        jpAdd.add(jtfServiceId, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 90, -1));
 
         jLabel3.setText("Service Title :");
         jpAdd.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, -1, -1));
 
-        jTextField3.setToolTipText("Enter price");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        jtfPrice.setToolTipText("Enter price");
+        jtfPrice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                jtfPriceActionPerformed(evt);
             }
         });
-        jpAdd.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, 70, -1));
+        jpAdd.add(jtfPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, 70, -1));
 
         jLabel4.setText("Unit Price (RM) :");
         jpAdd.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, -1, -1));
 
-        jTextField4.setToolTipText("Enter service title");
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        jtfTitle.setToolTipText("Enter service title");
+        jtfTitle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                jtfTitleActionPerformed(evt);
             }
         });
-        jpAdd.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 290, -1));
+        jpAdd.add(jtfTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 290, -1));
 
         jLabel5.setText("Service Description:");
         jpAdd.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, -1, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jtaDescrip.setColumns(20);
+        jtaDescrip.setRows(5);
+        jScrollPane1.setViewportView(jtaDescrip);
 
         jpAdd.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 290, 120));
 
-        jButton1.setText("Add Service");
-        jpAdd.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, -1, -1));
+        jbtAddService.setText("Add Service");
+        jpAdd.add(jbtAddService, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, -1, -1));
 
         dynamicPanel.add(jpAdd, "card2");
 
@@ -193,28 +193,25 @@ public class ServicePanel extends javax.swing.JPanel {
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 0, 970, 560));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void jtfPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfPriceActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_jtfPriceActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void jtfTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTitleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_jtfTitleActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jtfSearchActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jtfModifyServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfModifyServiceActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jtfModifyServiceActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -224,13 +221,16 @@ public class ServicePanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JButton jbtAddService;
     private javax.swing.JPanel jpAdd;
     private javax.swing.JPanel jpSearch;
+    private javax.swing.JTable jtService;
+    private javax.swing.JTextArea jtaDescrip;
+    private javax.swing.JButton jtfDeleteService;
+    private javax.swing.JButton jtfModifyService;
+    private javax.swing.JTextField jtfPrice;
+    private javax.swing.JTextField jtfSearch;
+    private javax.swing.JTextField jtfServiceId;
+    private javax.swing.JTextField jtfTitle;
     // End of variables declaration//GEN-END:variables
 }

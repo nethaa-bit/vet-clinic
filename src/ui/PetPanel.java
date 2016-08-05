@@ -58,25 +58,26 @@ public class PetPanel extends javax.swing.JPanel {
         dynamicPanel = new javax.swing.JPanel();
         jpAdd = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jtfPetId = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jtfPetName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jcbType = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jtfHeight = new javax.swing.JTextField();
+        jtfLength = new javax.swing.JTextField();
+        jtfBreed = new javax.swing.JTextField();
+        jcbGender = new javax.swing.JComboBox<>();
+        jtfWeight = new javax.swing.JTextField();
+        jtfOwnerIc = new javax.swing.JTextField();
+        jbtAddPet = new javax.swing.JButton();
+        jdpBirthDate = new com.toedter.calendar.JDateChooser();
         jpSearch = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -111,19 +112,19 @@ public class PetPanel extends javax.swing.JPanel {
         jLabel2.setText("Pet ID :");
         jpAdd.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
 
-        jTextField2.setToolTipText("Enter pet ID");
-        jpAdd.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 90, -1));
+        jtfPetId.setToolTipText("Enter pet ID");
+        jpAdd.add(jtfPetId, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 90, -1));
 
         jLabel3.setText("Pet Name :");
         jpAdd.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, -1, -1));
 
-        jTextField3.setToolTipText("Enter pet name");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        jtfPetName.setToolTipText("Enter pet name");
+        jtfPetName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                jtfPetNameActionPerformed(evt);
             }
         });
-        jpAdd.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, 90, -1));
+        jpAdd.add(jtfPetName, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 30, 90, -1));
 
         jLabel4.setText("Pet Height :");
         jpAdd.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, -1, -1));
@@ -140,8 +141,8 @@ public class PetPanel extends javax.swing.JPanel {
         jLabel8.setText("Breed :");
         jpAdd.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, 20));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Canine", "Feline", "Aquatic", "Reptile", "Avian" }));
-        jpAdd.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, -1, -1));
+        jcbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Canine", "Feline", "Aquatic", "Reptile", "Avian" }));
+        jpAdd.add(jcbType, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 110, -1, -1));
 
         jLabel9.setText("Pet Birth Date :");
         jpAdd.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, -1, -1));
@@ -152,26 +153,27 @@ public class PetPanel extends javax.swing.JPanel {
         jLabel11.setText("Owner IC No. :");
         jpAdd.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, -1, -1));
 
-        jTextField4.setToolTipText("Enter height");
-        jpAdd.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 90, -1));
+        jtfHeight.setToolTipText("Enter height");
+        jpAdd.add(jtfHeight, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 90, -1));
 
-        jTextField5.setToolTipText("Enter length");
-        jpAdd.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 70, -1));
+        jtfLength.setToolTipText("Enter length");
+        jpAdd.add(jtfLength, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, 70, -1));
 
-        jTextField6.setToolTipText("Enter breed");
-        jpAdd.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 100, -1));
+        jtfBreed.setToolTipText("Enter breed");
+        jpAdd.add(jtfBreed, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 100, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
-        jpAdd.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, -1, -1));
+        jcbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
+        jpAdd.add(jcbGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, -1, -1));
 
-        jTextField7.setToolTipText("Enter weight");
-        jpAdd.add(jTextField7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, 50, -1));
+        jtfWeight.setToolTipText("Enter weight");
+        jpAdd.add(jtfWeight, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 70, 50, -1));
 
-        jTextField8.setToolTipText("Enter NRIC");
-        jpAdd.add(jTextField8, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 200, 90, -1));
+        jtfOwnerIc.setToolTipText("Enter NRIC");
+        jpAdd.add(jtfOwnerIc, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 200, 90, -1));
 
-        jButton1.setText("Add Pet");
-        jpAdd.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, -1, -1));
+        jbtAddPet.setText("Add Pet");
+        jpAdd.add(jbtAddPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, -1, -1));
+        jpAdd.add(jdpBirthDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, -1, -1));
 
         dynamicPanel.add(jpAdd, "card3");
 
@@ -235,9 +237,9 @@ public class PetPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void jtfPetNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfPetNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_jtfPetNameActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
@@ -250,11 +252,8 @@ public class PetPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -271,14 +270,18 @@ public class PetPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JButton jbtAddPet;
+    private javax.swing.JComboBox<String> jcbGender;
+    private javax.swing.JComboBox<String> jcbType;
+    private com.toedter.calendar.JDateChooser jdpBirthDate;
     private javax.swing.JPanel jpAdd;
     private javax.swing.JPanel jpSearch;
+    private javax.swing.JTextField jtfBreed;
+    private javax.swing.JTextField jtfHeight;
+    private javax.swing.JTextField jtfLength;
+    private javax.swing.JTextField jtfOwnerIc;
+    private javax.swing.JTextField jtfPetId;
+    private javax.swing.JTextField jtfPetName;
+    private javax.swing.JTextField jtfWeight;
     // End of variables declaration//GEN-END:variables
 }

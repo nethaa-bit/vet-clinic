@@ -31,9 +31,9 @@ public class ReportPanel extends javax.swing.JPanel {
         jcbReportType = new javax.swing.JComboBox<>();
         jlblStart = new javax.swing.JLabel();
         jlblEnd = new javax.swing.JLabel();
-        jdcStart = new com.toedter.calendar.JDateChooser();
-        jdcEnd = new com.toedter.calendar.JDateChooser();
-        jbtGenerate = new javax.swing.JButton();
+        jdpStartDate = new com.toedter.calendar.JDateChooser();
+        jdpEndDate = new com.toedter.calendar.JDateChooser();
+        jbtGenerateReport = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(227, 234, 254));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -49,19 +49,19 @@ public class ReportPanel extends javax.swing.JPanel {
 
         jlblEnd.setText("  End Date :");
         add(jlblEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 60, -1));
-        add(jdcStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 140, -1));
-        add(jdcEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 140, -1));
+        add(jdpStartDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 140, -1));
+        add(jdpEndDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 140, -1));
 
-        jbtGenerate.setText("Generate Report");
-        add(jbtGenerate, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, -1));
+        jbtGenerateReport.setText("Generate Report");
+        add(jbtGenerateReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbtGenerate;
+    private javax.swing.JButton jbtGenerateReport;
     private javax.swing.JComboBox<String> jcbReportType;
-    private com.toedter.calendar.JDateChooser jdcEnd;
-    private com.toedter.calendar.JDateChooser jdcStart;
+    private com.toedter.calendar.JDateChooser jdpEndDate;
+    private com.toedter.calendar.JDateChooser jdpStartDate;
     private javax.swing.JLabel jlblEnd;
     private javax.swing.JLabel jlblReportType;
     private javax.swing.JLabel jlblStart;
