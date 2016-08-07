@@ -60,10 +60,12 @@ public class StaffPanel extends javax.swing.JPanel {
     }
     public Staff validateInput(){
         
+        //Declare domain object
         Staff staff;
-        String passwordhash="";
-        boolean valid =true;
+        String passwordhash=""; //no need
+        boolean valid =true; //need
         
+        //get value from input
         String ic=jtfIc.getText();
         String name = jtfName.getText();
         String postcode = jtfPostCode.getText();
@@ -75,17 +77,19 @@ public class StaffPanel extends javax.swing.JPanel {
         String phone = jtfPhoneNum.getText();
         
         //validate all input
-        valid = password.equals(jtfConfirmPass.getText())?true:false;
-        valid = name.equals(null)?false:true;
+        valid = password.equals(jtfConfirmPass.getText())?true:false; //no need
+        valid = name.equals(null)?false:true; //need
         valid = door.equals(null)?false:true;
         valid = city.equals(null)?false:true;
         valid = state.equals(null)?false:true;
-        try{passwordhash = PasswordHash.createHash(password);}catch(Exception ex){valid=false;}
-        if(!Pattern.matches("\\d{12}", ic)){valid =false;}
-        if(!Pattern.matches("\\d{2,4}-\\d{7,8}", phone)){valid =false;}
-        if(!Pattern.matches("\\d{5}", postcode)){valid =false;}
+        try{passwordhash = PasswordHash.createHash(password);}catch(Exception ex){valid=false;} //no need 
+        if(!Pattern.matches("\\d{12}", ic)){valid =false;} // need f got ic
+        if(!Pattern.matches("\\d{2,4}-\\d{7,8}", phone)){valid =false;} //need if got phone number
+        if(!Pattern.matches("\\d{5}", postcode)){valid =false;} //need if got postacode 
+        
+        //comment if need validations
   
-        //Prepare answer string
+        //Prepare answer string no need
         String question = (String)jcbQuestion.getSelectedItem();
         String answer = jtfAnswer.getText();
         switch(question){
@@ -102,7 +106,8 @@ public class StaffPanel extends javax.swing.JPanel {
         
         //If all fields are valid, write to Staff Object
          if(valid==true){
-           String fulladdress = ""+door+"_"+neighbour+"_"+postcode+"_"+city+"_"+state;
+           String fulladdress = ""+door+"_"+neighbour+"_"+postcode+"_"+city+"_"+state; // for cudstomer only 
+           // take object domain constructor and initialiue (pass value) 
            staff = new Staff(ic,name,fulladdress,phone,(String)jcbPosition.getSelectedItem(),(String)jcbQualification.getSelectedItem(),passwordhash,answer);
          }
          else {
@@ -113,17 +118,17 @@ public class StaffPanel extends javax.swing.JPanel {
     }
     public void resetFields(){
         jtfAnswer.setText("");
-        jtfCity.setText("");;
-        jtfConfirmPass.setText("");;
-        jtfDoor.setText("");;
-        jtfIc.setText("");;
-        jtfName.setText("");;
-        jtfNeighbour.setText("");;
-        jtfPassword.setText("");;
-        jtfPhoneNum.setText("");;
-        jtfPostCode.setText("");;
-        jtfSearch.setText("");;
-        jtfState.setText("");;
+        jtfCity.setText("");
+        jtfConfirmPass.setText("");
+        jtfDoor.setText("");
+        jtfIc.setText("");
+        jtfName.setText("");
+        jtfNeighbour.setText("");
+        jtfPassword.setText("");
+        jtfPhoneNum.setText("");
+        jtfPostCode.setText("");
+        jtfSearch.setText("");
+        jtfState.setText("");
     }
   
     /**
@@ -256,6 +261,12 @@ public class StaffPanel extends javax.swing.JPanel {
 
         jLabel16.setText("Security Answer :");
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, -1, -1));
+
+        jtfPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfPasswordKeyReleased(evt);
+            }
+        });
         jPanel1.add(jtfPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 120, -1));
         jPanel1.add(jtfAnswer, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 60, 120, -1));
 
@@ -371,6 +382,24 @@ public class StaffPanel extends javax.swing.JPanel {
         Staff staff = validateInput();
         if(staff!=null){
          //write to database
+                Staff s = staffControl.searchRecord(staff.getStaffIC());
+                
+                if(s != null)
+                {
+                    JOptionPane.showMessageDialog(null,"This staff already exist.", "Duplicate Record", JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                {
+                    s = staff;
+                    try{
+                    staffControl.addRecord(s);
+                    resetFields();
+                    JOptionPane.showMessageDialog(null,"New staff is created.","Success",JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    catch (Exception ex){
+                        JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
+                    }
+                }         
         }
         else{
             int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Your input seems to have data that is invalid or in incorrect format. Would you like to reset all fields?", "Invalid Data!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
@@ -396,6 +425,22 @@ public class StaffPanel extends javax.swing.JPanel {
             jlblCheck.setVisible(false);
         }
     }//GEN-LAST:event_jtfConfirmPassKeyReleased
+
+    private void jtfPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfPasswordKeyReleased
+        // TODO add your handling code here:
+        if(jtfPassword.getText()==null){
+            jlblCross.setVisible(false);
+            jlblCheck.setVisible(false);
+        }
+        else if(jtfPassword.getText().equals(jtfConfirmPass.getText())){
+            jlblCross.setVisible(false);
+            jlblCheck.setVisible(true);
+        }
+        else{
+            jlblCross.setVisible(true);
+            jlblCheck.setVisible(false);
+        }
+    }//GEN-LAST:event_jtfPasswordKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
