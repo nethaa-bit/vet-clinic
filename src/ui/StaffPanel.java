@@ -9,12 +9,14 @@ import java.awt.Color;
 import javax.swing.*;
 import control.MaintainStaff;
 import domain.*;
+import java.util.ArrayList;
 import java.util.regex.*;
+import javax.swing.table.DefaultTableModel;
 
 
 public class StaffPanel extends javax.swing.JPanel {
     
-    MaintainStaff staffControl;
+    MaintainStaff staffControl; //***
 //    List<Staff> staffList = new ArrayList<Staff>();
     /**
      * Creates new form StaffFrame
@@ -24,7 +26,7 @@ public class StaffPanel extends javax.swing.JPanel {
     public StaffPanel() {
         
         initComponents();
-        staffControl = new MaintainStaff();
+        staffControl = new MaintainStaff(); // ****
         
         jlblCross.setVisible(false);
         jlblCheck.setVisible(false);
@@ -308,14 +310,7 @@ public class StaffPanel extends javax.swing.JPanel {
         jpSearch.setBackground(new java.awt.Color(202, 233, 239));
         jpSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jtStaff.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
+        jtStaff.setAutoCreateColumnsFromModel(false);
         jtStaff.setColumnSelectionAllowed(true);
         jtStaff.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jtStaff);
@@ -346,23 +341,31 @@ public class StaffPanel extends javax.swing.JPanel {
 
     private void jlblSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblSearchMouseClicked
         // TODO add your handling code here:
-//        String queryStr =jTextField1.getText();
-//        Staff s = staffControl.searchRecord(queryStr);
-//        
-////        MainMenu.action="search";
-////        setDynamicPanel();
-//        
-//        Binding b = bindingGroup.getBinding("jTable1");
-//        b.unbind();
-//        staffList.clear();
-//        staffList.add(s); // Whatever you do to refill the list
-//        b.bind();
-//        jTable1.repaint();
-////        TableModel tModel = new TableModel();
-//        Object[][] data = {s.getObjects()};
-//        String[] columnNames = {"m","n","j","nw","m","n","j","nw"};
-//        jTable1.setModel(new TableModel(data, colunmNames) {});
- 
+        //I used all my 洪荒之力 to make this method 
+
+        jtStaff.setModel(new DefaultTableModel());
+        jtStaff.repaint();
+        String queryStr =jtfSearch.getText();
+        int option = Pattern.matches("\\d{12}", queryStr)?1:2;
+        ArrayList<Staff> staffList = staffControl.searchRecord(queryStr,option);
+        
+//        MainMenu.action="search";
+//        setDynamicPanel();
+        if(staffList.size()!=0){
+        Object[][] data = new Object[100][8];
+        for(int i=0; i<staffList.size();i++){
+           data[i] = staffList.get(i).getObjects();
+           
+        } 
+        String[] columnNames = {"Staff IC","Name","Address","Phone No","Position","Qualification"};
+        TableModel tModel = new TableModel(data, columnNames);
+        jtStaff.setModel(tModel);  
+        jtStaff.createDefaultColumnsFromModel();
+        jtStaff.repaint();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "No results found!" , "No such record.", JOptionPane.ERROR_MESSAGE);
+        }
         
         
         
@@ -381,7 +384,7 @@ public class StaffPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         Staff staff = validateInput();
         if(staff!=null){
-         //write to database
+         //write to database ****
                 Staff s = staffControl.searchRecord(staff.getStaffIC());
                 
                 if(s != null)
@@ -399,14 +402,18 @@ public class StaffPanel extends javax.swing.JPanel {
                     catch (Exception ex){
                         JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
                     }
-                }         
+                }  
+                
+                //---*****
         }
         else{
+            //****
             int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Your input seems to have data that is invalid or in incorrect format. Would you like to reset all fields?", "Invalid Data!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             
             if(reply==JOptionPane.YES_OPTION){
                 resetFields();
-            }              
+            }
+            //***
         }   
     }//GEN-LAST:event_jbtAddMouseClicked
 
