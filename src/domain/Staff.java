@@ -100,7 +100,7 @@ public class Staff {
     }
 
     public Object[] getObjects() {
-        Object[] objList ={staffIC,staffName,staffAddress,staffPhone,staffPosition,staffQualification,password,securityAns};
+        Object[] objList ={staffIC,staffName,staffAddress,staffPhone,staffPosition,staffQualification};
         return objList;
     }
     
