@@ -5,6 +5,18 @@
  */
 package ui;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
+
 /**
  *
  * @author Cheng
@@ -53,10 +65,48 @@ public class ReportPanel extends javax.swing.JPanel {
         add(jdpEndDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 140, -1));
 
         jbtGenerateReport.setText("Generate Report");
+        jbtGenerateReport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtGenerateReportMouseClicked(evt);
+            }
+        });
         add(jbtGenerateReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbtGenerateReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtGenerateReportMouseClicked
+        // TODO add your handling code here:
+        // event handler for button
 
+       String host = "jdbc:derby://localhost:1527/vetdb";
+       String user = "nbuser";
+       String password = "nbuser";
+       Connection conn = null;
+       
+       String reportSource = "src/reportTemplates/TransactionDetail.jrxml"; 
+
+       Map<String, Object> params = new HashMap<String, Object>(); 
+
+       try    {	 
+         Class.forName("org.apache.derby.jdbc.ClientDriver");
+         conn = DriverManager.getConnection(host, user, password);
+               JasperReport jasperReport = JasperCompileManager.compileReport(reportSource);
+
+      JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, conn);
+      JasperViewer.viewReport(jasperPrint, false); 
+        
+
+      } catch (JRException jrex) {
+            JOptionPane.showMessageDialog(this, "Error in generating report");
+  	      jrex.printStackTrace();
+      }  catch(Exception ex) {
+            JOptionPane.showMessageDialog(this, "Unble to generate report~!");
+	      ex.printStackTrace();
+      }
+
+
+    }//GEN-LAST:event_jbtGenerateReportMouseClicked
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbtGenerateReport;
     private javax.swing.JComboBox<String> jcbReportType;

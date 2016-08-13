@@ -5,7 +5,11 @@
  */
 package ui;
 
+import control.MaintainCustomer;
+import domain.Customer;
 import java.awt.Color;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -14,6 +18,8 @@ import javax.swing.JPanel;
  */
 public class CustomerPanel extends javax.swing.JPanel {
 
+    MaintainCustomer customerControl;
+    
     /**
      * Creates new form CustomerPanel
      */
@@ -38,10 +44,62 @@ public class CustomerPanel extends javax.swing.JPanel {
     
     public CustomerPanel() {
         initComponents();
+        customerControl = new MaintainCustomer();
         jtfSearch.setOpaque(false);
         jtfSearch.setBackground(new Color(255,255,255,127));
         jtfSearch.setBorder(null);
         setDynamicPanel();
+    }
+    
+    public Customer validateInput(){
+    
+    Customer customer;
+    boolean valid =true;
+    
+    
+    String city = jtfCity.getText();
+    String door = jtfDoor.getText();
+    String ic = jtfIc.getText();
+    String name = jtfName.getText();
+    String neighbour = jtfNeighbour.getText();
+    String phoneNum = jtfPhoneNum.getText();
+    String postCode = jtfPostCode.getText();
+    String search = jtfSearch.getText();
+    String state = jtfState.getText();
+    
+    valid = name.equals(null)?false:true; //need
+    valid = door.equals(null)?false:true;
+    valid = city.equals(null)?false:true;
+    valid = state.equals(null)?false:true;
+    if(!Pattern.matches("\\d{12}", ic)){valid =false;} // need f got ic
+    if(!Pattern.matches("\\d{2,4}-\\d{7,8}", phoneNum)){valid =false;} //need if got phone number
+    if(!Pattern.matches("\\d{5}", postCode)){valid =false;} //need if got postacode 
+    
+    if(valid==true){
+           String fulladdress = ""+door+"_"+neighbour+"_"+postCode+"_"+city+"_"+state; // for cudstomer only 
+           // take object domain constructor and initialiue (pass value) 
+           customer = new Customer(ic,name,(char)jcbGender.getSelectedItem(),fulladdress,phoneNum);
+         }
+         else {
+             customer=null;
+         }
+         
+         return customer;
+        
+    
+    }
+    public void resetFields(){
+        
+    jtfCity.setText("");
+    jtfDoor.setText("");
+    jtfIc.setText("");
+    jtfName.setText("");
+    jtfNeighbour.setText("");
+    jtfPhoneNum.setText("");
+    jtfPostCode.setText("");
+    jtfSearch.setText("");
+    jtfState.setText("");
+    
     }
 
     /**
@@ -82,7 +140,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         jcbGender = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         jtfPhoneNum = new javax.swing.JTextField();
-        jtfAddCus = new javax.swing.JButton();
+        jbtAddCus = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -244,8 +302,13 @@ public class CustomerPanel extends javax.swing.JPanel {
         });
         jpAdd.add(jtfPhoneNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 110, -1));
 
-        jtfAddCus.setText("Add Customer");
-        jpAdd.add(jtfAddCus, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, -1, -1));
+        jbtAddCus.setText("Add Customer");
+        jbtAddCus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtAddCusMouseClicked(evt);
+            }
+        });
+        jpAdd.add(jbtAddCus, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, -1, -1));
 
         dynamicPanel.add(jpAdd, "card3");
 
@@ -290,6 +353,41 @@ public class CustomerPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtDeleteCusActionPerformed
 
+    private void jbtAddCusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddCusMouseClicked
+        // TODO add your handling code here:
+                // TODO add your handling code here:
+        Customer customer = validateInput();
+        if(customer!=null){
+         //write to database
+                         Customer c = customerControl.searchRecord(customer.getCustIC());
+                
+                if(c != null)
+                {
+                    JOptionPane.showMessageDialog(null,"This staff already exist.", "Duplicate Record", JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                {
+                    c = customer;
+                    try{
+                    customerControl.addRecord(c);
+                    resetFields();
+                    JOptionPane.showMessageDialog(null,"New customer is created.","Success",JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    catch (Exception ex){
+                        JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
+                    }
+                }  
+                
+        }
+        else{
+            int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Your input seems to have data that is invalid or in incorrect format. Would you like to reset all fields?", "Invalid Data!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+            if(reply==JOptionPane.YES_OPTION){
+                resetFields();
+            }              
+        }  
+    }//GEN-LAST:event_jbtAddCusMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
@@ -306,13 +404,13 @@ public class CustomerPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jbtAddCus;
     private javax.swing.JButton jbtDeleteCus;
     private javax.swing.JButton jbtModifyCus;
     private javax.swing.JComboBox<String> jcbGender;
     private javax.swing.JPanel jpAdd;
     private javax.swing.JPanel jpSearch;
     private javax.swing.JTable jtCustomer;
-    private javax.swing.JButton jtfAddCus;
     private javax.swing.JTextField jtfCity;
     private javax.swing.JTextField jtfDoor;
     private javax.swing.JTextField jtfIc;

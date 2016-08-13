@@ -5,7 +5,11 @@
  */
 package ui;
 
+import control.MaintainSchedule;
+import domain.Schedule;
 import java.awt.Color;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -14,6 +18,9 @@ import javax.swing.JPanel;
  */
 public class SchedulePanel extends javax.swing.JPanel {
 
+    
+    
+        MaintainSchedule scheduleControl;
     /**
      * Creates new form SchedulePanel
      */
@@ -38,12 +45,49 @@ public class SchedulePanel extends javax.swing.JPanel {
         
     public SchedulePanel() {
         initComponents();
+        
+        scheduleControl = new MaintainSchedule();
         jtfSearch.setOpaque(false);
         jtfSearch.setBackground(new Color(255,255,255,127));
         jtfSearch.setBorder(null);
         setDynamicPanel();
     }
 
+    public Schedule validateInput(){
+    
+    Schedule schedule;
+    boolean valid =true; 
+    
+    String custName = jtfCusName.getText();
+    String custPhoneNum = jtfCusPhoneNum.getText();
+    String staffic = jtfStafIc.getText();
+    Integer timeSlot = Integer.parseInt(jtfTimeSlotNum.getText());
+    
+    valid = custName.equals(null)?false:true; //need
+    valid = timeSlot.equals(null)?false:true;
+    if(!Pattern.matches("\\d{12}", staffic)){valid =false;} // need f got ic
+    if(!Pattern.matches("\\d{2,4}-\\d{7,8}", custPhoneNum)){valid =false;} //need if got phone number
+    
+     if(valid==true){
+         schedule=null;
+           
+         //  schedule = new Schedule(staffic,timeSlot,custName,custPhoneNum);
+         }
+         else {
+             schedule=null;
+         }
+         
+         return schedule;
+    }
+    
+    public void resetFields(){
+    
+    jtfCusName.setText("");
+    jtfCusPhoneNum.setText("");
+    jtfSearch.setText("");
+    jtfStafIc.setText("");
+    jtfTimeSlotNum.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -198,6 +242,11 @@ public class SchedulePanel extends javax.swing.JPanel {
         jpAdd.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, -1, -1));
 
         jbtAddSchedule.setText("Add Schedule");
+        jbtAddSchedule.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtAddScheduleMouseClicked(evt);
+            }
+        });
         jpAdd.add(jbtAddSchedule, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, -1));
 
         dynamicPanel.add(jpAdd, "card3");
@@ -224,6 +273,40 @@ public class SchedulePanel extends javax.swing.JPanel {
     private void jbtDeleteScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDeleteScheduleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtDeleteScheduleActionPerformed
+
+    private void jbtAddScheduleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddScheduleMouseClicked
+        // TODO add your handling code here:
+        Schedule schedule = validateInput();
+        if(schedule!=null){
+         //write to database
+         
+          Schedule s = scheduleControl.searchRecord(schedule.getStaffIC());
+                
+                if(s != null)
+                {
+                    JOptionPane.showMessageDialog(null,"This schedule already exist.", "Duplicate Record", JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                {
+                    s = schedule;
+                    try{
+                    scheduleControl.addRecord(s);
+                    resetFields();
+                    JOptionPane.showMessageDialog(null,"New schedule is created.","Success",JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    catch (Exception ex){
+                        JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
+                    }
+                }  
+        }
+        else{
+            int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Your input seems to have data that is invalid or in incorrect format. Would you like to reset all fields?", "Invalid Data!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+            if(reply==JOptionPane.YES_OPTION){
+                resetFields();
+            }              
+        }          // TODO add your handling code here:
+    }//GEN-LAST:event_jbtAddScheduleMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

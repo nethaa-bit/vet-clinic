@@ -3,6 +3,16 @@
   <persistence-unit name="vetdbPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>ui.Staff</class>
+    <class>entity.Schedule</class>
+    <class>entity.Workshift</class>
+    <class>entity.TransactionService</class>
+    <class>entity.Customer</class>
+    <class>entity.Creditcard</class>
+    <class>entity.Payment</class>
+    <class>entity.Staff</class>
+    <class>entity.Transaction1</class>
+    <class>entity.Service</class>
+    <class>entity.Pet</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/vetdb"/>
       <property name="javax.persistence.jdbc.user" value="nbuser"/>

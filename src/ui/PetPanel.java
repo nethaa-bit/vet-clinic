@@ -5,25 +5,78 @@
  */
 package ui;
 
+import control.MaintainPet;
+import domain.Customer;
+import domain.Pet;
 import java.awt.Color;
+import java.util.Date;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Cheng
- */
+
 public class PetPanel extends javax.swing.JPanel {
 
+    
+    MaintainPet petControl;
+    
     /**
      * Creates new form Pet
      */
     public PetPanel() {
         initComponents();
+        petControl = new MaintainPet();
         jTextField1.setOpaque(false);
         jTextField1.setBackground(new Color(255,255,255,127));
         jTextField1.setBorder(null);        
         setDynamicPanel();
     }
+    
+    public Pet validateInput(){
+    
+    Pet pet;
+    boolean valid =true; 
+    
+    String breed = jtfBreed.getText();
+    Double height = Double.parseDouble(jtfHeight.getText());
+    Double length = Double.parseDouble(jtfLength.getText());
+    String owneric = jtfOwnerIc.getText();
+    String petid = jtfPetId.getText();
+    String petname = jtfPetName.getText();
+    Double weight = Double.parseDouble(jtfWeight.getText());
+    
+    valid = breed.equals(null)?false:true; //need
+    valid = height.equals(null)?false:true;
+    valid = length.equals(null)?false:true;
+    valid = petid.equals(null)?false:true;
+    valid = petname.equals(null)?false:true;
+    valid = weight.equals(null)?false:true;
+    if(!Pattern.matches("\\d{12}", owneric)){valid =false;} 
+    
+    if(valid==true){
+          
+        Customer customer = new Customer();
+        customer.setCustIC(owneric);
+           pet = new Pet(petid,petname,height,weight,length,(String)jcbType.getSelectedItem(),breed,new Date(),(char)jcbGender.getSelectedItem(),customer);
+    }
+    else {
+             pet=null;
+    }
+         
+         return pet;
+    }
+    
+    public void resetFields(){
+    
+    jtfBreed.setText("");
+    jtfHeight.setText("");
+    jtfLength.setText("");
+    jtfOwnerIc.setText("");
+    jtfPetId.setText("");
+    jtfPetName.setText("");
+    jtfWeight.setText("");
+    }
+    
     public void setDynamicPanel() {
         JPanel targetPanel = new JPanel();
         if(MainMenu.action.equals("add")){
@@ -172,6 +225,11 @@ public class PetPanel extends javax.swing.JPanel {
         jpAdd.add(jtfOwnerIc, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 200, 90, -1));
 
         jbtAddPet.setText("Add Pet");
+        jbtAddPet.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtAddPetMouseClicked(evt);
+            }
+        });
         jpAdd.add(jbtAddPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, -1, -1));
         jpAdd.add(jdpBirthDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, -1, -1));
 
@@ -248,6 +306,41 @@ public class PetPanel extends javax.swing.JPanel {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jbtAddPetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddPetMouseClicked
+        // TODO add your handling code here:
+        Pet pet = validateInput();
+        if(pet!=null){
+         //write to database
+         Pet p = petControl.searchRecord(pet.getPetID());
+                
+                if(p != null)
+                {
+                    JOptionPane.showMessageDialog(null,"This pet already exist.", "Duplicate Record", JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                {
+                    p = pet;
+                    try{
+                    petControl.addRecord(p);
+                    resetFields();
+                    JOptionPane.showMessageDialog(null,"New pet is created.","Success",JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    catch (Exception ex){
+                        JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
+                    }
+                }  
+                
+         
+        }
+        else{
+            int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Your input seems to have data that is invalid or in incorrect format. Would you like to reset all fields?", "Invalid Data!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+            if(reply==JOptionPane.YES_OPTION){
+                resetFields();
+            }              
+        }          // TODO add your handling code here:
+    }//GEN-LAST:event_jbtAddPetMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

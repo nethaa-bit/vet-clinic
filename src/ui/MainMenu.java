@@ -2,22 +2,26 @@
 package ui;
 
 
+import domain.Staff;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 public class MainMenu extends javax.swing.JFrame {
 
    public static String action ="";
+   Staff currentStaff = LoginFrame.currentstaff;
     /**
      * Creates new form MainMenu
      */
     public MainMenu() {
         initComponents();
         setDefaultPanel();
-        
+        jlblWelcome.setText("Welcome, "+currentStaff.getStaffName());
+        this.setTitle("Main Menu - Veterinary Clinic System");
         addPopupOptions(jPopupMenu1,"staff");
         addPopupOptions(jPopupMenu2,"appointment");
         addPopupOptions(jPopupMenu3,"pet");
@@ -31,7 +35,7 @@ public class MainMenu extends javax.swing.JFrame {
 //        JMenuItem excRep = new JMenuItem("Generate exception report");
 //        JMenuItem detRep = new JMenuItem("Generate detail report");
         JMenuItem calcBil = new JMenuItem("Calculate bill");
-        JMenuItem auth = new JMenuItem("Authorize access");
+//        JMenuItem auth = new JMenuItem("Password Recover");
         JMenuItem changePw = new JMenuItem("Change password");
         
         changePw.addActionListener(new ActionListener() {
@@ -52,8 +56,10 @@ public class MainMenu extends javax.swing.JFrame {
 //        jPopupMenu8.add(detRep);
 //        jPopupMenu8.add(excRep);
 //        jPopupMenu8.add(sumRep);
-        jPopupMenu9.add(auth);
+//        jPopupMenu9.add(auth);
         jPopupMenu9.add(changePw);
+        
+        this.setLocationRelativeTo(null);
         
     }
 
@@ -84,7 +90,7 @@ public class MainMenu extends javax.swing.JFrame {
                 
                 if(moduleObject.equals("staff")){ 
                     targetPanel= new StaffPanel();
-                 
+                    
                 }
                 else if(moduleObject.equals("customer")){ 
                     targetPanel= new CustomerPanel();
@@ -181,7 +187,7 @@ public class MainMenu extends javax.swing.JFrame {
         jlblTransIcon = new javax.swing.JLabel();
         jlblReportIcon = new javax.swing.JLabel();
         jpContent = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jlblWelcome = new javax.swing.JLabel();
 
         jPopupMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -403,9 +409,9 @@ public class MainMenu extends javax.swing.JFrame {
         jpContent.setLayout(new java.awt.CardLayout());
         jpMain.add(jpContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 820, 480));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel1.setText("Welcome, Xiao Liow");
-        jpMain.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jlblWelcome.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jlblWelcome.setText("Welcome, Xiao Liow");
+        jpMain.add(jlblWelcome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -548,7 +554,10 @@ public class MainMenu extends javax.swing.JFrame {
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
         //call new login frame
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
+        JFrame l = new LoginFrame();
+        l.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLabel2MouseClicked
 
 
@@ -594,7 +603,6 @@ public class MainMenu extends javax.swing.JFrame {
 
            
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
@@ -625,6 +633,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jlblTitle;
     private javax.swing.JLabel jlblTrans;
     private javax.swing.JLabel jlblTransIcon;
+    private javax.swing.JLabel jlblWelcome;
     private javax.swing.JPanel jpContent;
     private javax.swing.JPanel jpMain;
     private javax.swing.JPanel jpMenu;

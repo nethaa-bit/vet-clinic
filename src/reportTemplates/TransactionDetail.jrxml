@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ec164a7a-5b2a-4088-9cbd-d7991ddffc70">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     TRANSACTION1."TRANSID" AS TRANSACTION1_TRANSID,
+     TRANSACTION1."TRANSDATE" AS TRANSACTION1_TRANSDATE,
+     TRANSACTION1."TRANSTIME" AS TRANSACTION1_TRANSTIME,
+     PAYMENT."PAYMENTID" AS PAYMENT_PAYMENTID,
+     PAYMENT."AMOUNTPAID" AS PAYMENT_AMOUNTPAID,
+     PAYMENT."PAYMENTDATE" AS PAYMENT_PAYMENTDATE,
+     PAYMENT."STAFFIC" AS PAYMENT_STAFFIC,
+     CUSTOMER."CUSTIC" AS CUSTOMER_CUSTIC
+FROM
+     "NBUSER"."TRANSACTION1" TRANSACTION1 INNER JOIN "NBUSER"."PAYMENT" PAYMENT ON TRANSACTION1."TRANSID" = PAYMENT."TRANSID"
+     INNER JOIN "NBUSER"."PET" PET ON TRANSACTION1."PETID" = PET."PETID"
+     INNER JOIN "NBUSER"."CUSTOMER" CUSTOMER ON PET."CUSTIC" = CUSTOMER."CUSTIC"]]>
+	</queryString>
+	<field name="TRANSACTION1_TRANSID" class="java.lang.String"/>
+	<field name="TRANSACTION1_TRANSTIME" class="java.lang.String"/>
+	<field name="TRANSACTION1_TRANSDATE" class="java.sql.Date"/>
+	<field name="PAYMENT_PAYMENTID" class="java.lang.String"/>
+	<field name="PAYMENT_PAYMENTDATE" class="java.sql.Date"/>
+	<field name="PAYMENT_STAFFIC" class="java.lang.String"/>
+	<field name="CUSTOMER_CUSTIC" class="java.lang.String"/>
+	<field name="PAYMENT_AMOUNTPAID" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="275" y="0" width="300" height="64" uuid="c2e7e1c4-af3c-43e6-b8e0-754b391eb6e7"/>
+				<imageExpression><![CDATA["leaf_banner_gray.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="f846fc24-13fc-4ccb-a41a-f61ed10edfdd"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Leaf Gray Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="117" y="46" width="157" height="22" uuid="fca3e9b8-d82d-4ace-a0d1-405362c16b61"/>
+				<text><![CDATA[Leaf Gray SubTitle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="46ff24f9-9ad9-463b-8ccd-c13486a9909e"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="69" height="15" uuid="a79c9fba-bb35-427d-93a7-b117c0b9543d"/>
+				<text><![CDATA[TRANSACTION1_TRANSID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="69" y="19" width="69" height="15" uuid="d70b606f-32dc-4c8f-91b2-4031220528a5"/>
+				<text><![CDATA[TRANSACTION1_TRANSTIME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="138" y="19" width="69" height="15" uuid="63be7b46-095f-4446-9656-bdd7846f51ec"/>
+				<text><![CDATA[TRANSACTION1_TRANSDATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="207" y="19" width="69" height="15" uuid="f90dbf01-952a-448d-8e00-2090b6ab58cf"/>
+				<text><![CDATA[PAYMENT_PAYMENTID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="276" y="19" width="69" height="15" uuid="7c7f44c9-4f90-480b-8ea1-81827a316a22"/>
+				<text><![CDATA[PAYMENT_PAYMENTDATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="345" y="19" width="69" height="15" uuid="3fff5eba-08b4-41d3-9f40-5d1919ad6158"/>
+				<text><![CDATA[PAYMENT_STAFFIC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="414" y="19" width="69" height="15" uuid="6a7b9a04-f960-4dc6-a090-cafe3a83cf51"/>
+				<text><![CDATA[CUSTOMER_CUSTIC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="483" y="19" width="69" height="15" uuid="c40dd7db-9db8-4290-bbd6-afab7a3cd770"/>
+				<text><![CDATA[PAYMENT_AMOUNTPAID]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="6b444ef1-b345-4374-9a4a-ed93a801883b"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="69" height="15" uuid="74eb78c8-b8d8-49b2-9b8f-e78417480655"/>
+				<textFieldExpression><![CDATA[$F{TRANSACTION1_TRANSID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="69" y="0" width="69" height="15" uuid="2d25f917-82cc-46f5-b6db-8c3dc3dcd8ce"/>
+				<textFieldExpression><![CDATA[$F{TRANSACTION1_TRANSTIME}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="138" y="0" width="69" height="15" uuid="53be0552-ec38-4709-ba75-f8014a13c73d"/>
+				<textFieldExpression><![CDATA[$F{TRANSACTION1_TRANSDATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="207" y="0" width="69" height="15" uuid="bf26f438-c3d3-4efe-8451-76eaee4dafe6"/>
+				<textFieldExpression><![CDATA[$F{PAYMENT_PAYMENTID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="276" y="0" width="69" height="15" uuid="811b2649-f766-401b-a6e7-f3d84200149b"/>
+				<textFieldExpression><![CDATA[$F{PAYMENT_PAYMENTDATE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="345" y="0" width="69" height="15" uuid="9dec016e-dbeb-4651-af09-3d1b40b56ad0"/>
+				<textFieldExpression><![CDATA[$F{PAYMENT_STAFFIC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="414" y="0" width="69" height="15" uuid="413383c9-bae5-4d73-b6f4-dcf8bf705a10"/>
+				<textFieldExpression><![CDATA[$F{CUSTOMER_CUSTIC}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="483" y="0" width="69" height="15" uuid="01086328-4ba8-4e8a-be63-529f463bfac0"/>
+				<textFieldExpression><![CDATA[$F{PAYMENT_AMOUNTPAID}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="42bd0a98-8301-4469-b5f3-d278618e2657"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="4cc1ffcf-faca-4fc1-b4e2-c78470802630"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="52d8fbf5-244b-4e63-93c1-798b51cb5744"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="52c35707-6b0b-4fdb-aa39-3ae4c3027cdd"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

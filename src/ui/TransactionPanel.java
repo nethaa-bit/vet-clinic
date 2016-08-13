@@ -177,6 +177,11 @@ public class TransactionPanel extends javax.swing.JPanel {
         jpAdd.add(jbtRemoveService, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, -1, -1));
 
         jbtAddService.setText("Add Service Item");
+        jbtAddService.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtAddServiceMouseClicked(evt);
+            }
+        });
         jbtAddService.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtAddServiceActionPerformed(evt);
@@ -268,6 +273,10 @@ public class TransactionPanel extends javax.swing.JPanel {
     private void jbtModifyTransActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtModifyTransActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtModifyTransActionPerformed
+
+    private void jbtAddServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddServiceMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtAddServiceMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

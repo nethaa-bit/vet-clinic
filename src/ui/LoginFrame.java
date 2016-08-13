@@ -5,22 +5,32 @@
  */
 package ui;
 
+import domain.PasswordHash;
 import java.awt.Color;
 import javafx.scene.layout.Background;
 import java.awt.Toolkit;
+import control.MaintainStaff;
+import domain.*;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author lysan
- */
 public class LoginFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginFrame
      */
+    MaintainStaff staffControl;
+    public static Staff currentstaff;
+    
     public LoginFrame() {
         initComponents();
-     
+        staffControl = new MaintainStaff();
+        this.setLocationRelativeTo(null);
+    }
+    
+    public void resetFields(){
+    
+        jtfPassword.setText("");
+        jtfUsername.setText("");
     }
 
     /**
@@ -196,12 +206,43 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void jlblLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblLoginMouseClicked
         // TODO add your handling code here:
+        
+        if(validateLogin()==true){
         MainMenu m =new MainMenu();
         m.setVisible(true);
         this.setVisible(false);
+        }
+        else{
+            
+        JOptionPane.showMessageDialog(null,"Login unsuccessful. Please enter correct credentials.","Access Denied",JOptionPane.ERROR_MESSAGE);  
+        jtfPassword.setText("");
+        jtfUsername.setText("");
+        }
         
     }//GEN-LAST:event_jlblLoginMouseClicked
 
+    private boolean validateLogin(){
+        
+        boolean valid=false;
+        
+        String username = jtfUsername.getText();
+        String password = String.copyValueOf(jtfPassword.getPassword());
+        currentstaff = staffControl.searchRecord(username);
+        String hash = currentstaff.getPassword();
+
+        
+        if(currentstaff!=null){
+            
+            try{
+                valid = PasswordHash.validatePassword(password,hash );
+            }
+            catch(Exception ex){
+                JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
+            }    
+        }
+        
+        return valid;
+    }
     /**
      * @param args the command line arguments
      */

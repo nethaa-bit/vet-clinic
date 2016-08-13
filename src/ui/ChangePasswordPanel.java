@@ -5,6 +5,12 @@
  */
 package ui;
 
+import control.MaintainStaff;
+import domain.PasswordHash;
+import domain.Staff;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Cheng
@@ -14,12 +20,29 @@ public class ChangePasswordPanel extends javax.swing.JPanel {
     /**
      * Creates new form ChangePasswordPanel
      */
+    Staff currentStaff;
+    MaintainStaff staffControl;
+    
     public ChangePasswordPanel() {
+        JFrame parentFrame =(JFrame)this.getParent();
+        parentFrame.setTitle("Change Password - Veterinary Clinic System");
         initComponents();
+        currentStaff = LoginFrame.currentstaff;
         jcbRecoverQues.setEnabled(false);
         jtfRecoverAns.setEnabled(false);
+        staffControl = new MaintainStaff();
+        
+
     }
 
+    public void setFields(){
+    
+    jtfConfirmPass.setText("");
+    jtfNewPass.setText("");
+    jtfOldPass.setText("");
+    jtfRecoverAns.setText("");
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,6 +95,11 @@ public class ChangePasswordPanel extends javax.swing.JPanel {
 
         jbtConfirm.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jbtConfirm.setLabel("Confirm");
+        jbtConfirm.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtConfirmMouseClicked(evt);
+            }
+        });
         add(jbtConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, 70, -1));
 
         jlblConfirm.setText("Confirm New Password :");
@@ -97,7 +125,83 @@ public class ChangePasswordPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jchkSetRecQActionPerformed
 
+    private void jbtConfirmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtConfirmMouseClicked
+        // TODO add your handling code here:
+       
+        if(validatePassword()==true){
+            try{
+                currentStaff.setPassword(PasswordHash.createHash(String.copyValueOf(jtfNewPass.getPassword())));
+            }catch (Exception ex){
+                JOptionPane.showMessageDialog(null,ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }
+            
+            if(jchkSetRecQ.isSelected()){
+           
+                String question = (String)jcbRecoverQues.getSelectedItem();
+                String answer = jtfRecoverAns.getText();
+                switch(question){
+                    case "What is your first pet's name?"  : 
+                        answer="p"+answer;
+                        break;
+                    case "What is your favourite colour?"  : 
+                        answer="c"+answer;
+                        break;
+                    case "Where is your hometown?"         :
+                        answer="h"+answer;
+                        break; 
+                }
+           
+                currentStaff.setSecurityAns(answer);
+            }
+            
+            int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Are you sure you want to change your password?", "Password Change", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            
+            if(reply==JOptionPane.YES_OPTION){
+                staffControl.updateRecord(currentStaff);
+                JOptionPane.showMessageDialog(null,"Password successfully changed.","Success",JOptionPane.INFORMATION_MESSAGE);
+               
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"Password not changed.","Abort",JOptionPane.INFORMATION_MESSAGE);
+            }   
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Password change unsuccesful. Please try again.","Failure",JOptionPane.ERROR_MESSAGE);
+        }
+        resetFields();
+        
 
+        
+        
+    }//GEN-LAST:event_jbtConfirmMouseClicked
+
+    public boolean validatePassword(){ 
+        boolean valid = false;
+        String confirmPass = String.copyValueOf(jtfConfirmPass.getPassword());
+        String newPass = String.copyValueOf(jtfNewPass.getPassword());
+        String oldPass = String.copyValueOf(jtfOldPass.getPassword());
+        
+        try{
+            valid = PasswordHash.validatePassword(oldPass,currentStaff.getPassword());
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null,ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+        }
+        
+        if(!newPass.equals(confirmPass)){
+            valid=false;
+        }
+        
+        return valid;
+    }
+    public void resetFields(){
+        jtfConfirmPass.setText("");
+        jtfNewPass.setText("");
+        jtfOldPass.setText("");
+        jtfRecoverAns.setText("");
+        jchkSetRecQ.setSelected(false);
+   }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button jbtConfirm;
     private javax.swing.JComboBox<String> jcbRecoverQues;

@@ -5,7 +5,10 @@
  */
 package ui;
 
+import control.MaintainService;
+import domain.Service;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -14,6 +17,8 @@ import javax.swing.JPanel;
  */
 public class ServicePanel extends javax.swing.JPanel {
 
+    MaintainService serviceControl; 
+    
     /**
      * Creates new form Service
      */
@@ -38,12 +43,50 @@ public class ServicePanel extends javax.swing.JPanel {
         
     public ServicePanel() {
         initComponents();
+        serviceControl = new MaintainService();
         jtfSearch.setOpaque(false);
         jtfSearch.setBackground(new Color(255,255,255,127));
         jtfSearch.setBorder(null);
         setDynamicPanel();
     }
-
+    
+    public Service validateInput(){
+    
+    Service service;
+    boolean valid =true; 
+    
+    Double price = Double.parseDouble(jtfPrice.getText());
+    String serviceid = jtfServiceId.getText();
+    String title = jtfTitle.getText();
+    String descrip = jtaDescrip.getText();
+    
+    valid = price.equals(null)?false:true; //need
+    valid = serviceid.equals(null)?false:true;
+    valid = title.equals(null)?false:true;
+    valid = descrip.equals(null)?false:true;
+    
+    if(valid==true){
+         
+           // take object domain constructor and initialiue (pass value) 
+           service = new Service(serviceid, title, price, descrip);
+         }
+         else {
+             service=null;
+         }
+         
+         return service;
+    }
+    
+    
+    
+    public void resetFields(){
+    
+    jtfPrice.setText("");
+    jtfSearch.setText("");
+    jtfServiceId.setText("");
+    jtfTitle.setText("");
+    jtaDescrip.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -184,6 +227,11 @@ public class ServicePanel extends javax.swing.JPanel {
         jpAdd.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 290, 120));
 
         jbtAddService.setText("Add Service");
+        jbtAddService.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtAddServiceMouseClicked(evt);
+            }
+        });
         jpAdd.add(jbtAddService, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, -1, -1));
 
         dynamicPanel.add(jpAdd, "card2");
@@ -208,6 +256,41 @@ public class ServicePanel extends javax.swing.JPanel {
     private void jtfModifyServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfModifyServiceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfModifyServiceActionPerformed
+
+    private void jbtAddServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddServiceMouseClicked
+        // TODO add your handling code here:
+        Service service = validateInput();
+        if(service!=null){
+         //write to database
+         Service s = serviceControl.searchRecord(service.getServiceID());
+                
+         if(s != null)
+          {
+                    JOptionPane.showMessageDialog(null,"This staff already exist.", "Duplicate Record", JOptionPane.ERROR_MESSAGE);
+          }
+         else
+         {
+                    s = service;
+                    try{
+                    serviceControl.addRecord(s);
+                    resetFields();
+                    JOptionPane.showMessageDialog(null,"New service is created.","Success",JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    catch (Exception ex){
+                        JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
+                    }
+          }  
+                
+         
+        }
+        else{
+            int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Your input seems to have data that is invalid or in incorrect format. Would you like to reset all fields?", "Invalid Data!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+            if(reply==JOptionPane.YES_OPTION){
+                resetFields();
+            }              
+        }          // TODO add your handling code here:
+    }//GEN-LAST:event_jbtAddServiceMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

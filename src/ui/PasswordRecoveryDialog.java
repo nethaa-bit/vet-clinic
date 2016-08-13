@@ -1,9 +1,15 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package ui;
+
+import control.MaintainStaff;
+import  domain.*;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -14,11 +20,23 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
     /**
      * Creates new form PasswordRecoveryDialog
      */
+    MaintainStaff staffControl;
+    Staff staff;
+    
     public PasswordRecoveryDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        staffControl = new MaintainStaff();
+        
     }
 
+    public void resetFields(){
+    
+    jtfRecoverAns.setText("");
+    jtfUsername.setText("");
+    
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,11 +59,11 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        jbtConfirm = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jpfConfirm = new javax.swing.JPasswordField();
+        jpfPass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Password Recovery");
@@ -73,6 +91,11 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
 
         jbtNext.setText("Next");
+        jbtNext.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtNextMouseClicked(evt);
+            }
+        });
         jbtNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtNextActionPerformed(evt);
@@ -81,6 +104,11 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         jPanel3.add(jbtNext, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, -1, -1));
 
         jbtCancel.setText("Cancel");
+        jbtCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtCancelMouseClicked(evt);
+            }
+        });
         jPanel3.add(jbtCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, -1, -1));
 
         jLabel3.setText("Please choose your recovery question and enter your answer: ");
@@ -102,14 +130,17 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
 
         jLabel4.setText("New Password :");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
-        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 170, -1));
-        jPanel2.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 170, -1));
 
         jLabel5.setText("Confirm New Password :");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
-        jButton3.setText("Confirm");
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, -1, -1));
+        jbtConfirm.setText("Confirm");
+        jbtConfirm.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtConfirmMouseClicked(evt);
+            }
+        });
+        jPanel2.add(jbtConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, -1, -1));
 
         jButton4.setText("Back");
         jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -124,6 +155,14 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         });
         jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
 
+        jpfConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jpfConfirmActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jpfConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 150, -1));
+        jPanel2.add(jpfPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 150, -1));
+
         jPanel1.add(jPanel2, "card2");
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 250));
@@ -134,17 +173,7 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
     private void jbtNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtNextActionPerformed
         // TODO add your handling code here:
         //add check password method here
-        if (true==true){
-        jPanel1.removeAll();
-        jPanel1.repaint();
-        jPanel1.revalidate();
-            
-        //Adding Pannel
-        jPanel1.add(jPanel2);
-        jPanel1.repaint();
-        jPanel1.revalidate();
-        
-        }
+
     }//GEN-LAST:event_jbtNextActionPerformed
 
     private void jtfRecoverAnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfRecoverAnsActionPerformed
@@ -157,7 +186,7 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
         // TODO add your handling code here:
-        if (true==true){
+       
         jPanel1.removeAll();
         jPanel1.repaint();
         jPanel1.revalidate();
@@ -166,13 +195,93 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         jPanel1.add(jPanel3);
         jPanel1.repaint();
         jPanel1.revalidate();
-        }
+        
     }//GEN-LAST:event_jButton4MouseClicked
 
     private void jtfUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfUsernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfUsernameActionPerformed
 
+    private void jbtCancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtCancelMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jbtCancelMouseClicked
+
+    private void jbtNextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtNextMouseClicked
+        // TODO add your handling code here:
+        if (validateAnswer()==true){
+            jPanel1.removeAll();
+            jPanel1.repaint();
+            jPanel1.revalidate();
+            
+        //Adding Pannel
+            jPanel1.add(jPanel2);
+            jPanel1.repaint();
+            jPanel1.revalidate();
+        
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Username not found or incorrect recovery answer. Please try again.","Error",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbtNextMouseClicked
+
+    private void jbtConfirmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtConfirmMouseClicked
+        // TODO add your handling code here:
+        String password = String.copyValueOf(jpfPass.getPassword());
+        String confirm = String.copyValueOf(jpfConfirm.getPassword());
+        
+        
+        if(password.equals(confirm)){
+            try{
+            this.staff.setPassword(PasswordHash.createHash(password));
+            staffControl.updateRecord(staff);
+            }
+            catch(Exception ex){
+            JOptionPane.showMessageDialog(null,ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            }
+            JOptionPane.showMessageDialog(null,"Password successfully reset!","Success!",JOptionPane.INFORMATION_MESSAGE);
+
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Passwords do not match. Please try again.","Error",JOptionPane.ERROR_MESSAGE);
+        }
+        
+        jpfPass.setText("");
+        jpfConfirm.setText("");
+        
+    }//GEN-LAST:event_jbtConfirmMouseClicked
+
+    private void jpfConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpfConfirmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jpfConfirmActionPerformed
+
+    public boolean validateAnswer(){
+        String username = jtfUsername.getText();
+        String question = (String)jcbRecoverQues.getSelectedItem();
+        String answer = jtfRecoverAns.getText();
+        boolean valid = false;
+        
+        switch(question){
+             case "What is your first pet's name?"  : 
+                answer="p"+answer;
+                break;
+             case "What is your favourite colour?"  : 
+                answer="c"+answer;
+                break;
+             case "Where is your hometown?"         :
+                 answer="h"+answer;
+                break;
+         }
+        
+        staff = staffControl.searchRecord(username);
+        
+        if(staff != null){
+             valid = staff.getSecurityAns().equalsIgnoreCase(answer);
+        }
+
+        
+        return valid;
+    }
     /**
      * @param args the command line arguments
      */
@@ -216,7 +325,6 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -227,11 +335,12 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JButton jbtCancel;
+    private javax.swing.JButton jbtConfirm;
     private javax.swing.JButton jbtNext;
     private javax.swing.JComboBox<String> jcbRecoverQues;
+    private javax.swing.JPasswordField jpfConfirm;
+    private javax.swing.JPasswordField jpfPass;
     private javax.swing.JTextField jtfRecoverAns;
     private javax.swing.JTextField jtfUsername;
     // End of variables declaration//GEN-END:variables

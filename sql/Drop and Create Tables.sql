@@ -13,7 +13,7 @@ DROP TABLE SERVICE;
 --Create tables--
 CREATE TABLE SERVICE (
 serviceID VARCHAR(5) NOT NULL,
-serviceTitle VARCHAR(20) NOT NULL,
+serviceTitle VARCHAR(50) NOT NULL,
 unitPrice DECIMAL(6,2) NOT NULL CHECK (unitPrice >= 0.00),
 serviceDesp VARCHAR(100) NOT NULL,
 PRIMARY KEY (serviceID)
@@ -31,11 +31,11 @@ PRIMARY KEY (custIC)
 CREATE TABLE STAFF (
 staffIC CHAR(12) NOT NULL,
 staffName VARCHAR(30) NOT NULL,
-staffAddress VARCHAR(50) NOT NULL,
+staffAddress VARCHAR(255) NOT NULL,
 staffPhone VARCHAR(12) NOT NULL,
 staffPosition VARCHAR(12) NOT NULL,
 staffQualification VARCHAR(20) NOT NULL,
-password VARCHAR(15) NOT NULL,
+password VARCHAR(103) NOT NULL,
 securityAns VARCHAR(50) NOT NULL,
 PRIMARY KEY (staffIC)
 );

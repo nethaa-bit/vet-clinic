@@ -6,7 +6,9 @@
 package ui;
 
 import java.awt.Color;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -38,6 +40,8 @@ public class PaymentPanel extends javax.swing.JPanel {
     
     public PaymentPanel() {
         initComponents();
+//        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+//        parentFrame.setTitle("Payment - Veterinary Clinic System");
         jtfSearch.setOpaque(false);
         jtfSearch.setBackground(new Color(255,255,255,127));
         jtfSearch.setBorder(null);
