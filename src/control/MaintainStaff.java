@@ -3,6 +3,7 @@ package control;
 
 import da.StaffDA;
 import domain.Staff;
+import java.util.ArrayList;
 
 public class MaintainStaff {
     
@@ -21,6 +22,10 @@ public class MaintainStaff {
     public Staff searchRecord(String IC)
     {
         return staffDA.getRecord(IC);
+    }
+    public ArrayList<Staff> searchRecord(String queryStr, int option) //criteria and option
+    {
+        return staffDA.getRecord(queryStr, option);
     }
     
     public void updateRecord(Staff staff)
