@@ -7,6 +7,7 @@ package da;
 
 import domain.Staff;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class StaffDA {
@@ -63,7 +64,7 @@ public class StaffDA {
     
     public void updateRecord(Staff staff)
     {
-        String updateStr = "UPDATE " + tableName + "SET staffic = ?, staffname = ?, staffaddress = ?, staffphone = ?, staffposition = ?, staffqualification = ?, password = ?, securityans = ? "+" WHERE staffic = ? ";
+        String updateStr = "UPDATE " + tableName + " SET staffic = ?, staffname = ?, staffaddress = ?, staffphone = ?, staffposition = ?, staffqualification = ?, password = ?, securityans = ? "+" WHERE staffic = ? ";
         try
         {
             stmt = conn.prepareStatement(updateStr);
@@ -75,6 +76,7 @@ public class StaffDA {
             stmt.setString(6, staff.getStaffQualification());
             stmt.setString(7, staff.getPassword());
             stmt.setString(8, staff.getSecurityAns());
+            stmt.setString(9, staff.getStaffIC());
 
             stmt.executeUpdate();
    
@@ -106,6 +108,62 @@ public class StaffDA {
             JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
         }
         return staff;
+    }
+    
+    public ResultSet getRecordSet(String staffIC)
+    {
+        ResultSet rs=null;
+        String queryStr="SELECT * FROM "+ tableName +" WHERE staffic = ?";
+        Staff staff = null;
+        try
+        {
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setString(1,staffIC);
+            rs = stmt.executeQuery();
+            
+            if(rs.next())
+            {
+                staff = new Staff(staffIC,rs.getString("staffname"),rs.getString("staffaddress"),rs.getString("staffphone"),rs.getString("staffposition"),rs.getString("staffqualification"),rs.getString("password"),rs.getString("securityans")); 
+                
+            }
+        }
+        catch(SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        return rs;
+    }
+    
+    public ArrayList<Staff> getRecord(String searchStr, int option)
+    {   
+        String queryStr=null;
+        String criteria=null;
+        switch(option){
+            case 1: queryStr="SELECT * FROM "+ tableName +" WHERE staffic = ?";
+            break;
+            case 2: queryStr="SELECT * FROM "+ tableName +" WHERE staffname  = ?";
+            break;            
+        }
+        
+        
+        
+        ArrayList<Staff> staffList = new ArrayList<Staff>();
+        try
+        {
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setString(1,searchStr);
+            ResultSet rs = stmt.executeQuery();
+            
+            if(rs.next())
+            {
+                staffList.add(new Staff(rs.getString("staffic"),rs.getString("staffname"),rs.getString("staffaddress"),rs.getString("staffphone"),rs.getString("staffposition"),rs.getString("staffqualification"),rs.getString("password"),rs.getString("securityans")));
+            }
+        }
+        catch(SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        return staffList;
     }
     
     public void deleteRecord(String staffID)
