@@ -23,7 +23,8 @@ public class MaintainStaff {
     {
         return staffDA.getRecord(IC);
     }
-    public ArrayList<Staff> searchRecord(String queryStr, int option) //criteria and option
+    
+    public ArrayList<Staff> searchRecord(String queryStr, int option) //add  this change header but body leave it same as get record method
     {
         return staffDA.getRecord(queryStr, option);
     }
