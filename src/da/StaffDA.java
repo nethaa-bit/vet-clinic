@@ -110,7 +110,7 @@ public class StaffDA {
         return staff;
     }
     
-    public ResultSet getRecordSet(String staffIC)
+    public ResultSet getRecordSet(String staffIC) //no need
     {
         ResultSet rs=null;
         String queryStr="SELECT * FROM "+ tableName +" WHERE staffic = ?";
@@ -134,15 +134,17 @@ public class StaffDA {
         return rs;
     }
     
-    public ArrayList<Staff> getRecord(String searchStr, int option)
+    public ArrayList<Staff> getRecord(String searchStr, int option) //copy this header but method body leave same 
     {   
         String queryStr=null;
         String criteria=null;
         switch(option){
             case 1: queryStr="SELECT * FROM "+ tableName +" WHERE staffic = ?";
             break;
-            case 2: queryStr="SELECT * FROM "+ tableName +" WHERE staffname  = ?";
-            break;            
+            case 2: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffname)  LIKE LOWER('%' || ? || '%')";
+            break;
+            case 3: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffposition)  = LOWER(?) ";
+            break;
         }
         
         
@@ -161,7 +163,7 @@ public class StaffDA {
         }
         catch(SQLException ex)
         {
-            JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,ex.getMessage()==null?"Unknown error":ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
         }
         return staffList;
     }
