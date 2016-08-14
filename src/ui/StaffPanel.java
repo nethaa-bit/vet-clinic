@@ -133,6 +133,17 @@ public class StaffPanel extends javax.swing.JPanel {
         jtfState.setText("");
     }
   
+    public boolean isPosition (String s){
+        boolean valid=false;
+        String[] positionList= {"Senior Veterinerian","Veterinerian","Receptionist","Laboratory Technician","Medical Assistant","Clerk","General Staff","Manager"};
+        
+        for (String str : positionList){
+            if (str.equalsIgnoreCase(s)){
+                valid=true;
+            }
+        }
+        return valid;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -239,10 +250,10 @@ public class StaffPanel extends javax.swing.JPanel {
         jLabel12.setText("Staff Qualification :");
         jpAddUpdate.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 190, -1, -1));
 
-        jcbQualification.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PMR", "SPM", "Diploma or equivalent", "Advanced Diploma", "Bachelor's Degree", "Graduate Diploma", "Masters Degree", "PhD" }));
+        jcbQualification.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PMR", "SPM", "Diploma", "Advanced Diploma", "Bachelor's Degree", "Graduate Diploma", "Masters Degree", "PhD" }));
         jpAddUpdate.add(jcbQualification, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, -1, -1));
 
-        jcbPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Senior Veterinerian", "Veterinerian", "Receptionist", "Laboratory Technician ", "Medical Assistant", "Clerk", "General Staff" }));
+        jcbPosition.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Senior Veterinerian", "Veterinerian", "Receptionist", "Laboratory Technician ", "Medical Assistant", "Clerk", "General Staff", "Manager" }));
         jpAddUpdate.add(jcbPosition, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, -1, -1));
 
         jPanel1.setBackground(new java.awt.Color(202, 233, 239));
@@ -311,6 +322,14 @@ public class StaffPanel extends javax.swing.JPanel {
         jpSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jtStaff.setAutoCreateColumnsFromModel(false);
+        jtStaff.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
         jtStaff.setColumnSelectionAllowed(true);
         jtStaff.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jtStaff);
@@ -339,6 +358,8 @@ public class StaffPanel extends javax.swing.JPanel {
         add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 77, 930, 530));
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    //copy whole change accodingly
     private void jlblSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblSearchMouseClicked
         // TODO add your handling code here:
         //I used all my 洪荒之力 to make this method 
@@ -346,30 +367,36 @@ public class StaffPanel extends javax.swing.JPanel {
         jtStaff.setModel(new DefaultTableModel());
         jtStaff.repaint();
         String queryStr =jtfSearch.getText();
-        int option = Pattern.matches("\\d{12}", queryStr)?1:2;
-        ArrayList<Staff> staffList = staffControl.searchRecord(queryStr,option);
+        int option =0;
         
-//        MainMenu.action="search";
-//        setDynamicPanel();
-        if(staffList.size()!=0){
-        Object[][] data = new Object[100][8];
-        for(int i=0; i<staffList.size();i++){
-           data[i] = staffList.get(i).getObjects();
-           
-        } 
-        String[] columnNames = {"Staff IC","Name","Address","Phone No","Position","Qualification"};
-        TableModel tModel = new TableModel(data, columnNames);
-        jtStaff.setModel(tModel);  
-        jtStaff.createDefaultColumnsFromModel();
-        jtStaff.repaint();
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "No results found!" , "No such record.", JOptionPane.ERROR_MESSAGE);
-        }
-        
-        
-        
-        
+
+            if(Pattern.matches("\\d{12}", queryStr)){
+                option=1;
+            }
+            else if(isPosition(queryStr)){
+                option=3;
+            }
+            else{
+                option=2;
+            }
+            ArrayList<Staff> staffList = staffControl.searchRecord(queryStr,option);
+
+    //        MainMenu.action="search";
+    //        setDynamicPanel();
+            if(staffList.size()!=0||staffList!=null){
+                Object[][] data = new Object[100][8];
+                for(int i=0; i<staffList.size();i++){
+                data[i] = staffList.get(i).getObjects();
+                } 
+                String[] columnNames = {"Staff IC","Name","Address","Phone No","Position","Qualification"};
+                TableModel tModel = new TableModel(data, columnNames);
+                jtStaff.setModel(tModel);  
+                jtStaff.createDefaultColumnsFromModel();
+                jtStaff.repaint();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "No results found!" , "No such record.", JOptionPane.ERROR_MESSAGE);
+            }     
     }//GEN-LAST:event_jlblSearchMouseClicked
 
     private void jbtModifyStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtModifyStaffActionPerformed
