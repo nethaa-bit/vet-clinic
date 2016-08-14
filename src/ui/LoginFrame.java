@@ -228,13 +228,12 @@ public class LoginFrame extends javax.swing.JFrame {
         String username = jtfUsername.getText();
         String password = String.copyValueOf(jtfPassword.getPassword());
         currentstaff = staffControl.searchRecord(username);
-        String hash = currentstaff.getPassword();
 
-        
         if(currentstaff!=null){
             
             try{
-                valid = PasswordHash.validatePassword(password,hash );
+                String hash = currentstaff.getPassword();
+                valid = PasswordHash.validatePassword(password,hash);
             }
             catch(Exception ex){
                 JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
