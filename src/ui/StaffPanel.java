@@ -10,6 +10,7 @@ import javax.swing.*;
 import control.MaintainStaff;
 import domain.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class StaffPanel extends javax.swing.JPanel {
     
     MaintainStaff staffControl; //***
-//    List<Staff> staffList = new ArrayList<Staff>();
+  ArrayList<Staff> staffList;
     /**
      * Creates new form StaffFrame
      */
@@ -46,6 +47,12 @@ public class StaffPanel extends javax.swing.JPanel {
             targetPanel=jpSearch;
         }else if(MainMenu.action.equals("modify")){
              targetPanel=jpSearch;
+        
+        }else if(MainMenu.action.equals("modifySelected")){
+             targetPanel=jpAddUpdate;
+        
+        }else if(MainMenu.action.equals("deleteSelected")){
+             targetPanel=jpAddUpdate;
         }
         else if (MainMenu.action.equals("delete")){
             targetPanel=jpSearch;
@@ -131,6 +138,43 @@ public class StaffPanel extends javax.swing.JPanel {
         jtfPostCode.setText("");
         jtfSearch.setText("");
         jtfState.setText("");
+    }
+    public void fillFields(Staff staff){
+        
+        jtfAnswer.setText("");
+        jtfConfirmPass.setText("");
+        jtfPassword.setText("");
+        jtfAnswer.setEnabled(false);
+        jtfConfirmPass.setEnabled(false);
+        jtfPassword.setEnabled(false);
+        jcbQuestion.setEnabled(false);
+        
+        jtfIc.setText(staff.getStaffIC());
+        jtfName.setText(staff.getStaffName());
+        jtfPhoneNum.setText(staff.getStaffPhone());
+        
+        HashMap<String, String> addressMap = reformatAddress(staff.getStaffAddress());
+        jtfDoor.setText(addressMap.get("Door"));
+        jtfNeighbour.setText(addressMap.get("Neighbourhood"));
+        jtfPostCode.setText(addressMap.get("Postcode"));        
+        jtfCity.setText(addressMap.get("City"));
+        jtfState.setText(addressMap.get("State"));
+        
+        jcbPosition.setSelectedItem(staff.getStaffPosition());
+        jcbQualification.setSelectedItem(staff.getStaffQualification());
+    
+    }
+    
+    public HashMap reformatAddress(String fulladdress){
+       HashMap<String, String> addressMap = new HashMap<String, String>();
+       String[] address = fulladdress.split("_");
+       addressMap.put("Door", address[0]);
+       addressMap.put("Neighbourhood", address[1]);
+       addressMap.put("Postcode", address[2]);
+       addressMap.put("City", address[3]);
+       addressMap.put("State", address[4]);
+       
+       return addressMap;
     }
   
     public boolean isPosition (String s){
@@ -270,19 +314,40 @@ public class StaffPanel extends javax.swing.JPanel {
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 69, -1, -1));
 
         jcbQuestion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is your first pet's name?", "What is your favourite colour?", "Where is your hometown?" }));
+        jcbQuestion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jcbQuestionMouseClicked(evt);
+            }
+        });
         jPanel1.add(jcbQuestion, new org.netbeans.lib.awtextra.AbsoluteConstraints(129, 66, -1, -1));
 
         jLabel16.setText("Security Answer :");
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, -1, -1));
 
+        jtfPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtfPasswordMouseClicked(evt);
+            }
+        });
         jtfPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtfPasswordKeyReleased(evt);
             }
         });
         jPanel1.add(jtfPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 120, -1));
+
+        jtfAnswer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtfAnswerMouseClicked(evt);
+            }
+        });
         jPanel1.add(jtfAnswer, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 60, 120, -1));
 
+        jtfConfirmPass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtfConfirmPassMouseClicked(evt);
+            }
+        });
         jtfConfirmPass.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtfConfirmPassKeyReleased(evt);
@@ -338,6 +403,11 @@ public class StaffPanel extends javax.swing.JPanel {
         jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 620, 270));
 
         jbtModifyStaff.setText("Modify Staff");
+        jbtModifyStaff.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtModifyStaffMouseClicked(evt);
+            }
+        });
         jbtModifyStaff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtModifyStaffActionPerformed(evt);
@@ -346,6 +416,11 @@ public class StaffPanel extends javax.swing.JPanel {
         jpSearch.add(jbtModifyStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, -1, -1));
 
         jbtDeleteStaff.setText("Delete Staff");
+        jbtDeleteStaff.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtDeleteStaffMouseClicked(evt);
+            }
+        });
         jbtDeleteStaff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtDeleteStaffActionPerformed(evt);
@@ -363,7 +438,10 @@ public class StaffPanel extends javax.swing.JPanel {
     private void jlblSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblSearchMouseClicked
         // TODO add your handling code here:
         //I used all my 洪荒之力 to make this method 
-
+        
+        MainMenu.action="search";
+        setDynamicPanel();
+        
         jtStaff.setModel(new DefaultTableModel());
         jtStaff.repaint();
         String queryStr =jtfSearch.getText();
@@ -379,10 +457,7 @@ public class StaffPanel extends javax.swing.JPanel {
             else{
                 option=2;
             }
-            ArrayList<Staff> staffList = staffControl.searchRecord(queryStr,option);
-
-    //        MainMenu.action="search";
-    //        setDynamicPanel();
+            staffList = staffControl.searchRecord(queryStr,option);
             if(staffList.size()!=0||staffList!=null){
                 Object[][] data = new Object[100][8];
                 for(int i=0; i<staffList.size();i++){
@@ -476,7 +551,63 @@ public class StaffPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jtfPasswordKeyReleased
 
+    private void jbtModifyStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtModifyStaffMouseClicked
+        // TODO add your handling code here:
+       MainMenu.action="modifySelected";
+       Staff selectedStaff=null;
+       if(jtStaff.getSelectedRow()>=0 ) {
+           String ic  = (String) jtStaff.getValueAt(jtStaff.getSelectedRow(),0);
+           selectedStaff = staffControl.searchRecord(ic);
+           if(selectedStaff!=null){
+                setDynamicPanel();
+                fillFields(selectedStaff);
+           }
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
 
+       
+    }//GEN-LAST:event_jbtModifyStaffMouseClicked
+
+    private void jbtDeleteStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDeleteStaffMouseClicked
+        // TODO add your handling code here:
+        
+       MainMenu.action="delete";
+       Staff selectedStaff=null;
+       if(jtStaff.getSelectedRow()>=0 ) {
+           String ic  = (String) jtStaff.getValueAt(jtStaff.getSelectedRow(),0);
+           selectedStaff = staffControl.searchRecord(ic);
+            
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to delete","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_jbtDeleteStaffMouseClicked
+
+    private void jtfPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtfPasswordMouseClicked
+        // TODO add your handling code here:
+        if(!jtfPassword.isEnabled()){
+            JOptionPane.showMessageDialog(null,"<html><center>The option to set password and security question and answer are currently disabled.<br>To change your password and/or security question and answer, <br>please use the <b>Change Password</b> submodule under the <b>Security menu</b>.</center></html>", "Fields Disabled", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jtfPasswordMouseClicked
+
+    private void jcbQuestionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jcbQuestionMouseClicked
+        // TODO add your handling code here:
+        jtfPasswordMouseClicked(evt);
+    }//GEN-LAST:event_jcbQuestionMouseClicked
+
+    private void jtfConfirmPassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtfConfirmPassMouseClicked
+        // TODO add your handling code here:
+         jtfPasswordMouseClicked(evt);
+    }//GEN-LAST:event_jtfConfirmPassMouseClicked
+
+    private void jtfAnswerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtfAnswerMouseClicked
+        // TODO add your handling code here:
+         jtfPasswordMouseClicked(evt);
+    }//GEN-LAST:event_jtfAnswerMouseClicked
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
     private javax.swing.JLabel jLabel10;

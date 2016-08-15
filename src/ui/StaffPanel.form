@@ -302,6 +302,9 @@
                       </StringArray>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jcbQuestionMouseClicked"/>
+                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
@@ -323,6 +326,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="jtfPassword">
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtfPasswordMouseClicked"/>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfPasswordKeyReleased"/>
                   </Events>
                   <Constraints>
@@ -332,6 +336,9 @@
                   </Constraints>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jtfAnswer">
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtfAnswerMouseClicked"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                       <AbsoluteConstraints x="490" y="60" width="120" height="-1"/>
@@ -340,6 +347,7 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="jtfConfirmPass">
                   <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtfConfirmPassMouseClicked"/>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfConfirmPassKeyReleased"/>
                   </Events>
                   <Constraints>
@@ -497,6 +505,7 @@
                 <Property name="text" type="java.lang.String" value="Modify Staff"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jbtModifyStaffMouseClicked"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtModifyStaffActionPerformed"/>
               </Events>
               <Constraints>
@@ -510,6 +519,7 @@
                 <Property name="text" type="java.lang.String" value="Delete Staff"/>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jbtDeleteStaffMouseClicked"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtDeleteStaffActionPerformed"/>
               </Events>
               <Constraints>
