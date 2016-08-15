@@ -7,10 +7,14 @@ package ui;
 
 import control.MaintainCustomer;
 import domain.Customer;
+import domain.Staff;
+import domain.TableModel;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -151,6 +155,11 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
 
         jtfSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -198,6 +207,11 @@ public class CustomerPanel extends javax.swing.JPanel {
         jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 630, 250));
 
         jbtModifyCus.setText("Modify Customer");
+        jbtModifyCus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtModifyCusMouseClicked(evt);
+            }
+        });
         jbtModifyCus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtModifyCusActionPerformed(evt);
@@ -206,6 +220,11 @@ public class CustomerPanel extends javax.swing.JPanel {
         jpSearch.add(jbtModifyCus, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, -1, -1));
 
         jbtDeleteCus.setText("Delete Customer");
+        jbtDeleteCus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtDeleteCusMouseClicked(evt);
+            }
+        });
         jbtDeleteCus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtDeleteCusActionPerformed(evt);
@@ -387,6 +406,72 @@ public class CustomerPanel extends javax.swing.JPanel {
             }              
         }  
     }//GEN-LAST:event_jbtAddCusMouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        //I used all my 洪荒之力 to make this method 
+
+        jtCustomer.setModel(new DefaultTableModel());
+        jtCustomer.repaint();
+        String queryStr =jtfSearch.getText();
+        int option =0;
+        
+
+            if(Pattern.matches("\\d{12}", queryStr)){
+                option=1;
+            }
+           
+            else{
+                option=2;
+            }
+            ArrayList<Customer> customerList = customerControl.searchRecord(queryStr,option);
+
+    //        MainMenu.action="search";
+    //        setDynamicPanel();
+            if(customerList.size()!=0||customerList!=null){
+                Object[][] data = new Object[100][8];
+                for(int i=0; i<customerList.size();i++){
+                data[i] = customerList.get(i).getObjects();
+                } 
+                String[] columnNames = {"Customer IC","Name","Gender","Address","Phone Number"};
+                TableModel tModel = new TableModel(data, columnNames);
+                jtCustomer.setModel(tModel);  
+                jtCustomer.createDefaultColumnsFromModel();
+                jtCustomer.repaint();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "No results found!" , "No such record.", JOptionPane.ERROR_MESSAGE);
+            }     
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jbtModifyCusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtModifyCusMouseClicked
+        // TODO add your handling code here:
+               MainMenu.action="modify";
+       Customer selectedCustomer=null;
+       if(jtCustomer.getSelectedRow()>=0 ) {
+           String ic  = (String) jtCustomer.getValueAt(jtCustomer.getSelectedRow(),0);
+           selectedCustomer = customerControl.searchRecord(ic);
+            
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+
+    }//GEN-LAST:event_jbtModifyCusMouseClicked
+
+    private void jbtDeleteCusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDeleteCusMouseClicked
+        // TODO add your handling code here:
+        MainMenu.action="delete";
+       Customer selectedCustomer=null;
+       if(jtCustomer.getSelectedRow()>=0 ) {
+           String ic  = (String) jtCustomer.getValueAt(jtCustomer.getSelectedRow(),0);
+           selectedCustomer = customerControl.searchRecord(ic);
+            
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to delete","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_jbtDeleteCusMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
