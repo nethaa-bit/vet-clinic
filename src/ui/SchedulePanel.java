@@ -7,14 +7,10 @@ package ui;
 
 import control.MaintainSchedule;
 import domain.Schedule;
-import domain.Staff;
-import domain.TableModel;
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -134,11 +130,6 @@ public class SchedulePanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
-            }
-        });
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 40, -1, -1));
 
         jtfSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -316,43 +307,6 @@ public class SchedulePanel extends javax.swing.JPanel {
             }              
         }          // TODO add your handling code here:
     }//GEN-LAST:event_jbtAddScheduleMouseClicked
-
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        // TODO add your handling code here:
-        //I used all my 洪荒之力 to make this method 
-
-        jtSchedule.setModel(new DefaultTableModel());
-        jtSchedule.repaint();
-        String queryStr =jtfSearch.getText();
-        int option =0;
-        
-
-            if(Pattern.matches("\\d{12}", queryStr)){
-                option=1;
-            }
-           
-            else{
-                option=2;
-            }
-            ArrayList<Schedule> scheduleList = scheduleControl.searchRecord(queryStr,option);
-
-    //        MainMenu.action="search";
-    //        setDynamicPanel();
-            if(scheduleList.size()!=0||scheduleList!=null){
-                Object[][] data = new Object[100][8];
-                for(int i=0; i<scheduleList.size();i++){
-                data[i] = scheduleList.get(i).getObjects();
-                } 
-                String[] columnNames = {"Staff IC","Name","Address","Phone No","Position","Qualification"};
-                TableModel tModel = new TableModel(data, columnNames);
-                jtSchedule.setModel(tModel);  
-                jtSchedule.createDefaultColumnsFromModel();
-                jtSchedule.repaint();
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "No results found!" , "No such record.", JOptionPane.ERROR_MESSAGE);
-            }     
-    }//GEN-LAST:event_jLabel1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
