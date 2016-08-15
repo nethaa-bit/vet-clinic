@@ -5,9 +5,15 @@
  */
 package ui;
 
+import domain.Staff;
+import domain.TableModel;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -75,7 +81,7 @@ public class TransactionPanel extends javax.swing.JPanel {
         jbtDeleteService = new javax.swing.JButton();
         jtTrans1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtTransList = new javax.swing.JTable();
         jbtModifyTrans = new javax.swing.JButton();
         jbtDeleteTrans = new javax.swing.JButton();
 
@@ -86,6 +92,11 @@ public class TransactionPanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, -1));
 
         jtfSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -202,7 +213,7 @@ public class TransactionPanel extends javax.swing.JPanel {
         jtTrans1.setBackground(new java.awt.Color(255, 204, 204));
         jtTrans1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtTransList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -228,11 +239,16 @@ public class TransactionPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtTransList);
 
         jtTrans1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 570, 230));
 
         jbtModifyTrans.setText("Modify Transaction");
+        jbtModifyTrans.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtModifyTransMouseClicked(evt);
+            }
+        });
         jbtModifyTrans.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtModifyTransActionPerformed(evt);
@@ -241,6 +257,11 @@ public class TransactionPanel extends javax.swing.JPanel {
         jtTrans1.add(jbtModifyTrans, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, -1, -1));
 
         jbtDeleteTrans.setText("Delete Transaction");
+        jbtDeleteTrans.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtDeleteTransMouseClicked(evt);
+            }
+        });
         jtTrans1.add(jbtDeleteTrans, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, -1, -1));
 
         dynamicPanel.add(jtTrans1, "card2");
@@ -272,11 +293,78 @@ public class TransactionPanel extends javax.swing.JPanel {
 
     private void jbtModifyTransActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtModifyTransActionPerformed
         // TODO add your handling code here:
+ 
+
     }//GEN-LAST:event_jbtModifyTransActionPerformed
 
     private void jbtAddServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddServiceMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtAddServiceMouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        //I used all my 洪荒之力 to make this method 
+
+        jtTrans.setModel(new DefaultTableModel());
+        jtTrans.repaint();
+        String queryStr =jtfSearch.getText();
+        int option =0;
+        
+
+            if(Pattern.matches("\\d{12}", queryStr)){
+                option=1;
+            }
+            
+            else{
+                option=2;
+            }
+            ArrayList<Transaction> transactionList = TransactionControl.searchRecord(queryStr,option);
+
+    //        MainMenu.action="search";
+    //        setDynamicPanel();
+            if(transactionList.size()!=0||transactionList!=null){
+                Object[][] data = new Object[100][8];
+                for(int i=0; i<transactionList.size();i++){
+                data[i] = transactionList.get(i).getObjects();
+                } 
+                String[] columnNames = {"Service","Staff","Remarks"};
+                TableModel tModel = new TableModel(data, columnNames);
+                jtTrans.setModel(tModel);  
+                jtTrans.createDefaultColumnsFromModel();
+                jtTrans.repaint();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "No results found!" , "No such record.", JOptionPane.ERROR_MESSAGE);
+            }     
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jbtDeleteTransMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDeleteTransMouseClicked
+        // TODO add your handling code here:
+        MainMenu.action="delete";
+       Staff selectedTrans=null;
+       if(jtTransList.getSelectedRow()>=0 ) {
+           String ic  = (String) jtTransList.getValueAt(jtTransList.getSelectedRow(),0);
+           selectedTrans = TransactionControl.searchRecord(ic);
+            
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to delete","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_jbtDeleteTransMouseClicked
+
+    private void jbtModifyTransMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtModifyTransMouseClicked
+        // TODO add your handling code here:
+       MainMenu.action="modify";
+       Trans selectedTrans=null;
+       if(jtTransList.getSelectedRow()>=0 ) {
+           String ic  = (String) jtTransList.getValueAt(jtTransList.getSelectedRow(),0);
+           selectedTrans = transControl.searchRecord(ic);
+            
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_jbtModifyTransMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -290,7 +378,6 @@ public class TransactionPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton jbtAddService;
     private javax.swing.JButton jbtDeleteService;
     private javax.swing.JButton jbtDeleteTrans;
@@ -302,6 +389,7 @@ public class TransactionPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jpAdd;
     private javax.swing.JTable jtTrans;
     private javax.swing.JPanel jtTrans1;
+    private javax.swing.JTable jtTransList;
     private javax.swing.JTextField jtfPetId;
     private javax.swing.JTextField jtfSearch;
     private javax.swing.JTextField jtfTransId;

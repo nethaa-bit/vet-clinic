@@ -7,9 +7,14 @@ package ui;
 
 import control.MaintainService;
 import domain.Service;
+import domain.Staff;
+import domain.TableModel;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -127,6 +132,11 @@ public class ServicePanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 20, -1, -1));
 
         jtfSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -174,6 +184,11 @@ public class ServicePanel extends javax.swing.JPanel {
         jpSearch.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 550, 280));
 
         jtfModifyService.setText("Modify Service");
+        jtfModifyService.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtfModifyServiceMouseClicked(evt);
+            }
+        });
         jtfModifyService.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfModifyServiceActionPerformed(evt);
@@ -182,6 +197,11 @@ public class ServicePanel extends javax.swing.JPanel {
         jpSearch.add(jtfModifyService, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 370, -1, -1));
 
         jtfDeleteService.setText("Delete Service");
+        jtfDeleteService.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtfDeleteServiceMouseClicked(evt);
+            }
+        });
         jpSearch.add(jtfDeleteService, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 370, -1, -1));
 
         dynamicPanel.add(jpSearch, "card3");
@@ -291,6 +311,72 @@ public class ServicePanel extends javax.swing.JPanel {
             }              
         }          // TODO add your handling code here:
     }//GEN-LAST:event_jbtAddServiceMouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        //I used all my 洪荒之力 to make this method 
+
+        jtService.setModel(new DefaultTableModel());
+        jtService.repaint();
+        String queryStr =jtfSearch.getText();
+        int option =0;
+        
+
+            if(Pattern.matches("\\d{12}", queryStr)){
+                option=1;
+            }
+            
+            else{
+                option=2;
+            }
+            ArrayList<Service> serviceList = serviceControl.searchRecord(queryStr,option);
+
+    //        MainMenu.action="search";
+    //        setDynamicPanel();
+            if(serviceList.size()!=0||serviceList!=null){
+                Object[][] data = new Object[100][8];
+                for(int i=0; i<serviceList.size();i++){
+                data[i] = serviceList.get(i).getObjects();
+                } 
+                String[] columnNames = {"Staff IC","Name","Address","Phone No","Position","Qualification"};
+                TableModel tModel = new TableModel(data, columnNames);
+                jtService.setModel(tModel);  
+                jtService.createDefaultColumnsFromModel();
+                jtService.repaint();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "No results found!" , "No such record.", JOptionPane.ERROR_MESSAGE);
+            }     
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jtfModifyServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtfModifyServiceMouseClicked
+        // TODO add your handling code here:
+        MainMenu.action="modify";
+       Service selectedService=null;
+       if(jtService.getSelectedRow()>=0 ) {
+           String ic  = (String) jtService.getValueAt(jtService.getSelectedRow(),0);
+           selectedService = serviceControl.searchRecord(ic);
+            
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+
+    }//GEN-LAST:event_jtfModifyServiceMouseClicked
+
+    private void jtfDeleteServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtfDeleteServiceMouseClicked
+        // TODO add your handling code here:
+         MainMenu.action="delete";
+       Service selectedService=null;
+       if(jtService.getSelectedRow()>=0 ) {
+           String ic  = (String) jtService.getValueAt(jtService.getSelectedRow(),0);
+           selectedService = serviceControl.searchRecord(ic);
+            
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to delete","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_jtfDeleteServiceMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

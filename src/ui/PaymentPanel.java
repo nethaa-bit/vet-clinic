@@ -5,10 +5,14 @@
  */
 package ui;
 
+import domain.Payment;
+import domain.TableModel;
 import java.awt.Color;
-import javax.swing.JFrame;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -91,6 +95,11 @@ public class PaymentPanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 40, -1, -1));
 
         jtfSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -187,6 +196,11 @@ public class PaymentPanel extends javax.swing.JPanel {
         jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 690, 140));
 
         jbtModifyPay.setText("Modify Payment");
+        jbtModifyPay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtModifyPayMouseClicked(evt);
+            }
+        });
         jbtModifyPay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtModifyPayActionPerformed(evt);
@@ -195,6 +209,11 @@ public class PaymentPanel extends javax.swing.JPanel {
         jpSearch.add(jbtModifyPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, -1, -1));
 
         jbtDeletePay.setText("Delete Payment");
+        jbtDeletePay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtDeletePayMouseClicked(evt);
+            }
+        });
         jbtDeletePay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtDeletePayActionPerformed(evt);
@@ -221,7 +240,40 @@ public class PaymentPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearchActionPerformed
-        // TODO add your handling code here:
+    // TODO add your handling code here:
+        //I used all my 洪荒之力 to make this method 
+
+        jtPayment.setModel(new DefaultTableModel());
+        jtPayment.repaint();
+        String queryStr =jtfSearch.getText();
+        int option =0;
+        
+
+            if(Pattern.matches("\\d{12}", queryStr)){
+                option=1;
+            }
+           
+            else{
+                option=2;
+            }
+            ArrayList<Payment> paymentList = paymentControl.searchRecord(queryStr,option);
+
+    //        MainMenu.action="search";
+    //        setDynamicPanel();
+            if(paymentList.size()!=0||paymentList!=null){
+                Object[][] data = new Object[100][8];
+                for(int i=0; i<paymentList.size();i++){
+                data[i] = paymentList.get(i).getObjects();
+                } 
+                String[] columnNames = {"Payment ID","Amount Paid","Method of Payment","Date","Transaction IC","Staff IC","Credit Card No."};
+                TableModel tModel = new TableModel(data, columnNames);
+                jtPayment.setModel(tModel);  
+                jtPayment.createDefaultColumnsFromModel();
+                jtPayment.repaint();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "No results found!" , "No such record.", JOptionPane.ERROR_MESSAGE);
+            }     
     }//GEN-LAST:event_jtfSearchActionPerformed
 
     private void jbtModifyPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtModifyPayActionPerformed
@@ -231,6 +283,38 @@ public class PaymentPanel extends javax.swing.JPanel {
     private void jbtDeletePayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDeletePayActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtDeletePayActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jbtModifyPayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtModifyPayMouseClicked
+        // TODO add your handling code here:
+       MainMenu.action="modify";
+       Payment selectedPayment=null;
+       if(jtPayment.getSelectedRow()>=0 ) {
+           String ic  = (String) jtPayment.getValueAt(jtPayment.getSelectedRow(),0);
+           selectedPayment = paymentControl.searchRecord(ic);
+            
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_jbtModifyPayMouseClicked
+
+    private void jbtDeletePayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDeletePayMouseClicked
+        // TODO add your handling code here:
+       MainMenu.action="delete";
+       Payment selectedPayment=null;
+       if(jtPayment.getSelectedRow()>=0 ) {
+           String ic  = (String) jtPayment.getValueAt(jtPayment.getSelectedRow(),0);
+           selectedPayment = paymentControl.searchRecord(ic);
+            
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to delete","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_jbtDeletePayMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
