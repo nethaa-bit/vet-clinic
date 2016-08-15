@@ -7,6 +7,7 @@ package da;
 
 import domain.Customer;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class CustomerDA {
@@ -101,7 +102,32 @@ public class CustomerDA {
         }
         return customer;
     }
-    
+   
+    public ArrayList<Customer> getRecord(String searchStr, int option)
+    {
+        String queryStr="SELECT * FROM "+ tableName +" WHERE custIC = ?";
+        Customer customer = null;
+        
+        ArrayList<Customer> customerList = new ArrayList<Customer>();
+        
+        try
+        {
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setString(1,custIC);
+            ResultSet rs = stmt.executeQuery();
+            
+            if(rs.next())
+            {
+                customer = new Customer(custIC,rs.getString("custname"),rs.getString("custgender").charAt(0),rs.getString("custaddress"),rs.getString("custphonenum")); 
+                
+            }
+        }
+        catch(SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        return customer;
+    }
      public void deleteRecord(String custIC)
     {
         try

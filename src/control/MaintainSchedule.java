@@ -3,6 +3,7 @@ package control;
 
 import da.ScheduleDA;
 import domain.Schedule;
+import java.util.ArrayList;
 
 public class MaintainSchedule {
     
@@ -18,9 +19,14 @@ public class MaintainSchedule {
         scheduleDA.addRecord(sch);
     }
     
-    public Schedule searchRecord(String IC)             //WTF?
+    public Schedule searchRecord(String IC)             
     {
         return scheduleDA.getRecord(IC);
+    }
+    
+     public ArrayList<Schedule> searchRecord(String queryStr, int option)             
+    {
+        return scheduleDA.getRecord(queryStr, option);
     }
     
     public void updateRecord(Schedule sch)

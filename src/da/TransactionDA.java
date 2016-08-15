@@ -4,24 +4,22 @@
  * and open the template in the editor.
  */
 package da;
-
-import domain.Customer;
-import domain.Service;
+import domain.Transaction;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class ServiceDA {
+public class TransactionDA {
     
     private String host = "jdbc:derby://localhost:1527/vetdb";
     private String user = "nbuser";
     private String password = "nbuser";
-    private String tableName = "Service";
+    private String tableName = "Transaction1";
     
     private Connection conn;
     private PreparedStatement stmt;
     
-    public ServiceDA()
+    public TransactionDA()
     {
         createConnection();
     }
@@ -37,18 +35,19 @@ public class ServiceDA {
         {
             JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
         }
+    
     }
-     public void addRecord(Service service)
+    
+public void addRecord(Transaction transaction)
     {
         String insertStr = "INSERT INTO " + tableName + " VALUES(?,?,?,?)";
         try
         {
             stmt = conn.prepareStatement(insertStr);
-            stmt.setString(1, service.getServiceID());
-            stmt.setString(2, service.getServiceTitle());
-            stmt.setDouble(3, service.getUnitPrice());
-            stmt.setString(4, service.getServiceDesp());
-            
+            stmt.setString(1, transaction.getTransID());
+            stmt.setDate(2, convertJavaDateToSqlDate(transaction.getTransDate()));
+            stmt.setTime(3, transaction.getTransTime());
+            stmt.setString(4, transaction.getPet().getPetID());
             
             stmt.executeUpdate();
    
@@ -58,17 +57,17 @@ public class ServiceDA {
             JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
         }
     }
-     
-     public void updateRecord(Service service)
+        
+ public void updateRecord(Transaction transaction)
     {
-        String updateStr = "UPDATE " + tableName + "SET serviceid = ?, servicetitle = ?, unitprice = ?, servicedescription = ? "+" WHERE serviecid = ? ";
+        String updateStr = "UPDATE " + tableName + "SET transid = ?, transdate = ?, transtime = ?, petid = ? "+" WHERE transid = ? ";
         try
         {
             stmt = conn.prepareStatement(updateStr);
-              stmt.setString(1, service.getServiceID());
-            stmt.setString(2, service.getServiceTitle());
-            stmt.setDouble(3, service.getUnitPrice());
-            stmt.setString(4, service.getServiceDesp());
+            stmt.setString(1, transaction.getTransID());
+            stmt.setDate(2, convertJavaDateToSqlDate(transaction.getTransDate()));
+            stmt.setTime(3, transaction.getTransTime());
+            stmt.setString(4, transaction.getPet().getPetID());
 
             stmt.executeUpdate();
    
@@ -77,21 +76,21 @@ public class ServiceDA {
         {
             JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
         }
-    }
-     
-     public Service getRecord(String serviceID)
+    }    
+    
+ public Transaction getRecord(String transID)
     {
-        String queryStr="SELECT * FROM "+ tableName +" WHERE serviceid = ?";
-        Service service = null;
+        String queryStr="SELECT * FROM "+ tableName +" WHERE transID = ?";
+        Transaction transaction = null;
         try
         {
             stmt = conn.prepareStatement(queryStr);
-            stmt.setString(1,serviceID);
+            stmt.setString(1,transID);
             ResultSet rs = stmt.executeQuery();
             
             if(rs.next())
             {
-                service = new Service(serviceID,rs.getString("servicetitle"),rs.getDouble("unitprice"),rs.getString("servicedesp")); 
+                transaction = new Transaction(transID,rs.getDate("transdate"),rs.getTime("transtime"),new Pet(rs.getPet("petid")));
                 
             }
         }
@@ -99,24 +98,24 @@ public class ServiceDA {
         {
             JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
         }
-        return service;
+        return transaction;
     }
-     
-     public ArrayList<Service> getRecord(String searchStr, int option)
+ 
+ public ArrayList<Transaction> getRecord(String transID)
     {
-        String queryStr="SELECT * FROM "+ tableName +" WHERE serviceid = ?";
-        Service service = null;
+        String queryStr="SELECT * FROM "+ tableName +" WHERE transID = ?";
+        Transaction transaction = null;
         
-        ArrayList<Service> staffList = new ArrayList<Service>();
+        ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
         try
         {
             stmt = conn.prepareStatement(queryStr);
-            stmt.setString(1,serviceID);
+            stmt.setString(1,transID);
             ResultSet rs = stmt.executeQuery();
             
             if(rs.next())
             {
-                service = new Service(serviceID,rs.getString("servicetitle"),rs.getDouble("unitprice"),rs.getString("servicedesp")); 
+                transaction = new Transaction(transID,rs.getDate("transdate"),rs.getTime("transtime"),new Pet(rs.getPet("petid"))); 
                 
             }
         }
@@ -124,22 +123,14 @@ public class ServiceDA {
         {
             JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
         }
-        return service;
+        return transaction;
     }
-     
-       public void deleteRecord(String staffID)
-    {
-        try
-        {
-            String deleStr = "DELETE FROM " + tableName + " WHERE staffid = ?";
-            
-            stmt = conn.prepareStatement(deleStr);
-            stmt.setString(1, staffID);
-            stmt.executeUpdate();
-        }
-        catch(SQLException ex)
-        {
-            JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
-        }
-    }
+ 
+//Converts java.util.Date object to  java.sql.Date
+public java.sql.Date convertJavaDateToSqlDate(java.util.Date date) {
+    return new java.sql.Date(date.getTime());
+}
+   
+
+
 }

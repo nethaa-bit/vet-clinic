@@ -10,6 +10,7 @@ import domain.Payment;
 import domain.Staff;
 import domain.Transaction;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class PaymentDA {
@@ -91,6 +92,34 @@ public class PaymentDA {
     {
         String queryStr="SELECT * FROM "+ tableName +" WHERE paymentID = ?";
         Payment payment = null;
+        try
+        {
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setString(1,paymentID);
+            ResultSet rs = stmt.executeQuery();
+            
+            if(rs.next())
+            {
+                payment = new Payment(paymentID,rs.getDouble("amountpaid"),rs.getString("methodofpayment"),rs.getDate("paymentdate"),new Transaction(),new Staff(),new CreditCard());
+                payment.getTransaction().setTransID(rs.getString("transid"));
+                payment.getStaff().setStaffIC(rs.getString("staffic"));
+                payment.getCc().setCcNum(rs.getString("ccnum"));
+                
+            }
+        }
+        catch(SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        return payment;
+    }
+     
+     public ArrayList<Payment> getRecord(String searchStr, int option)
+    {
+        String queryStr="SELECT * FROM "+ tableName +" WHERE paymentID = ?";
+        Payment payment = null;
+        
+        ArrayList<Payment> paymentList = new ArrayList<Payment>();
         try
         {
             stmt = conn.prepareStatement(queryStr);

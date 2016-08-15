@@ -3,6 +3,7 @@ package control;
 
 import da.ServiceDA;
 import domain.Service;
+import java.util.ArrayList;
 
 public class MaintainService {
     
@@ -21,6 +22,11 @@ public class MaintainService {
     public Service searchRecord(String ID)
     {
         return serviceDA.getRecord(ID);
+    }
+ 
+    public ArrayList<Service> searchRecord(String queryStr, int option)
+    {
+        return serviceDA.getRecord(queryStr, option);
     }
     
     public void updateRecord(Service ser)

@@ -3,6 +3,7 @@ package control;
 
 import da.PetDA;
 import domain.Pet;
+import java.util.ArrayList;
 
 public class MaintainPet {
     
@@ -21,6 +22,11 @@ public class MaintainPet {
     public Pet searchRecord(String ID)
     {
         return petDA.getRecord(ID);
+    }
+    
+    public ArrayList<Pet> searchRecord(String queryStr, int option)
+    {
+        return petDA.getRecord(queryStr, option);
     }
     
     public void updateRecord(Pet pet)

@@ -7,6 +7,7 @@ package da;
 
 import domain.Schedule;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class ScheduleDA {
@@ -85,6 +86,31 @@ public class ScheduleDA {
     {
         String queryStr="SELECT * FROM "+ tableName +" WHERE staffIC = ?";
         Schedule schedule = null;
+        try
+        {
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setString(1,staffIC);
+            ResultSet rs = stmt.executeQuery();
+            
+            if(rs.next())
+            {
+                schedule = new Schedule(staffIC,rs.getInt("timeslotnum"),rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custname"),rs.getString("custphonenum")); 
+                
+            }
+        }
+        catch(SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+        }
+        return schedule;
+    }
+ 
+      public ArrayList<Schedule> getRecord(String searchStr, int option)
+    {
+        String queryStr="SELECT * FROM "+ tableName +" WHERE staffIC = ?";
+        Schedule schedule = null;
+        
+        ArrayList<Schedule> scheduleList = new ArrayList<Schedule>();
         try
         {
             stmt = conn.prepareStatement(queryStr);

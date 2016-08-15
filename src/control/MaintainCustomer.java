@@ -7,6 +7,7 @@ package control;
 
 import da.CustomerDA;
 import domain.Customer;
+import java.util.ArrayList;
 
 public class MaintainCustomer {
  
@@ -25,6 +26,11 @@ public class MaintainCustomer {
     public Customer searchRecord(String IC)
     {
         return customerDA.getRecord(IC);
+    }
+    
+    public ArrayList<Customer> searchRecord(String queryStr, int option)
+    {
+        return customerDA.getRecord(queryStr, option);
     }
     
     public void updateRecord(Customer cus)
