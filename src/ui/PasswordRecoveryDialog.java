@@ -234,7 +234,7 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         if(password.equals(confirm)){
             try{
             this.staff.setPassword(PasswordHash.createHash(password));
-            staffControl.updateRecord(staff);
+            staffControl.updateRecordPassword(staff);
             }
             catch(Exception ex){
             JOptionPane.showMessageDialog(null,ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);

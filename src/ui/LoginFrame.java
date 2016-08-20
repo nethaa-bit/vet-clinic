@@ -92,6 +92,11 @@ public class LoginFrame extends javax.swing.JFrame {
 
         jlblLogin2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/key.png"))); // NOI18N
         jlblLogin2.setToolTipText("Click to login.");
+        jlblLogin2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlblLogin2MouseClicked(evt);
+            }
+        });
         jPanel1.add(jlblLogin2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, -1, -1));
 
         jlblLogin.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
@@ -220,6 +225,11 @@ public class LoginFrame extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jlblLoginMouseClicked
+
+    private void jlblLogin2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblLogin2MouseClicked
+        // TODO add your handling code here:
+        jlblLoginMouseClicked(evt);
+    }//GEN-LAST:event_jlblLogin2MouseClicked
 
     private boolean validateLogin(){
         

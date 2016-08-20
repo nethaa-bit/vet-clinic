@@ -31,9 +31,24 @@ public class ServicePanel extends javax.swing.JPanel {
         JPanel targetPanel = new JPanel();
         if(MainMenu.action.equals("add")){
              targetPanel=jpAdd;
+             jbtConfirmChange.setVisible(false);
+             jbtConfirmDelete.setVisible(false);
+             jbtAddService.setVisible(true);
         }
         else if (MainMenu.action.equals("search")){
             targetPanel=jpSearch;
+        }
+        else if(MainMenu.action.equals("modifySelected")){
+             targetPanel=jpAdd;
+             jbtConfirmChange.setVisible(true);
+             jbtConfirmDelete.setVisible(false);
+             jbtAddService.setVisible(false);
+        
+        }else if(MainMenu.action.equals("deleteSelected")){
+             targetPanel=jpAdd;
+             jbtConfirmChange.setVisible(false);
+             jbtConfirmDelete.setVisible(true);
+             jbtAddService.setVisible(false);
         }
         
         dynamicPanel.removeAll();
@@ -45,6 +60,14 @@ public class ServicePanel extends javax.swing.JPanel {
         dynamicPanel.repaint();
         dynamicPanel.revalidate();
     }
+    
+     public void fillFields(Service service){
+     
+    jtfPrice.setText(""+service.getUnitPrice());
+    jtfServiceId.setText(service.getServiceID());
+    jtfTitle.setText(service.getServiceTitle());
+    jtaDescrip.setText(service.getServiceDesp());
+     }
         
     public ServicePanel() {
         initComponents();
@@ -122,6 +145,8 @@ public class ServicePanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtaDescrip = new javax.swing.JTextArea();
         jbtAddService = new javax.swing.JButton();
+        jbtConfirmChange = new javax.swing.JButton();
+        jbtConfirmDelete = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -254,6 +279,12 @@ public class ServicePanel extends javax.swing.JPanel {
         });
         jpAdd.add(jbtAddService, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, -1, -1));
 
+        jbtConfirmChange.setText("Confirm Changes");
+        jpAdd.add(jbtConfirmChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, -1, -1));
+
+        jbtConfirmDelete.setText("Confirm Delete");
+        jpAdd.add(jbtConfirmDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, -1, -1));
+
         dynamicPanel.add(jpAdd, "card2");
 
         jPanel1.add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 69, 970, 480));
@@ -333,7 +364,7 @@ public class ServicePanel extends javax.swing.JPanel {
 
     //        MainMenu.action="search";
     //        setDynamicPanel();
-            if(serviceList.size()!=0||serviceList!=null){
+            if(serviceList.size()!=0&&serviceList!=null){
                 Object[][] data = new Object[100][8];
                 for(int i=0; i<serviceList.size();i++){
                 data[i] = serviceList.get(i).getObjects();
@@ -351,12 +382,15 @@ public class ServicePanel extends javax.swing.JPanel {
 
     private void jtfModifyServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtfModifyServiceMouseClicked
         // TODO add your handling code here:
-        MainMenu.action="modify";
+        MainMenu.action="modifySelected";
        Service selectedService=null;
        if(jtService.getSelectedRow()>=0 ) {
            String ic  = (String) jtService.getValueAt(jtService.getSelectedRow(),0);
            selectedService = serviceControl.searchRecord(ic);
-            
+           if(selectedService!=null){
+                setDynamicPanel();
+                fillFields(selectedService);
+           } 
        }
        else{
            JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
@@ -391,6 +425,8 @@ public class ServicePanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbtAddService;
+    private javax.swing.JButton jbtConfirmChange;
+    private javax.swing.JButton jbtConfirmDelete;
     private javax.swing.JPanel jpAdd;
     private javax.swing.JPanel jpSearch;
     private javax.swing.JTable jtService;

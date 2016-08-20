@@ -11,6 +11,7 @@ import domain.Staff;
 import domain.TableModel;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -31,9 +32,24 @@ public class CustomerPanel extends javax.swing.JPanel {
         JPanel targetPanel = new JPanel();
         if(MainMenu.action.equals("add")){
              targetPanel=jpAdd;
+             jbtConfirmChange.setVisible(false);
+             jbtConfirmDelete.setVisible(false);
+             jbtAddCus.setVisible(true);
         }
         else if (MainMenu.action.equals("search")){
             targetPanel=jpSearch;
+        }
+        else if(MainMenu.action.equals("modifySelected")){
+             targetPanel=jpAdd;
+             jbtConfirmChange.setVisible(true);
+             jbtConfirmDelete.setVisible(false);
+             jbtAddCus.setVisible(false);
+        
+        }else if(MainMenu.action.equals("deleteSelected")){
+             targetPanel=jpAdd;
+             jbtConfirmChange.setVisible(false);
+             jbtConfirmDelete.setVisible(true);
+             jbtAddCus.setVisible(false);
         }
         
         dynamicPanel.removeAll();
@@ -44,6 +60,35 @@ public class CustomerPanel extends javax.swing.JPanel {
         dynamicPanel.add(targetPanel);
         dynamicPanel.repaint();
         dynamicPanel.revalidate();
+    }
+     
+      public void fillFields(Customer customer){
+      
+        jtfIc.setText(customer.getCustIC());
+        jtfName.setText(customer.getCustName());
+        jtfPhoneNum.setText(customer.getCustPhoneNum());
+        jcbGender.setSelectedItem(customer.getCustGender());
+          
+        
+        HashMap<String, String> addressMap = reformatAddress(customer.getCustAddress());
+        jtfDoor.setText(addressMap.get("Door"));
+        jtfNeighbour.setText(addressMap.get("Neighbourhood"));
+        jtfPostCode.setText(addressMap.get("Postcode"));        
+        jtfCity.setText(addressMap.get("City"));
+        jtfState.setText(addressMap.get("State"));
+       
+      }
+      
+      public HashMap reformatAddress(String fulladdress){
+       HashMap<String, String> addressMap = new HashMap<String, String>();
+       String[] address = fulladdress.split("_");
+       addressMap.put("Door", address[0]);
+       addressMap.put("Neighbourhood", address[1]);
+       addressMap.put("Postcode", address[2]);
+       addressMap.put("City", address[3]);
+       addressMap.put("State", address[4]);
+       
+       return addressMap;
     }
     
     public CustomerPanel() {
@@ -145,6 +190,8 @@ public class CustomerPanel extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jtfPhoneNum = new javax.swing.JTextField();
         jbtAddCus = new javax.swing.JButton();
+        jbtConfirmChange = new javax.swing.JButton();
+        jbtConfirmDelete = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -329,6 +376,12 @@ public class CustomerPanel extends javax.swing.JPanel {
         });
         jpAdd.add(jbtAddCus, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, -1, -1));
 
+        jbtConfirmChange.setText("Confirm Changes");
+        jpAdd.add(jbtConfirmChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 280, -1, -1));
+
+        jbtConfirmDelete.setText("Confirm Delete");
+        jpAdd.add(jbtConfirmDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, -1, -1));
+
         dynamicPanel.add(jpAdd, "card3");
 
         jPanel1.add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 103, 1010, 450));
@@ -428,7 +481,7 @@ public class CustomerPanel extends javax.swing.JPanel {
 
     //        MainMenu.action="search";
     //        setDynamicPanel();
-            if(customerList.size()!=0||customerList!=null){
+            if(customerList.size()!=0&&customerList!=null){
                 Object[][] data = new Object[100][8];
                 for(int i=0; i<customerList.size();i++){
                 data[i] = customerList.get(i).getObjects();
@@ -451,7 +504,10 @@ public class CustomerPanel extends javax.swing.JPanel {
        if(jtCustomer.getSelectedRow()>=0 ) {
            String ic  = (String) jtCustomer.getValueAt(jtCustomer.getSelectedRow(),0);
            selectedCustomer = customerControl.searchRecord(ic);
-            
+           if(selectedCustomer!=null){
+                setDynamicPanel();
+                fillFields(selectedCustomer);
+           }
        }
        else{
            JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
@@ -490,6 +546,8 @@ public class CustomerPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtAddCus;
+    private javax.swing.JButton jbtConfirmChange;
+    private javax.swing.JButton jbtConfirmDelete;
     private javax.swing.JButton jbtDeleteCus;
     private javax.swing.JButton jbtModifyCus;
     private javax.swing.JComboBox<String> jcbGender;

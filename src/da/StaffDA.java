@@ -64,6 +64,29 @@ public class StaffDA {
     
     public void updateRecord(Staff staff)
     {
+        String updateStr = "UPDATE " + tableName + " SET staffic = ?, staffname = ?, staffaddress = ?, staffphone = ?, staffposition = ?, staffqualification = ? "+" WHERE staffic = ? ";
+        try
+        {
+            stmt = conn.prepareStatement(updateStr);
+            stmt.setString(1, staff.getStaffIC());
+            stmt.setString(2, staff.getStaffName());
+            stmt.setString(3, staff.getStaffAddress());
+            stmt.setString(4, staff.getStaffPhone());
+            stmt.setString(5, staff.getStaffPosition());
+            stmt.setString(6, staff.getStaffQualification());
+            stmt.setString(7, staff.getPassword());
+
+            stmt.executeUpdate();
+   
+        }
+        catch(SQLException ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+     
+    public void updateRecordPassword(Staff staff)
+    {
         String updateStr = "UPDATE " + tableName + " SET staffic = ?, staffname = ?, staffaddress = ?, staffphone = ?, staffposition = ?, staffqualification = ?, password = ?, securityans = ? "+" WHERE staffic = ? ";
         try
         {
@@ -86,7 +109,7 @@ public class StaffDA {
             JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
         }
     }
-     
+    
     public Staff getRecord(String staffIC)
     {
         String queryStr="SELECT * FROM "+ tableName +" WHERE staffic = ?";

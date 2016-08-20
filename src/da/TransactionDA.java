@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package da;
-import domain.Transaction;
+import domain.*;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -90,7 +90,8 @@ public void addRecord(Transaction transaction)
             
             if(rs.next())
             {
-                transaction = new Transaction(transID,rs.getDate("transdate"),rs.getTime("transtime"),new Pet(rs.getPet("petid")));
+                transaction = new Transaction(transID,rs.getDate("transdate"),rs.getTime("transtime"),new Pet());
+                //pet =  rs.getObject("petid")
                 
             }
         }
@@ -101,7 +102,7 @@ public void addRecord(Transaction transaction)
         return transaction;
     }
  
- public ArrayList<Transaction> getRecord(String transID)
+ public ArrayList<Transaction> getRecord(String transID, int option)
     {
         String queryStr="SELECT * FROM "+ tableName +" WHERE transID = ?";
         Transaction transaction = null;
@@ -125,7 +126,22 @@ public void addRecord(Transaction transaction)
         }
         return transaction;
     }
- 
+
+ public void deleteRecord(String transID)
+{
+    try
+    {
+        String deleStr = "DELETE FROM " + tableName + " WHERE transid = ?";
+
+        stmt = conn.prepareStatement(deleStr);
+        stmt.setString(1, transID);
+        stmt.executeUpdate();
+    }
+    catch(SQLException ex)
+    {
+        JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+    }
+}
 //Converts java.util.Date object to  java.sql.Date
 public java.sql.Date convertJavaDateToSqlDate(java.util.Date date) {
     return new java.sql.Date(date.getTime());

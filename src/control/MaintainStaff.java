@@ -24,7 +24,7 @@ public class MaintainStaff {
         return staffDA.getRecord(IC);
     }
     
-    public ArrayList<Staff> searchRecord(String queryStr, int option) //add  this change header but body leave it same as get record method
+    public ArrayList<Staff> searchRecord(String queryStr, int option) 
     {
         return staffDA.getRecord(queryStr, option);
     }
@@ -32,6 +32,11 @@ public class MaintainStaff {
     public void updateRecord(Staff staff)
     {
         staffDA.updateRecord(staff);
+    }
+    
+    public void updateRecordPassword(Staff staff)
+    {
+        staffDA.updateRecordPassword(staff);
     }
     
     public void deleteRecord(String IC)

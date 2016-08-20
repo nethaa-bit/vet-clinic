@@ -85,9 +85,24 @@ public class PetPanel extends javax.swing.JPanel {
         JPanel targetPanel = new JPanel();
         if(MainMenu.action.equals("add")){
              targetPanel=jpAdd;
+             jbtConfirmChange.setVisible(false);
+             jbtConfirmDelete.setVisible(false);
+             jbtAddPet.setVisible(true);
         }
         else if (MainMenu.action.equals("search")){
             targetPanel=jpSearch;
+        }
+        else if(MainMenu.action.equals("modifySelected")){
+             targetPanel=jpAdd;
+             jbtConfirmChange.setVisible(true);
+             jbtConfirmDelete.setVisible(false);
+             jbtAddPet.setVisible(false);
+        
+        }else if(MainMenu.action.equals("deleteSelected")){
+             targetPanel=jpAdd;
+             jbtConfirmChange.setVisible(false);
+             jbtConfirmDelete.setVisible(true);
+             jbtAddPet.setVisible(false);
         }
         
         dynamicPanel.removeAll();
@@ -98,6 +113,22 @@ public class PetPanel extends javax.swing.JPanel {
         dynamicPanel.add(targetPanel);
         dynamicPanel.repaint();
         dynamicPanel.revalidate();
+    }
+    
+    public void fillFields(Pet pet){
+    
+    jtfBreed.setText(pet.getBreed());
+    jtfHeight.setText("" + pet.getPetHeight());
+    jtfLength.setText("" + pet.getPetLength());
+    jtfOwnerIc.setText(pet.getCustomer().getCustIC());
+    jtfPetId.setText(pet.getPetID());
+    jtfPetName.setText(pet.getPetName());
+    jtfWeight.setText("" + pet.getPetWeight());
+    jcbGender.setSelectedItem(pet.getPetGender());
+    jcbType.setSelectedItem(pet.getAnimalType());
+    jdpBirthDate.setDate(pet.getPetDOB());
+    
+    // End of variables declaration            
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -113,6 +144,11 @@ public class PetPanel extends javax.swing.JPanel {
         jtfSearch = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         dynamicPanel = new javax.swing.JPanel();
+        jpSearch = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtPet = new javax.swing.JTable();
+        jbtModifyStaff = new javax.swing.JButton();
+        jbtDeleteStaff = new javax.swing.JButton();
         jpAdd = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jtfPetId = new javax.swing.JTextField();
@@ -135,11 +171,8 @@ public class PetPanel extends javax.swing.JPanel {
         jtfOwnerIc = new javax.swing.JTextField();
         jbtAddPet = new javax.swing.JButton();
         jdpBirthDate = new com.toedter.calendar.JDateChooser();
-        jpSearch = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtPet = new javax.swing.JTable();
-        jbtModifyStaff = new javax.swing.JButton();
-        jbtDeleteStaff = new javax.swing.JButton();
+        jbtConfirmChange = new javax.swing.JButton();
+        jbtConfirmDelete = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -167,6 +200,67 @@ public class PetPanel extends javax.swing.JPanel {
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 70));
 
         dynamicPanel.setLayout(new java.awt.CardLayout());
+
+        jpSearch.setBackground(new java.awt.Color(255, 255, 204));
+        jpSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jtPet.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Pet ID", "Name", "Height", "Length", "Animal Type", "Breed", "Birth Date", "Gender"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jtPet);
+
+        jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 660, 310));
+
+        jbtModifyStaff.setText("Modify Pet");
+        jbtModifyStaff.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtModifyStaffMouseClicked(evt);
+            }
+        });
+        jbtModifyStaff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtModifyStaffActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jbtModifyStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, -1, -1));
+
+        jbtDeleteStaff.setText("Delete Pet");
+        jbtDeleteStaff.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtDeleteStaffMouseClicked(evt);
+            }
+        });
+        jbtDeleteStaff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtDeleteStaffActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jbtDeleteStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 370, -1, -1));
+
+        dynamicPanel.add(jpSearch, "card2");
 
         jpAdd.setBackground(new java.awt.Color(255, 255, 204));
         jpAdd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -242,68 +336,13 @@ public class PetPanel extends javax.swing.JPanel {
         jpAdd.add(jbtAddPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, -1, -1));
         jpAdd.add(jdpBirthDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, -1, -1));
 
+        jbtConfirmChange.setText("Confirm Changes");
+        jpAdd.add(jbtConfirmChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, -1, -1));
+
+        jbtConfirmDelete.setText("Confirm Delete");
+        jpAdd.add(jbtConfirmDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, -1, -1));
+
         dynamicPanel.add(jpAdd, "card3");
-
-        jpSearch.setBackground(new java.awt.Color(255, 255, 204));
-        jpSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jtPet.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Pet ID", "Name", "Height", "Length", "Animal Type", "Breed", "Birth Date", "Gender"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, true
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jtPet);
-
-        jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 660, 310));
-
-        jbtModifyStaff.setText("Modify Pet");
-        jbtModifyStaff.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtModifyStaffMouseClicked(evt);
-            }
-        });
-        jbtModifyStaff.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtModifyStaffActionPerformed(evt);
-            }
-        });
-        jpSearch.add(jbtModifyStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, -1, -1));
-
-        jbtDeleteStaff.setText("Delete Pet");
-        jbtDeleteStaff.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtDeleteStaffMouseClicked(evt);
-            }
-        });
-        jbtDeleteStaff.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtDeleteStaffActionPerformed(evt);
-            }
-        });
-        jpSearch.add(jbtDeleteStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 370, -1, -1));
-
-        dynamicPanel.add(jpSearch, "card2");
 
         jPanel1.add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 920, 460));
 
@@ -382,7 +421,7 @@ public class PetPanel extends javax.swing.JPanel {
 
     //        MainMenu.action="search";
     //        setDynamicPanel();
-            if(petList.size()!=0||petList!=null){
+            if(petList.size()!=0&&petList!=null){
                 Object[][] data = new Object[100][8];
                 for(int i=0; i<petList.size();i++){
                 data[i] = petList.get(i).getObjects();
@@ -400,12 +439,15 @@ public class PetPanel extends javax.swing.JPanel {
 
     private void jbtModifyStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtModifyStaffMouseClicked
         // TODO add your handling code here:
-         MainMenu.action="modify";
+         MainMenu.action="modifySelected";
        Pet selectedPet=null;
        if(jtPet.getSelectedRow()>=0 ) {
            String ic  = (String) jtPet.getValueAt(jtPet.getSelectedRow(),0);
            selectedPet = petControl.searchRecord(ic);
-            
+           if(selectedPet!=null){
+                setDynamicPanel();
+                fillFields(selectedPet);
+           }
        }
        else{
            JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
@@ -420,7 +462,10 @@ public class PetPanel extends javax.swing.JPanel {
        if(jtPet.getSelectedRow()>=0 ) {
            String ic  = (String) jtPet.getValueAt(jtPet.getSelectedRow(),0);
            selectedPet = petControl.searchRecord(ic);
-            
+          if(selectedPet!=null){
+                setDynamicPanel();
+                fillFields(selectedPet);
+           } 
        }
        else{
            JOptionPane.showMessageDialog(null,"Please search and select the record you wish to delete","Empty selection",JOptionPane.ERROR_MESSAGE);
@@ -445,6 +490,8 @@ public class PetPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton jbtAddPet;
+    private javax.swing.JButton jbtConfirmChange;
+    private javax.swing.JButton jbtConfirmDelete;
     private javax.swing.JButton jbtDeleteStaff;
     private javax.swing.JButton jbtModifyStaff;
     private javax.swing.JComboBox<String> jcbGender;

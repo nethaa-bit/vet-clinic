@@ -8,6 +8,7 @@ package control;
 
 import da.PaymentDA;
 import domain.Payment;
+import java.util.ArrayList;
 
 
 /**
@@ -30,6 +31,11 @@ public class MaintainPayment {
     public Payment searchRecord(String ID)        
     {
         return paymentDA.getRecord(ID);              
+    }
+    
+    public ArrayList<Payment> searchRecord(String queryStr, int option) 
+    {
+        return paymentDA.getRecord(queryStr, option);
     }
     
     public void updateRecord(Payment pay)

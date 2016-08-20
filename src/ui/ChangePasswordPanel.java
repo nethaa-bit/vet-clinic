@@ -157,7 +157,7 @@ public class ChangePasswordPanel extends javax.swing.JPanel {
             int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Are you sure you want to change your password?", "Password Change", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             
             if(reply==JOptionPane.YES_OPTION){
-                staffControl.updateRecord(currentStaff);
+                staffControl.updateRecordPassword(currentStaff);
                 JOptionPane.showMessageDialog(null,"Password successfully changed.","Success",JOptionPane.INFORMATION_MESSAGE);
                
             }

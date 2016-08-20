@@ -36,6 +36,7 @@ public class TransactionPanel extends javax.swing.JPanel {
         JPanel targetPanel = new JPanel();
         if(MainMenu.action.equals("add")){
              targetPanel=jpAdd;
+             
         }
         else if (MainMenu.action.equals("search")){
             targetPanel=jtTrans1;
@@ -304,7 +305,7 @@ public class TransactionPanel extends javax.swing.JPanel {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
         //I used all my 洪荒之力 to make this method 
-
+        
         jtTrans.setModel(new DefaultTableModel());
         jtTrans.repaint();
         String queryStr =jtfSearch.getText();
@@ -322,7 +323,7 @@ public class TransactionPanel extends javax.swing.JPanel {
 
     //        MainMenu.action="search";
     //        setDynamicPanel();
-            if(transactionList.size()!=0||transactionList!=null){
+            if(transactionList.size()!=0&&transactionList!=null){
                 Object[][] data = new Object[100][8];
                 for(int i=0; i<transactionList.size();i++){
                 data[i] = transactionList.get(i).getObjects();

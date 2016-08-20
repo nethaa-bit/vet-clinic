@@ -5,6 +5,7 @@
  */
 package ui;
 
+import control.MaintainPayment;
 import domain.Payment;
 import domain.TableModel;
 import java.awt.Color;
@@ -23,27 +24,11 @@ public class PaymentPanel extends javax.swing.JPanel {
     /**
      * Creates new form PaymentPanel
      */
-     public void setDynamicPanel() {
-        JPanel targetPanel = new JPanel();
-        if(MainMenu.action.equals("add")){
-             targetPanel=jpAdd;
-        }
-        else if (MainMenu.action.equals("search")){
-            targetPanel=jpSearch;
-        }
-        
-        dynamicPanel.removeAll();
-        dynamicPanel.repaint();
-        dynamicPanel.revalidate();
-            
-        //Adding Pannel
-        dynamicPanel.add(targetPanel);
-        dynamicPanel.repaint();
-        dynamicPanel.revalidate();
-    }
+    MaintainPayment paymentControl;
     
     public PaymentPanel() {
         initComponents();
+        paymentControl = new MaintainPayment();
 //        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
 //        parentFrame.setTitle("Payment - Veterinary Clinic System");
         jtfSearch.setOpaque(false);
@@ -238,7 +223,25 @@ public class PaymentPanel extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    public void setDynamicPanel() {
+        JPanel targetPanel = new JPanel();
+        if(MainMenu.action.equals("add")){
+             targetPanel=jpAdd;
+        }
+        else if (MainMenu.action.equals("search")){
+            targetPanel=jpSearch;
+        }
+        
+        dynamicPanel.removeAll();
+        dynamicPanel.repaint();
+        dynamicPanel.revalidate();
+            
+        //Adding Pannel
+        dynamicPanel.add(targetPanel);
+        dynamicPanel.repaint();
+        dynamicPanel.revalidate();
+    }
+    
     private void jtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearchActionPerformed
     // TODO add your handling code here:
         //I used all my 洪荒之力 to make this method 
@@ -260,7 +263,7 @@ public class PaymentPanel extends javax.swing.JPanel {
 
     //        MainMenu.action="search";
     //        setDynamicPanel();
-            if(paymentList.size()!=0||paymentList!=null){
+            if(paymentList.size()!=0&&paymentList!=null){
                 Object[][] data = new Object[100][8];
                 for(int i=0; i<paymentList.size();i++){
                 data[i] = paymentList.get(i).getObjects();

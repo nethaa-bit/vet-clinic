@@ -123,12 +123,12 @@ public class PaymentDA {
         try
         {
             stmt = conn.prepareStatement(queryStr);
-            stmt.setString(1,paymentID);
+            stmt.setString(1,searchStr);
             ResultSet rs = stmt.executeQuery();
             
             if(rs.next())
             {
-                payment = new Payment(paymentID,rs.getDouble("amountpaid"),rs.getString("methodofpayment"),rs.getDate("paymentdate"),new Transaction(),new Staff(),new CreditCard());
+                payment = new Payment(searchStr,rs.getDouble("amountpaid"),rs.getString("methodofpayment"),rs.getDate("paymentdate"),new Transaction(),new Staff(),new CreditCard());
                 payment.getTransaction().setTransID(rs.getString("transid"));
                 payment.getStaff().setStaffIC(rs.getString("staffic"));
                 payment.getCc().setCcNum(rs.getString("ccnum"));
