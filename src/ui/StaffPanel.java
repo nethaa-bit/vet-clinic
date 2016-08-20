@@ -42,20 +42,33 @@ public class StaffPanel extends javax.swing.JPanel {
         JPanel targetPanel = new JPanel();
         if(MainMenu.action.equals("add")){
              targetPanel=jpAddUpdate;
+             jbtConfirmChange.setVisible(false);
+             jbtConfirmDelete.setVisible(false);
+             jbtAdd.setVisible(true);
         }
         else if (MainMenu.action.equals("search")){
             targetPanel=jpSearch;
+
         }else if(MainMenu.action.equals("modify")){
              targetPanel=jpSearch;
+
         
         }else if(MainMenu.action.equals("modifySelected")){
              targetPanel=jpAddUpdate;
+             jbtConfirmChange.setVisible(true);
+             jbtConfirmDelete.setVisible(false);
+             jbtAdd.setVisible(false);
+             jtfIc.setEnabled(false);
         
         }else if(MainMenu.action.equals("deleteSelected")){
              targetPanel=jpAddUpdate;
+             jbtConfirmChange.setVisible(false);
+             jbtConfirmDelete.setVisible(true);
+             jbtAdd.setVisible(false);
         }
         else if (MainMenu.action.equals("delete")){
             targetPanel=jpSearch;
+
         }
         
         dynamicPanel.removeAll();
@@ -113,11 +126,18 @@ public class StaffPanel extends javax.swing.JPanel {
                 break;
          }       
         
+        
+        
         //If all fields are valid, write to Staff Object
          if(valid==true){
            String fulladdress = ""+door+"_"+neighbour+"_"+postcode+"_"+city+"_"+state; // for cudstomer only 
            // take object domain constructor and initialiue (pass value) 
-           staff = new Staff(ic,name,fulladdress,phone,(String)jcbPosition.getSelectedItem(),(String)jcbQualification.getSelectedItem(),passwordhash,answer);
+           if(jtfPassword.isEnabled()==false){
+               staff = new Staff(ic,name,fulladdress,phone,(String)jcbPosition.getSelectedItem(),(String)jcbQualification.getSelectedItem(),passwordhash,answer);
+           }
+           else{
+                staff = new Staff(ic,name,fulladdress,phone,(String)jcbPosition.getSelectedItem(),(String)jcbQualification.getSelectedItem());
+           }
          }
          else {
              staff=null;
@@ -234,6 +254,8 @@ public class StaffPanel extends javax.swing.JPanel {
         jtfIc = new javax.swing.JTextField();
         jtfCity = new javax.swing.JTextField();
         jbtAdd = new javax.swing.JButton();
+        jbtConfirmDelete = new javax.swing.JButton();
+        jbtConfirmChange = new javax.swing.JButton();
         jpSearch = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtStaff = new javax.swing.JTable();
@@ -379,7 +401,23 @@ public class StaffPanel extends javax.swing.JPanel {
                 jbtAddMouseClicked(evt);
             }
         });
-        jpAddUpdate.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 350, -1, -1));
+        jpAddUpdate.add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 350, -1, -1));
+
+        jbtConfirmDelete.setText("Delete");
+        jbtConfirmDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtConfirmDeleteActionPerformed(evt);
+            }
+        });
+        jpAddUpdate.add(jbtConfirmDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 350, -1, -1));
+
+        jbtConfirmChange.setText("OK");
+        jbtConfirmChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtConfirmChangeActionPerformed(evt);
+            }
+        });
+        jpAddUpdate.add(jbtConfirmChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 350, -1, -1));
 
         dynamicPanel.add(jpAddUpdate, "card3");
 
@@ -403,11 +441,6 @@ public class StaffPanel extends javax.swing.JPanel {
         jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 620, 270));
 
         jbtModifyStaff.setText("Modify Staff");
-        jbtModifyStaff.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtModifyStaffMouseClicked(evt);
-            }
-        });
         jbtModifyStaff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtModifyStaffActionPerformed(evt);
@@ -416,11 +449,6 @@ public class StaffPanel extends javax.swing.JPanel {
         jpSearch.add(jbtModifyStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, -1, -1));
 
         jbtDeleteStaff.setText("Delete Staff");
-        jbtDeleteStaff.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtDeleteStaffMouseClicked(evt);
-            }
-        });
         jbtDeleteStaff.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtDeleteStaffActionPerformed(evt);
@@ -445,6 +473,7 @@ public class StaffPanel extends javax.swing.JPanel {
         jtStaff.setModel(new DefaultTableModel());
         jtStaff.repaint();
         String queryStr =jtfSearch.getText();
+        if(!queryStr.equals("")){
         int option =0;
         
 
@@ -458,7 +487,7 @@ public class StaffPanel extends javax.swing.JPanel {
                 option=2;
             }
             staffList = staffControl.searchRecord(queryStr,option);
-            if(staffList.size()!=0||staffList!=null){
+            if(staffList.size()!=0&&staffList!=null){
                 Object[][] data = new Object[100][8];
                 for(int i=0; i<staffList.size();i++){
                 data[i] = staffList.get(i).getObjects();
@@ -471,15 +500,57 @@ public class StaffPanel extends javax.swing.JPanel {
             }
             else{
                 JOptionPane.showMessageDialog(null, "No results found!" , "No such record.", JOptionPane.ERROR_MESSAGE);
-            }     
+            }   
+            
+        }
     }//GEN-LAST:event_jlblSearchMouseClicked
 
     private void jbtModifyStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtModifyStaffActionPerformed
         // TODO add your handling code here:
+        MainMenu.action="modifySelected";
+       Staff selectedStaff=null;
+       if(jtStaff.getSelectedRow()>=0 ) {
+           String ic  = (String) jtStaff.getValueAt(jtStaff.getSelectedRow(),0);
+           selectedStaff = staffControl.searchRecord(ic);
+           if(selectedStaff!=null){
+                setDynamicPanel();
+                fillFields(selectedStaff);
+           }
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
     }//GEN-LAST:event_jbtModifyStaffActionPerformed
 
     private void jbtDeleteStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDeleteStaffActionPerformed
         // TODO add your handling code here:
+        MainMenu.action="deleteSelected";
+       Staff selectedStaff=null;
+       if(jtStaff.getSelectedRow()>=0 ) {
+           String ic  = (String) jtStaff.getValueAt(jtStaff.getSelectedRow(),0);
+           selectedStaff = staffControl.searchRecord(ic);
+           if(selectedStaff!=null){
+                setDynamicPanel();
+                fillFields(selectedStaff);
+                jtfAnswer.setEnabled(false);
+                jtfCity.setEnabled(false);
+                jtfConfirmPass.setEnabled(false);
+                jtfDoor.setEnabled(false);
+                jtfIc.setEnabled(false);
+                jtfName.setEnabled(false);
+                jtfNeighbour.setEnabled(false);
+                jtfPassword.setEnabled(false);
+                jtfPhoneNum.setEnabled(false);
+                jtfPostCode.setEnabled(false);
+                jtfSearch.setEnabled(false);
+                jtfState.setEnabled(false);
+                jcbPosition.setEnabled(false);
+                jcbQualification.setEnabled(false);
+           }
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
     }//GEN-LAST:event_jbtDeleteStaffActionPerformed
 
     private void jbtAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddMouseClicked
@@ -551,40 +622,6 @@ public class StaffPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jtfPasswordKeyReleased
 
-    private void jbtModifyStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtModifyStaffMouseClicked
-        // TODO add your handling code here:
-       MainMenu.action="modifySelected";
-       Staff selectedStaff=null;
-       if(jtStaff.getSelectedRow()>=0 ) {
-           String ic  = (String) jtStaff.getValueAt(jtStaff.getSelectedRow(),0);
-           selectedStaff = staffControl.searchRecord(ic);
-           if(selectedStaff!=null){
-                setDynamicPanel();
-                fillFields(selectedStaff);
-           }
-       }
-       else{
-           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
-       }
-
-       
-    }//GEN-LAST:event_jbtModifyStaffMouseClicked
-
-    private void jbtDeleteStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDeleteStaffMouseClicked
-        // TODO add your handling code here:
-        
-       MainMenu.action="delete";
-       Staff selectedStaff=null;
-       if(jtStaff.getSelectedRow()>=0 ) {
-           String ic  = (String) jtStaff.getValueAt(jtStaff.getSelectedRow(),0);
-           selectedStaff = staffControl.searchRecord(ic);
-            
-       }
-       else{
-           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to delete","Empty selection",JOptionPane.ERROR_MESSAGE);
-       }
-    }//GEN-LAST:event_jbtDeleteStaffMouseClicked
-
     private void jtfPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtfPasswordMouseClicked
         // TODO add your handling code here:
         if(!jtfPassword.isEnabled()){
@@ -607,6 +644,86 @@ public class StaffPanel extends javax.swing.JPanel {
          jtfPasswordMouseClicked(evt);
     }//GEN-LAST:event_jtfAnswerMouseClicked
 
+    private void jbtConfirmChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmChangeActionPerformed
+        // TODO add your handling code here:
+        Staff staff = validateInput();
+        if(staff!=null){
+         //write to database ****
+                Staff s = staffControl.searchRecord(staff.getStaffIC());
+                
+                if(s == null)
+                {
+                    JOptionPane.showMessageDialog(null,"This staff does not exist.", "Record Not Found", JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                {
+                    s = staff;
+                    int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Are you sure you want commit the changes made?", "Confirm changes?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+                    if(reply==JOptionPane.YES_OPTION){
+                        try{
+                            staffControl.updateRecord(s);
+                            resetFields();
+                            JOptionPane.showMessageDialog(null,"Staff details of staff "+ staff.getStaffIC()+" has been updated.","Success",JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        catch (Exception ex){
+                            JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+                
+                //---*****
+        }
+        else{
+            //****
+            int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Your input seems to have data that is invalid or in incorrect format. Would you like to reset all fields?", "Invalid Data!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+            if(reply==JOptionPane.YES_OPTION){
+                resetFields();
+            }
+            //***
+        }   
+    
+    }//GEN-LAST:event_jbtConfirmChangeActionPerformed
+
+    private void jbtConfirmDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmDeleteActionPerformed
+        // TODO add your handling code here:
+        Staff staff = validateInput();
+        if(staff!=null){
+            Staff s = staffControl.searchRecord(staff.getStaffIC());
+
+            if(s == null)
+            {
+                JOptionPane.showMessageDialog(null,"This staff does not exist.", "Record Not Found", JOptionPane.ERROR_MESSAGE);
+            }
+            else
+            {
+                s = staff;
+                int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Are you sure you want delete staff "+staff.getStaffIC()+" ?", "Confirm delete?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+
+                if(reply==JOptionPane.YES_OPTION){
+                    try{
+                        staffControl.deleteRecord(s.getStaffIC());
+                        resetFields();
+                        JOptionPane.showMessageDialog(null,"Staff "+ staff.getStaffIC()+" has been deleted.","Success",JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    catch (Exception ex){
+                        JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+                
+        }
+        else{
+            //****
+            int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Your input seems to have data that is invalid or in incorrect format. Would you like to reset all fields?", "Invalid Data!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+            if(reply==JOptionPane.YES_OPTION){
+                resetFields();
+            }
+        }
+    }//GEN-LAST:event_jbtConfirmDeleteActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
@@ -628,6 +745,8 @@ public class StaffPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtAdd;
+    private javax.swing.JButton jbtConfirmChange;
+    private javax.swing.JButton jbtConfirmDelete;
     private javax.swing.JButton jbtDeleteStaff;
     private javax.swing.JButton jbtModifyStaff;
     private javax.swing.JComboBox<String> jcbPosition;
