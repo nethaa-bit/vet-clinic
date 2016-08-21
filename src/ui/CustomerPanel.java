@@ -30,7 +30,7 @@ public class CustomerPanel extends javax.swing.JPanel {
      */
      public void setDynamicPanel() {
         JPanel targetPanel = new JPanel();
-        if(MainMenu.action.equals("add")){
+        if(MainMenu.action.equals("add")||MainMenu.action.equals("modify")||MainMenu.action.equals("delete")){
              targetPanel=jpAdd;
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(false);
@@ -115,6 +115,7 @@ public class CustomerPanel extends javax.swing.JPanel {
     String postCode = jtfPostCode.getText();
     String search = jtfSearch.getText();
     String state = jtfState.getText();
+    char gender = ((String)jcbGender.getSelectedItem()).charAt(0);
     
     valid = name.equals(null)?false:true; //need
     valid = door.equals(null)?false:true;
@@ -127,7 +128,7 @@ public class CustomerPanel extends javax.swing.JPanel {
     if(valid==true){
            String fulladdress = ""+door+"_"+neighbour+"_"+postCode+"_"+city+"_"+state; // for cudstomer only 
            // take object domain constructor and initialiue (pass value) 
-           customer = new Customer(ic,name,(char)jcbGender.getSelectedItem(),fulladdress,phoneNum);
+           customer = new Customer(ic,name,gender,fulladdress,phoneNum);
          }
          else {
              customer=null;
@@ -162,7 +163,7 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jlblSearch = new javax.swing.JLabel();
         jtfSearch = new javax.swing.JTextField();
         dynamicPanel = new javax.swing.JPanel();
         jpSearch = new javax.swing.JPanel();
@@ -171,23 +172,23 @@ public class CustomerPanel extends javax.swing.JPanel {
         jbtModifyCus = new javax.swing.JButton();
         jbtDeleteCus = new javax.swing.JButton();
         jpAdd = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jlblIc = new javax.swing.JLabel();
         jtfIc = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        jlblName = new javax.swing.JLabel();
         jtfName = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        jlblDoor = new javax.swing.JLabel();
         jtfState = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jlblNeighbour = new javax.swing.JLabel();
+        jlblPstCode = new javax.swing.JLabel();
         jtfDoor = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        jlblCity = new javax.swing.JLabel();
+        jlblState = new javax.swing.JLabel();
         jtfPostCode = new javax.swing.JTextField();
         jtfCity = new javax.swing.JTextField();
         jtfNeighbour = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
+        jlblGender = new javax.swing.JLabel();
         jcbGender = new javax.swing.JComboBox<>();
-        jLabel11 = new javax.swing.JLabel();
+        jlblPhoneNum = new javax.swing.JLabel();
         jtfPhoneNum = new javax.swing.JTextField();
         jbtAddCus = new javax.swing.JButton();
         jbtConfirmChange = new javax.swing.JButton();
@@ -200,14 +201,14 @@ public class CustomerPanel extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(255, 229, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblSearch.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        jlblSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                jlblSearchMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
+        jPanel2.add(jlblSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
 
         jtfSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,14 +285,14 @@ public class CustomerPanel extends javax.swing.JPanel {
         jpAdd.setBackground(new java.awt.Color(255, 229, 204));
         jpAdd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("NRIC :");
-        jpAdd.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, -1, -1));
+        jlblIc.setText("NRIC :");
+        jpAdd.add(jlblIc, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, -1, -1));
 
         jtfIc.setToolTipText("Enter your IC");
         jpAdd.add(jtfIc, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 30, 122, -1));
 
-        jLabel3.setText("Name :");
-        jpAdd.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 29, -1, -1));
+        jlblName.setText("Name :");
+        jpAdd.add(jlblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 29, -1, -1));
 
         jtfName.setToolTipText("Enter your name");
         jtfName.addActionListener(new java.awt.event.ActionListener() {
@@ -301,17 +302,17 @@ public class CustomerPanel extends javax.swing.JPanel {
         });
         jpAdd.add(jtfName, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 117, -1));
 
-        jLabel4.setText("Door & Street :");
-        jpAdd.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
+        jlblDoor.setText("Door & Street :");
+        jpAdd.add(jlblDoor, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
         jtfState.setToolTipText("Enter state");
         jpAdd.add(jtfState, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 80, -1));
 
-        jLabel5.setText("Neighbourhood :");
-        jpAdd.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, -1, -1));
+        jlblNeighbour.setText("Neighbourhood :");
+        jpAdd.add(jlblNeighbour, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, -1, -1));
 
-        jLabel6.setText("Postal Code :");
-        jpAdd.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
+        jlblPstCode.setText("Postal Code :");
+        jpAdd.add(jlblPstCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
         jtfDoor.setToolTipText("Enter address");
         jtfDoor.addActionListener(new java.awt.event.ActionListener() {
@@ -321,11 +322,11 @@ public class CustomerPanel extends javax.swing.JPanel {
         });
         jpAdd.add(jtfDoor, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 130, -1));
 
-        jLabel7.setText("City :");
-        jpAdd.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, -1, -1));
+        jlblCity.setText("City :");
+        jpAdd.add(jlblCity, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, -1, -1));
 
-        jLabel9.setText("State :");
-        jpAdd.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
+        jlblState.setText("State :");
+        jpAdd.add(jlblState, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
 
         jtfPostCode.setToolTipText("Enter postal code");
         jtfPostCode.addActionListener(new java.awt.event.ActionListener() {
@@ -351,14 +352,14 @@ public class CustomerPanel extends javax.swing.JPanel {
         });
         jpAdd.add(jtfNeighbour, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 120, -1));
 
-        jLabel10.setText("Gender :");
-        jpAdd.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
+        jlblGender.setText("Gender :");
+        jpAdd.add(jlblGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
 
         jcbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
         jpAdd.add(jcbGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, -1, -1));
 
-        jLabel11.setText("Phone No. :");
-        jpAdd.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, -1, -1));
+        jlblPhoneNum.setText("Phone No. :");
+        jpAdd.add(jlblPhoneNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, -1, -1));
 
         jtfPhoneNum.setToolTipText("Example: 01012345678");
         jtfPhoneNum.addActionListener(new java.awt.event.ActionListener() {
@@ -374,9 +375,19 @@ public class CustomerPanel extends javax.swing.JPanel {
                 jbtAddCusMouseClicked(evt);
             }
         });
+        jbtAddCus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtAddCusActionPerformed(evt);
+            }
+        });
         jpAdd.add(jbtAddCus, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, -1, -1));
 
         jbtConfirmChange.setText("Confirm Changes");
+        jbtConfirmChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtConfirmChangeActionPerformed(evt);
+            }
+        });
         jpAdd.add(jbtConfirmChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 280, -1, -1));
 
         jbtConfirmDelete.setText("Confirm Delete");
@@ -427,7 +438,84 @@ public class CustomerPanel extends javax.swing.JPanel {
 
     private void jbtAddCusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddCusMouseClicked
         // TODO add your handling code here:
-                // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_jbtAddCusMouseClicked
+
+    private void jlblSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblSearchMouseClicked
+        // TODO add your handling code here:
+        //I used all my 洪荒之力 to make this method 
+
+        jtCustomer.setModel(new DefaultTableModel());
+        jtCustomer.repaint();
+        String queryStr =jtfSearch.getText();
+        int option =0;
+        
+
+            if(Pattern.matches("\\d{12}", queryStr)){
+                option=1;
+            }
+           
+            else if(Pattern.matches("\\d{2,4}-\\d{7,8}", queryStr)){
+                option=2;
+            }
+            else{
+                option=3;
+            }
+            ArrayList<Customer> customerList = customerControl.searchRecord(queryStr,option);
+
+    //        MainMenu.action="search";
+    //        setDynamicPanel();
+            if(customerList.size()!=0&&customerList!=null){
+                Object[][] data = new Object[100][8];
+                for(int i=0; i<customerList.size();i++){
+                data[i] = customerList.get(i).getObjects();
+                } 
+                String[] columnNames = {"Customer IC","Name","Gender","Address","Phone Number"};
+                TableModel tModel = new TableModel(data, columnNames);
+                jtCustomer.setModel(tModel);  
+                jtCustomer.createDefaultColumnsFromModel();
+                jtCustomer.repaint();
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "No results found!" , "No such record.", JOptionPane.ERROR_MESSAGE);
+            }     
+    }//GEN-LAST:event_jlblSearchMouseClicked
+
+    private void jbtModifyCusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtModifyCusMouseClicked
+        // TODO add your handling code here:
+       MainMenu.action="modifySelected";
+       Customer selectedCustomer=null;
+       if(jtCustomer.getSelectedRow()>=0 ) {
+           String ic  = (String) jtCustomer.getValueAt(jtCustomer.getSelectedRow(),0);
+           selectedCustomer = customerControl.searchRecord(ic);
+           if(selectedCustomer!=null){
+                setDynamicPanel();
+                fillFields(selectedCustomer);
+           }
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+
+    }//GEN-LAST:event_jbtModifyCusMouseClicked
+
+    private void jbtDeleteCusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDeleteCusMouseClicked
+        // TODO add your handling code here:
+        MainMenu.action="delete";
+       Customer selectedCustomer=null;
+       if(jtCustomer.getSelectedRow()>=0 ) {
+           String ic  = (String) jtCustomer.getValueAt(jtCustomer.getSelectedRow(),0);
+           selectedCustomer = customerControl.searchRecord(ic);
+            
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to delete","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_jbtDeleteCusMouseClicked
+
+    private void jbtAddCusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddCusActionPerformed
+        // TODO add your handling code here:
         Customer customer = validateInput();
         if(customer!=null){
          //write to database
@@ -458,90 +546,55 @@ public class CustomerPanel extends javax.swing.JPanel {
                 resetFields();
             }              
         }  
-    }//GEN-LAST:event_jbtAddCusMouseClicked
+    }//GEN-LAST:event_jbtAddCusActionPerformed
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+    private void jbtConfirmChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmChangeActionPerformed
         // TODO add your handling code here:
-        //I used all my 洪荒之力 to make this method 
-
-        jtCustomer.setModel(new DefaultTableModel());
-        jtCustomer.repaint();
-        String queryStr =jtfSearch.getText();
-        int option =0;
         
-
-            if(Pattern.matches("\\d{12}", queryStr)){
-                option=1;
-            }
-           
-            else{
-                option=2;
-            }
-            ArrayList<Customer> customerList = customerControl.searchRecord(queryStr,option);
-
-    //        MainMenu.action="search";
-    //        setDynamicPanel();
-            if(customerList.size()!=0&&customerList!=null){
-                Object[][] data = new Object[100][8];
-                for(int i=0; i<customerList.size();i++){
-                data[i] = customerList.get(i).getObjects();
-                } 
-                String[] columnNames = {"Customer IC","Name","Gender","Address","Phone Number"};
-                TableModel tModel = new TableModel(data, columnNames);
-                jtCustomer.setModel(tModel);  
-                jtCustomer.createDefaultColumnsFromModel();
-                jtCustomer.repaint();
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "No results found!" , "No such record.", JOptionPane.ERROR_MESSAGE);
-            }     
-    }//GEN-LAST:event_jLabel1MouseClicked
-
-    private void jbtModifyCusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtModifyCusMouseClicked
+                                                       
         // TODO add your handling code here:
-               MainMenu.action="modify";
-       Customer selectedCustomer=null;
-       if(jtCustomer.getSelectedRow()>=0 ) {
-           String ic  = (String) jtCustomer.getValueAt(jtCustomer.getSelectedRow(),0);
-           selectedCustomer = customerControl.searchRecord(ic);
-           if(selectedCustomer!=null){
-                setDynamicPanel();
-                fillFields(selectedCustomer);
-           }
-       }
-       else{
-           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
-       }
-
-    }//GEN-LAST:event_jbtModifyCusMouseClicked
-
-    private void jbtDeleteCusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDeleteCusMouseClicked
-        // TODO add your handling code here:
-        MainMenu.action="delete";
-       Customer selectedCustomer=null;
-       if(jtCustomer.getSelectedRow()>=0 ) {
-           String ic  = (String) jtCustomer.getValueAt(jtCustomer.getSelectedRow(),0);
-           selectedCustomer = customerControl.searchRecord(ic);
+        Customer customer = validateInput();
+        if(customer!=null){
+         //write to database ****
+                Customer c = customerControl.searchRecord(customer.getCustIC());
+                
+                if(c == null)
+                {
+                    JOptionPane.showMessageDialog(null,"This customer does not exist.", "Record Not Found", JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                {
+                    c = customer;
+                    int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Are you sure you want commit the changes made?", "Confirm changes?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             
-       }
-       else{
-           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to delete","Empty selection",JOptionPane.ERROR_MESSAGE);
-       }
-    }//GEN-LAST:event_jbtDeleteCusMouseClicked
+                    if(reply==JOptionPane.YES_OPTION){
+                        try{
+                            customerControl.updateRecord(c);
+                            resetFields();
+                            JOptionPane.showMessageDialog(null,"Staff details of staff "+ customer.getCustIC()+" has been updated.","Success",JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        catch (Exception ex){
+                            JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+                
+                //---*****
+        }
+        else{
+            //****
+            int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Your input seems to have data that is invalid or in incorrect format. Would you like to reset all fields?", "Invalid Data!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+            if(reply==JOptionPane.YES_OPTION){
+                resetFields();
+            }
+            //***
+        }
+    }//GEN-LAST:event_jbtConfirmChangeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -551,6 +604,16 @@ public class CustomerPanel extends javax.swing.JPanel {
     private javax.swing.JButton jbtDeleteCus;
     private javax.swing.JButton jbtModifyCus;
     private javax.swing.JComboBox<String> jcbGender;
+    private javax.swing.JLabel jlblCity;
+    private javax.swing.JLabel jlblDoor;
+    private javax.swing.JLabel jlblGender;
+    private javax.swing.JLabel jlblIc;
+    private javax.swing.JLabel jlblName;
+    private javax.swing.JLabel jlblNeighbour;
+    private javax.swing.JLabel jlblPhoneNum;
+    private javax.swing.JLabel jlblPstCode;
+    private javax.swing.JLabel jlblSearch;
+    private javax.swing.JLabel jlblState;
     private javax.swing.JPanel jpAdd;
     private javax.swing.JPanel jpSearch;
     private javax.swing.JTable jtCustomer;
