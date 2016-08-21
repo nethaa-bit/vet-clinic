@@ -91,7 +91,7 @@ public class PetDA {
         }
     }
     
-          public Pet getRecord(String petID)
+public Pet getRecord(String petID)
     {
         String queryStr="SELECT * FROM "+ tableName +" WHERE petID = ?";
         Pet pet = null;
@@ -114,29 +114,43 @@ public class PetDA {
         return pet;
     }
  
- public ArrayList<Pet> getRecord(String searchStr, int option)
-    {
-        String queryStr="SELECT * FROM "+ tableName +" WHERE petID = ?";
+ public ArrayList<Pet> getRecord(String searchStr, int option){
+    
+        String queryStr=null;
         Pet pet = null;
+        switch(option){
+            case 0: queryStr= "SELECT * FROM "+ tableName ;
+            break;
+            case 1: queryStr= "SELECT * FROM "+ tableName +" WHERE petID = ?";
+            break;
+            case 2: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffname)  LIKE LOWER('%' || ? || '%')";
+            break;
+            case 3: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffposition)  = LOWER(?) ";
+            break;
+        }
+
         
         ArrayList<Pet> petList = new ArrayList<Pet>();
         try
         {
             stmt = conn.prepareStatement(queryStr);
-            stmt.setString(1,petID);
+            if(option!=0){
+            stmt.setString(1,searchStr);
+            }
             ResultSet rs = stmt.executeQuery();
             
-            if(rs.next())
-            {
-                pet = new Pet(petID,rs.getString("petname"),rs.getDouble("petheight"),rs.getDouble("petweight"),rs.getDouble("petlength"),rs.getString("animaltype"),rs.getString("breed"),rs.getDate("petbirthdate"),rs.getString("petgender").charAt(0),new Customer()); 
-                pet.getCustomer().setCustIC(rs.getString("custic"));
+            while(rs.next())
+            {   
+                Customer c = new Customer();
+                c.setCustIC(rs.getString("custic"));
+                petList.add(new Pet(rs.getString("petid"),rs.getString("petname"),rs.getDouble("petheight"),rs.getDouble("petweight"),rs.getDouble("petlength"),rs.getString("animaltype"),rs.getString("breed"),rs.getDate("petbirthdate"),rs.getString("petgender").charAt(0),c)); 
             }
         }
         catch(SQLException ex)
         {
             JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
         }
-        return pet;
+        return petList;
     }
           
 public void deleteRecord(String petID)
