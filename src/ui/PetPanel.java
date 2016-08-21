@@ -479,6 +479,7 @@ public class PetPanel extends javax.swing.JPanel {
                 petControl.addRecord(p);
                 resetFields();
                 JOptionPane.showMessageDialog(null,"New pet is created.","Success",JOptionPane.INFORMATION_MESSAGE);
+                jtfPetId.setText(generatePetId());
                 }
                 catch (Exception ex){
                     JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
