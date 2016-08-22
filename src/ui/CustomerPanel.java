@@ -6,8 +6,9 @@
 package ui;
 
 import control.MaintainCustomer;
+import control.MaintainPet;
 import domain.Customer;
-import domain.Staff;
+import domain.Pet;
 import domain.TableModel;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import javax.swing.table.DefaultTableModel;
 public class CustomerPanel extends javax.swing.JPanel {
 
     MaintainCustomer customerControl;
+    MaintainPet petControl;
     
     /**
      * Creates new form CustomerPanel
@@ -79,6 +81,19 @@ public class CustomerPanel extends javax.swing.JPanel {
        
       }
       
+      public void disableFields(){
+        jtfCity.setEnabled(false);
+        jtfDoor.setEnabled(false);
+        jtfIc.setEnabled(false);
+        jtfName.setEnabled(false);
+        jtfNeighbour.setEnabled(false);
+        jtfPhoneNum.setEnabled(false);
+        jtfPostCode.setEnabled(false);
+        jtfSearch.setEnabled(false);
+        jtfState.setEnabled(false);
+        jcbGender.setEnabled(false);
+      }
+      
       public HashMap reformatAddress(String fulladdress){
        HashMap<String, String> addressMap = new HashMap<String, String>();
        String[] address = fulladdress.split("_");
@@ -94,6 +109,7 @@ public class CustomerPanel extends javax.swing.JPanel {
     public CustomerPanel() {
         initComponents();
         customerControl = new MaintainCustomer();
+        petControl = new MaintainPet();
         jtfSearch.setOpaque(false);
         jtfSearch.setBackground(new Color(255,255,255,127));
         jtfSearch.setBorder(null);
@@ -165,12 +181,14 @@ public class CustomerPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jlblSearch = new javax.swing.JLabel();
         jtfSearch = new javax.swing.JTextField();
+        jlblCustomer = new javax.swing.JLabel();
         dynamicPanel = new javax.swing.JPanel();
         jpSearch = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtCustomer = new javax.swing.JTable();
         jbtModifyCus = new javax.swing.JButton();
         jbtDeleteCus = new javax.swing.JButton();
+        jbtViewPets = new javax.swing.JButton();
         jpAdd = new javax.swing.JPanel();
         jlblIc = new javax.swing.JLabel();
         jtfIc = new javax.swing.JTextField();
@@ -208,14 +226,18 @@ public class CustomerPanel extends javax.swing.JPanel {
                 jlblSearchMouseClicked(evt);
             }
         });
-        jPanel2.add(jlblSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
+        jPanel2.add(jlblSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 50, -1, -1));
 
         jtfSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfSearchActionPerformed(evt);
             }
         });
-        jPanel2.add(jtfSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 260, 30));
+        jPanel2.add(jtfSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 260, 30));
+
+        jlblCustomer.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jlblCustomer.setText("Customer");
+        jPanel2.add(jlblCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 110));
 
@@ -265,7 +287,7 @@ public class CustomerPanel extends javax.swing.JPanel {
                 jbtModifyCusActionPerformed(evt);
             }
         });
-        jpSearch.add(jbtModifyCus, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, -1, -1));
+        jpSearch.add(jbtModifyCus, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 330, -1, -1));
 
         jbtDeleteCus.setText("Delete Customer");
         jbtDeleteCus.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -278,7 +300,15 @@ public class CustomerPanel extends javax.swing.JPanel {
                 jbtDeleteCusActionPerformed(evt);
             }
         });
-        jpSearch.add(jbtDeleteCus, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 330, -1, -1));
+        jpSearch.add(jbtDeleteCus, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, -1, -1));
+
+        jbtViewPets.setText("View Pets");
+        jbtViewPets.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtViewPetsActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jbtViewPets, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, -1, -1));
 
         dynamicPanel.add(jpSearch, "card2");
 
@@ -391,6 +421,11 @@ public class CustomerPanel extends javax.swing.JPanel {
         jpAdd.add(jbtConfirmChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 280, -1, -1));
 
         jbtConfirmDelete.setText("Confirm Delete");
+        jbtConfirmDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtConfirmDeleteActionPerformed(evt);
+            }
+        });
         jpAdd.add(jbtConfirmDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, -1, -1));
 
         dynamicPanel.add(jpAdd, "card3");
@@ -430,10 +465,38 @@ public class CustomerPanel extends javax.swing.JPanel {
 
     private void jbtModifyCusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtModifyCusActionPerformed
         // TODO add your handling code here:
+        MainMenu.action="modifySelected";
+       Customer selectedCustomer=null;
+       if(jtCustomer.getSelectedRow()>=0 ) {
+           String id  = (String) jtCustomer.getValueAt(jtCustomer.getSelectedRow(),0);
+           selectedCustomer = customerControl.searchRecord(id);
+           if(selectedCustomer!=null){
+                setDynamicPanel();
+                fillFields(selectedCustomer);
+           }
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
     }//GEN-LAST:event_jbtModifyCusActionPerformed
 
     private void jbtDeleteCusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDeleteCusActionPerformed
         // TODO add your handling code here:
+          MainMenu.action="deleteSelected";
+       Customer selectedCustomer=null;
+       if(jtCustomer.getSelectedRow()>=0 ) {
+           String ic  = (String) jtCustomer.getValueAt(jtCustomer.getSelectedRow(),0);
+           selectedCustomer = customerControl.searchRecord(ic);
+           if(selectedCustomer!=null){
+                setDynamicPanel();
+                fillFields(selectedCustomer);
+                disableFields();
+                
+           }
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
     }//GEN-LAST:event_jbtDeleteCusActionPerformed
 
     private void jbtAddCusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddCusMouseClicked
@@ -464,8 +527,8 @@ public class CustomerPanel extends javax.swing.JPanel {
             }
             ArrayList<Customer> customerList = customerControl.searchRecord(queryStr,option);
 
-    //        MainMenu.action="search";
-    //        setDynamicPanel();
+            MainMenu.action="search";
+            setDynamicPanel();
             if(customerList.size()!=0&&customerList!=null){
                 Object[][] data = new Object[100][8];
                 for(int i=0; i<customerList.size();i++){
@@ -502,7 +565,7 @@ public class CustomerPanel extends javax.swing.JPanel {
 
     private void jbtDeleteCusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDeleteCusMouseClicked
         // TODO add your handling code here:
-        MainMenu.action="delete";
+       MainMenu.action="delete";
        Customer selectedCustomer=null;
        if(jtCustomer.getSelectedRow()>=0 ) {
            String ic  = (String) jtCustomer.getValueAt(jtCustomer.getSelectedRow(),0);
@@ -592,6 +655,63 @@ public class CustomerPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jbtConfirmChangeActionPerformed
 
+    private void jbtConfirmDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmDeleteActionPerformed
+        // TODO add your handling code here:
+         Customer customer = validateInput();
+        if(customer!=null){
+            Customer c = customerControl.searchRecord(customer.getCustIC());
+
+            if(c == null)
+            {
+                JOptionPane.showMessageDialog(null,"This customer does not exist.", "Record Not Found", JOptionPane.ERROR_MESSAGE);
+            }
+            else
+            {
+                c = customer;
+                int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Are you sure you want delete customer "+customer.getCustIC()+" ?", "Confirm delete?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+
+                if(reply==JOptionPane.YES_OPTION){
+                    try{
+                        customerControl.deleteRecord(c.getCustIC());
+                        resetFields();
+                        JOptionPane.showMessageDialog(null,"Customer "+ customer.getCustIC()+" has been deleted.","Success",JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    catch (Exception ex){
+                        JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+                
+        }
+        else{
+            //****
+            int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Your input seems to have data that is invalid or in incorrect format. Would you like to reset all fields?", "Invalid Data!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+            if(reply==JOptionPane.YES_OPTION){
+                resetFields();
+            }
+        }
+    }//GEN-LAST:event_jbtConfirmDeleteActionPerformed
+
+    private void jbtViewPetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtViewPetsActionPerformed
+        // TODO add your handling code here:
+       Customer selectedCustomer=null;
+       if(jtCustomer.getSelectedRow()>=0 ) {
+           String ic  = (String) jtCustomer.getValueAt(jtCustomer.getSelectedRow(),0);
+           ArrayList<Pet> petList = petControl.searchRecord(ic, 2);
+           if(petList.size()!=0&&petList!=null){
+               ViewPetsDialog d = new ViewPetsDialog((java.awt.Frame)this.getParent().getParent().getParent().getParent().getParent().getParent(), true, petList);
+               d.setVisible(true);     
+           }
+           else{
+                JOptionPane.showMessageDialog(null, "No pets found!" , "Empty Record.", JOptionPane.ERROR_MESSAGE);
+            }
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to view","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_jbtViewPetsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
@@ -603,8 +723,10 @@ public class CustomerPanel extends javax.swing.JPanel {
     private javax.swing.JButton jbtConfirmDelete;
     private javax.swing.JButton jbtDeleteCus;
     private javax.swing.JButton jbtModifyCus;
+    private javax.swing.JButton jbtViewPets;
     private javax.swing.JComboBox<String> jcbGender;
     private javax.swing.JLabel jlblCity;
+    private javax.swing.JLabel jlblCustomer;
     private javax.swing.JLabel jlblDoor;
     private javax.swing.JLabel jlblGender;
     private javax.swing.JLabel jlblIc;
