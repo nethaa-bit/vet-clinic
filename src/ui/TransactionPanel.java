@@ -9,6 +9,7 @@ import control.MaintainPet;
 import control.MaintainService;
 import control.MaintainStaff;
 import control.MaintainTransaction;
+import control.MaintainTransactionService;
 import domain.Pet;
 import domain.Service;
 import domain.ServiceDetail;
@@ -38,6 +39,7 @@ public class TransactionPanel extends javax.swing.JPanel {
     private MaintainService serviceControl;
     private MaintainStaff staffControl;
     private MaintainPet petControl;
+    private MaintainTransactionService transServControl;
     private ArrayList<ServiceDetail> servList;
     private String action;
     private AddServiceDialog asd;
@@ -53,6 +55,7 @@ public class TransactionPanel extends javax.swing.JPanel {
         serviceControl = new MaintainService ();
         staffControl = new MaintainStaff();
         petControl = new MaintainPet();
+        transServControl = new MaintainTransactionService();
         servList = new ArrayList<ServiceDetail>();
         serviceDetail=null;
         jtfSearch.setOpaque(false);
@@ -61,7 +64,7 @@ public class TransactionPanel extends javax.swing.JPanel {
         setDynamicPanel();
     }
 
-     public void resetFields(){
+    public void resetFields(){
          
          jtfPetId.setText("");
          jtfSearch.setText("");
@@ -74,6 +77,7 @@ public class TransactionPanel extends javax.swing.JPanel {
     
      
      }
+     
     public ArrayList<ServiceDetail> getServList() {
         return servList;
     }
@@ -115,8 +119,10 @@ public class TransactionPanel extends javax.swing.JPanel {
     
     public void setDynamicPanel() {
         JPanel targetPanel = new JPanel();
+        jtfTransId.setEnabled(false);
         if(MainMenu.action.equals("add")){
              targetPanel=jpAdd;
+             jtfTransId.setText(generateTransId());
              
         }
         else if (MainMenu.action.equals("search")||MainMenu.action.equals("modify")||MainMenu.action.equals("delete")){
@@ -132,6 +138,18 @@ public class TransactionPanel extends javax.swing.JPanel {
         dynamicPanel.repaint();
         dynamicPanel.revalidate();
     }
+    
+    public String generateTransId(){
+        ArrayList<Transaction> transList = transControl.searchRecord("", 0);
+        
+        //implement sorting 
+        
+        String idStr = transList.get(transList.size()-1).getTransID();
+        int idNo = Integer.parseInt(idStr.split("T")[1])+1;
+        
+        return "T"+idNo;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -164,6 +182,8 @@ public class TransactionPanel extends javax.swing.JPanel {
         jbtEditService = new javax.swing.JButton();
         jbtAddTrans = new javax.swing.JButton();
         jbtRefresh = new javax.swing.JButton();
+        jbtConfirmChange = new javax.swing.JButton();
+        jbtConfirmDelete = new javax.swing.JButton();
         jpTrans1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtTransList = new javax.swing.JTable();
@@ -312,6 +332,22 @@ public class TransactionPanel extends javax.swing.JPanel {
             }
         });
         jpAdd.add(jbtRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, -1, -1));
+
+        jbtConfirmChange.setText("Confirm Changes");
+        jbtConfirmChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtConfirmChangeActionPerformed(evt);
+            }
+        });
+        jpAdd.add(jbtConfirmChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 330, -1, -1));
+
+        jbtConfirmDelete.setText("Confirm Delete");
+        jbtConfirmDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtConfirmDeleteActionPerformed(evt);
+            }
+        });
+        jpAdd.add(jbtConfirmDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 330, -1, -1));
 
         dynamicPanel.add(jpAdd, "card3");
 
@@ -487,13 +523,15 @@ public class TransactionPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         MainMenu.action="delete";
        Transaction selectedTrans=null;
+       ArrayList<ServiceDetail> servList = new ArrayList<ServiceDetail>();
        if(jtTransList.getSelectedRow()>=0 ) {
-           String ic  = (String) jtTransList.getValueAt(jtTransList.getSelectedRow(),0);
-           selectedTrans = transControl.searchRecord(ic);
-            
+           String id  = (String) jtTransList.getValueAt(jtTransList.getSelectedRow(),0);
+           selectedTrans = transControl.searchRecord(id);
+           servList = transServControl.searchRecord(id, 1);
+           // fillFields(trans serv);
        }
        else{
-           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to delete","Empty selection",JOptionPane.ERROR_MESSAGE);
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
        }
     }//GEN-LAST:event_jbtDeleteTransMouseClicked
 
@@ -501,10 +539,12 @@ public class TransactionPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
        MainMenu.action="modify";
        Transaction selectedTrans=null;
+       ArrayList<ServiceDetail> servList = new ArrayList<ServiceDetail>();
        if(jtTransList.getSelectedRow()>=0 ) {
-           String ic  = (String) jtTransList.getValueAt(jtTransList.getSelectedRow(),0);
-           selectedTrans = transControl.searchRecord(ic);
-            
+           String id  = (String) jtTransList.getValueAt(jtTransList.getSelectedRow(),0);
+           selectedTrans = transControl.searchRecord(id);
+           servList = transServControl.searchRecord(id, 1);
+           // fillFields(trans serv);
        }
        else{
            JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
@@ -527,9 +567,9 @@ public class TransactionPanel extends javax.swing.JPanel {
                     t = trans;
                     try{
                     transControl.addRecord(t);
-                    //add to transaction service 
+                    transServControl.addRecord(t);
                     resetFields();
-                    JOptionPane.showMessageDialog(null,"New staff is created.","Success",JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"New transaction has been created.","Success",JOptionPane.INFORMATION_MESSAGE);
                     }
                     catch (Exception ex){
                         JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
@@ -584,6 +624,90 @@ public class TransactionPanel extends javax.swing.JPanel {
         System.out.print(serviceDetail.getRemarks());
     }//GEN-LAST:event_jbtRefreshActionPerformed
 
+    private void jbtConfirmChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmChangeActionPerformed
+        // TODO add your handling code here:
+        Transaction transaction = validateInput();
+        if(transaction!=null){
+         //write to database ****
+                Transaction t = transControl.searchRecord(transaction.getTransID());
+                
+                if(t == null)
+                {
+                    JOptionPane.showMessageDialog(null,"This transaction does not exist.", "Record Not Found", JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                {                
+                    int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Are you sure you want commit the changes made?", "Confirm changes?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+                    if(reply==JOptionPane.YES_OPTION){
+                        try{
+                            transControl.updateRecord(t);
+                            transServControl.updateRecord(t);
+                            resetFields();
+                            JOptionPane.showMessageDialog(null,"Transaction details "+ t.getTransID()+" has been updated.","Success",JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        catch (Exception ex){
+                            JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+                
+                //---*****
+        }
+        else{
+            //****
+            int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Your input seems to have data that is invalid or in incorrect format. Would you like to reset all fields?", "Invalid Data!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+            if(reply==JOptionPane.YES_OPTION){
+                resetFields();
+            }
+            //***
+        }
+    }//GEN-LAST:event_jbtConfirmChangeActionPerformed
+
+    private void jbtConfirmDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmDeleteActionPerformed
+        // TODO add your handling code here:
+        Transaction transaction = validateInput();
+        if(transaction!=null){
+         //write to database ****
+                Transaction t = transControl.searchRecord(transaction.getTransID());
+                
+                if(t == null)
+                {
+                    JOptionPane.showMessageDialog(null,"This transaction does not exist.", "Record Not Found", JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                {                
+                    int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Are you sure you want commit the changes made?", "Confirm changes?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+                    if(reply==JOptionPane.YES_OPTION){
+                        try{
+                            transServControl.deleteRecord(t.getTransID());
+                            transControl.deleteRecord(t.getTransID());
+                            
+                            resetFields();
+                            JOptionPane.showMessageDialog(null,"Transaction details "+ t.getTransID()+" has been updated.","Success",JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        catch (Exception ex){
+                            JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+                
+                //---*****
+        }
+        else{
+            //****
+            int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Your input seems to have data that is invalid or in incorrect format. Would you like to reset all fields?", "Invalid Data!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+            if(reply==JOptionPane.YES_OPTION){
+                resetFields();
+            }
+            //***
+        }
+        
+    }//GEN-LAST:event_jbtConfirmDeleteActionPerformed
+
     public Transaction validateInput(){
         
         boolean valid = true;
@@ -619,6 +743,8 @@ public class TransactionPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbtAddService;
     private javax.swing.JButton jbtAddTrans;
+    private javax.swing.JButton jbtConfirmChange;
+    private javax.swing.JButton jbtConfirmDelete;
     private javax.swing.JButton jbtDeleteTrans;
     private javax.swing.JButton jbtEditService;
     private javax.swing.JButton jbtModifyTrans;
