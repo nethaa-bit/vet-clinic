@@ -5,10 +5,20 @@
  */
 package ui;
 
+import control.MaintainPet;
+import control.MaintainService;
+import control.MaintainStaff;
+import control.MaintainTransaction;
+import domain.Pet;
+import domain.Service;
+import domain.ServiceDetail;
 import domain.Staff;
 import domain.TableModel;
+import domain.Transaction;
 import java.awt.Color;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -24,22 +34,93 @@ public class TransactionPanel extends javax.swing.JPanel {
     /**
      * Creates new form TransactionPanel
      */
+    private MaintainTransaction transControl;
+    private MaintainService serviceControl;
+    private MaintainStaff staffControl;
+    private MaintainPet petControl;
+    private ArrayList<ServiceDetail> servList;
+    private String action;
+    private AddServiceDialog asd;
+    private static ServiceDetail serviceDetail;
+
+    public static void setService(ServiceDetail service) {
+        TransactionPanel.serviceDetail = service;
+    }
+    
     public TransactionPanel() {
         initComponents();
+        transControl = new MaintainTransaction();
+        serviceControl = new MaintainService ();
+        staffControl = new MaintainStaff();
+        petControl = new MaintainPet();
+        servList = new ArrayList<ServiceDetail>();
+        serviceDetail=null;
         jtfSearch.setOpaque(false);
         jtfSearch.setBackground(new Color(255,255,255,127));
         jtfSearch.setBorder(null);
         setDynamicPanel();
     }
 
-        public void setDynamicPanel() {
+     public void resetFields(){
+         
+         jtfPetId.setText("");
+         jtfSearch.setText("");
+         jtService.setModel(new DefaultTableModel());
+         jtService.repaint();
+         
+      for(int i=0; i<servList.size();i++){
+         servList.remove(i);
+       }
+    
+     
+     }
+    public ArrayList<ServiceDetail> getServList() {
+        return servList;
+    }
+
+    public void setServList(ArrayList<ServiceDetail> servList) {
+        this.servList = servList;
+    }
+    
+    public boolean addService (ServiceDetail serviceD){
+        boolean valid =true;
+        for(int i=0; i<servList.size();i++){
+           if(servList.get(i).getService().getServiceID().equals(serviceD.getService().getServiceID())){
+               valid=false;
+           }
+        }
+        if(valid){
+            servList.add(serviceD);
+        }
+        
+        return valid;
+    }
+    
+    public void editService(ServiceDetail serviceD){
+        for(int i=0; i<servList.size();i++){
+           if(servList.get(i).getService().getServiceID().equals(serviceD.getService().getServiceID())){
+               servList.remove(i);
+               servList.add(i, serviceD);
+           }
+        }
+    }
+    
+    public void removeService(ServiceDetail serviceD){
+    for(int i=0; i<servList.size();i++){
+       if(servList.get(i).getService().getServiceID().equals(serviceD.getService().getServiceID())){
+           servList.remove(i);
+       }
+    }
+}
+    
+    public void setDynamicPanel() {
         JPanel targetPanel = new JPanel();
         if(MainMenu.action.equals("add")){
              targetPanel=jpAdd;
              
         }
-        else if (MainMenu.action.equals("search")){
-            targetPanel=jtTrans1;
+        else if (MainMenu.action.equals("search")||MainMenu.action.equals("modify")||MainMenu.action.equals("delete")){
+            targetPanel=jpTrans1;
         }
         
         dynamicPanel.removeAll();
@@ -61,26 +142,29 @@ public class TransactionPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        jlblSearch = new javax.swing.JLabel();
         jtfSearch = new javax.swing.JTextField();
+        jlblTrans = new javax.swing.JLabel();
         dynamicPanel = new javax.swing.JPanel();
         jpAdd = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jlblTransId = new javax.swing.JLabel();
         jtfTransId = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jlblTransDate = new javax.swing.JLabel();
+        jlblTransTime = new javax.swing.JLabel();
+        jlblPetID = new javax.swing.JLabel();
         jtfPetId = new javax.swing.JTextField();
         jdpTransDate = new com.toedter.calendar.JDateChooser();
         jcbHours = new javax.swing.JComboBox<>();
         jcbMins = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jtTrans = new javax.swing.JTable();
+        jtService = new javax.swing.JTable();
         jbtRemoveService = new javax.swing.JButton();
         jbtAddService = new javax.swing.JButton();
-        jbtDeleteService = new javax.swing.JButton();
-        jtTrans1 = new javax.swing.JPanel();
+        jbtEditService = new javax.swing.JButton();
+        jbtAddTrans = new javax.swing.JButton();
+        jbtRefresh = new javax.swing.JButton();
+        jpTrans1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtTransList = new javax.swing.JTable();
         jbtModifyTrans = new javax.swing.JButton();
@@ -91,21 +175,25 @@ public class TransactionPanel extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(255, 204, 204));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlblSearch.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        jlblSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                jlblSearchMouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, -1));
+        jPanel2.add(jlblSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, -1, -1));
 
         jtfSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfSearchActionPerformed(evt);
             }
         });
-        jPanel2.add(jtfSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 260, 30));
+        jPanel2.add(jtfSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 260, 30));
+
+        jlblTrans.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jlblTrans.setText("Transaction");
+        jPanel2.add(jlblTrans, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, -1, 20));
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 70));
 
@@ -114,21 +202,21 @@ public class TransactionPanel extends javax.swing.JPanel {
         jpAdd.setBackground(new java.awt.Color(255, 204, 204));
         jpAdd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Transaction ID :");
-        jpAdd.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 87, 23));
+        jlblTransId.setText("Transaction ID :");
+        jpAdd.add(jlblTransId, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 87, 23));
 
         jtfTransId.setToolTipText("Enter transaction ID");
         jtfTransId.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jpAdd.add(jtfTransId, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 80, -1));
 
-        jLabel3.setText("Transaction Date :");
-        jpAdd.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, -1, -1));
+        jlblTransDate.setText("Transaction Date :");
+        jpAdd.add(jlblTransDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, -1, -1));
 
-        jLabel4.setText("Transaction Time :");
-        jpAdd.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
+        jlblTransTime.setText("Transaction Time :");
+        jpAdd.add(jlblTransTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, -1, -1));
 
-        jLabel5.setText("Pet ID :");
-        jpAdd.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, -1, -1));
+        jlblPetID.setText("Pet ID :");
+        jpAdd.add(jlblPetID, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, -1, -1));
 
         jtfPetId.setToolTipText("Enter pet ID");
         jtfPetId.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -149,7 +237,7 @@ public class TransactionPanel extends javax.swing.JPanel {
         jLabel6.setText("hours                  minutes");
         jpAdd.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 150, 20));
 
-        jtTrans.setModel(new javax.swing.table.DefaultTableModel(
+        jtService.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -168,14 +256,14 @@ public class TransactionPanel extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
-        jtTrans.setColumnSelectionAllowed(true);
-        jtTrans.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jtTrans);
-        jtTrans.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (jtTrans.getColumnModel().getColumnCount() > 0) {
-            jtTrans.getColumnModel().getColumn(0).setPreferredWidth(20);
-            jtTrans.getColumnModel().getColumn(1).setPreferredWidth(20);
-            jtTrans.getColumnModel().getColumn(2).setPreferredWidth(50);
+        jtService.setColumnSelectionAllowed(true);
+        jtService.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jtService);
+        jtService.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (jtService.getColumnModel().getColumnCount() > 0) {
+            jtService.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jtService.getColumnModel().getColumn(1).setPreferredWidth(20);
+            jtService.getColumnModel().getColumn(2).setPreferredWidth(50);
         }
 
         jpAdd.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 530, 190));
@@ -186,7 +274,7 @@ public class TransactionPanel extends javax.swing.JPanel {
                 jbtRemoveServiceActionPerformed(evt);
             }
         });
-        jpAdd.add(jbtRemoveService, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 330, -1, -1));
+        jpAdd.add(jbtRemoveService, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 330, -1, -1));
 
         jbtAddService.setText("Add Service Item");
         jbtAddService.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -199,20 +287,36 @@ public class TransactionPanel extends javax.swing.JPanel {
                 jbtAddServiceActionPerformed(evt);
             }
         });
-        jpAdd.add(jbtAddService, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, -1, -1));
+        jpAdd.add(jbtAddService, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, -1, -1));
 
-        jbtDeleteService.setText("Edit Service Item");
-        jbtDeleteService.addActionListener(new java.awt.event.ActionListener() {
+        jbtEditService.setText("Edit Service Item");
+        jbtEditService.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtDeleteServiceActionPerformed(evt);
+                jbtEditServiceActionPerformed(evt);
             }
         });
-        jpAdd.add(jbtDeleteService, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, -1, -1));
+        jpAdd.add(jbtEditService, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, -1, -1));
+
+        jbtAddTrans.setText("Add transaction");
+        jbtAddTrans.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtAddTransActionPerformed(evt);
+            }
+        });
+        jpAdd.add(jbtAddTrans, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 330, 110, -1));
+
+        jbtRefresh.setText("Refresh");
+        jbtRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtRefreshActionPerformed(evt);
+            }
+        });
+        jpAdd.add(jbtRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 330, -1, -1));
 
         dynamicPanel.add(jpAdd, "card3");
 
-        jtTrans1.setBackground(new java.awt.Color(255, 204, 204));
-        jtTrans1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jpTrans1.setBackground(new java.awt.Color(255, 204, 204));
+        jpTrans1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jtTransList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -242,7 +346,7 @@ public class TransactionPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(jtTransList);
 
-        jtTrans1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 570, 230));
+        jpTrans1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 570, 230));
 
         jbtModifyTrans.setText("Modify Transaction");
         jbtModifyTrans.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -255,7 +359,7 @@ public class TransactionPanel extends javax.swing.JPanel {
                 jbtModifyTransActionPerformed(evt);
             }
         });
-        jtTrans1.add(jbtModifyTrans, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, -1, -1));
+        jpTrans1.add(jbtModifyTrans, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, -1, -1));
 
         jbtDeleteTrans.setText("Delete Transaction");
         jbtDeleteTrans.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -263,9 +367,9 @@ public class TransactionPanel extends javax.swing.JPanel {
                 jbtDeleteTransMouseClicked(evt);
             }
         });
-        jtTrans1.add(jbtDeleteTrans, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, -1, -1));
+        jpTrans1.add(jbtDeleteTrans, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, -1, -1));
 
-        dynamicPanel.add(jtTrans1, "card2");
+        dynamicPanel.add(jpTrans1, "card2");
 
         add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 960, 440));
     }// </editor-fold>//GEN-END:initComponents
@@ -280,17 +384,50 @@ public class TransactionPanel extends javax.swing.JPanel {
 
     private void jbtRemoveServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRemoveServiceActionPerformed
         // TODO add your handling code here:
+        action="delete";
+        if(jtService.getSelectedRow()>=0 ) {
+          
+           Service service = serviceControl.searchRecord((String) jtService.getValueAt(jtService.getSelectedRow(),0));
+           Staff staff = staffControl.searchRecord((String) jtService.getValueAt(jtService.getSelectedRow(),1),2).get(0);
+           
+           ServiceDetail servD = new ServiceDetail();
+           servD.setStaffIC(staff);
+           servD.setService(service);
+           removeService(servD);
+           jbtRefreshActionPerformed(evt);
+           JOptionPane.showMessageDialog(null,"Item deleted succesfully.","Success",JOptionPane.INFORMATION_MESSAGE);
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to delete","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
     }//GEN-LAST:event_jbtRemoveServiceActionPerformed
 
     private void jbtAddServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddServiceActionPerformed
         // TODO add your handling code here:
-        AddServiceDialog asd = new AddServiceDialog((JFrame)this.getParent().getParent().getParent().getParent().getParent().getParent(), false);
+        action="add";
+        asd = new AddServiceDialog((JFrame)this.getParent().getParent().getParent().getParent().getParent().getParent(), false);
         asd.setVisible(true);
     }//GEN-LAST:event_jbtAddServiceActionPerformed
 
-    private void jbtDeleteServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDeleteServiceActionPerformed
+    private void jbtEditServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditServiceActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbtDeleteServiceActionPerformed
+        action="edit";
+        if(jtService.getSelectedRow()>=0 ) {
+            String serviceID = (String) jtService.getValueAt(jtService.getSelectedRow(),0);
+            String staffId =(String) jtService.getValueAt(jtService.getSelectedRow(),1);
+            String remarks = (String) jtService.getValueAt(jtService.getSelectedRow(),2);
+            
+            asd = new AddServiceDialog((JFrame)this.getParent().getParent().getParent().getParent().getParent().getParent(), false);
+            asd.fillFields(serviceID, staffId, remarks);
+            asd.setVisible(true);   
+        }
+        else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+        
+        
+            
+    }//GEN-LAST:event_jbtEditServiceActionPerformed
 
     private void jbtModifyTransActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtModifyTransActionPerformed
         // TODO add your handling code here:
@@ -302,12 +439,19 @@ public class TransactionPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtAddServiceMouseClicked
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+    private void jlblSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblSearchMouseClicked
         // TODO add your handling code here:
         //I used all my 洪荒之力 to make this method 
+        ///// jtService is jttransList
+        jtTransList.setModel(new DefaultTableModel());
+        jtTransList.repaint();
         
-        jtTrans.setModel(new DefaultTableModel());
-        jtTrans.repaint();
+        if(MainMenu.action == "modifySelected"){
+            MainMenu.action="modify";
+        }
+        else if(MainMenu.action == "deleteSelected"){
+            MainMenu.action="delete";
+        }
         String queryStr =jtfSearch.getText();
         int option =0;
         
@@ -319,10 +463,10 @@ public class TransactionPanel extends javax.swing.JPanel {
             else{
                 option=2;
             }
-            ArrayList<Transaction> transactionList = TransactionControl.searchRecord(queryStr,option);
+            ArrayList<Transaction> transactionList = transControl.searchRecord(queryStr,option);
 
-    //        MainMenu.action="search";
-    //        setDynamicPanel();
+//            MainMenu.action="search";
+//            setDynamicPanel();
             if(transactionList.size()!=0&&transactionList!=null){
                 Object[][] data = new Object[100][8];
                 for(int i=0; i<transactionList.size();i++){
@@ -330,22 +474,22 @@ public class TransactionPanel extends javax.swing.JPanel {
                 } 
                 String[] columnNames = {"Service","Staff","Remarks"};
                 TableModel tModel = new TableModel(data, columnNames);
-                jtTrans.setModel(tModel);  
-                jtTrans.createDefaultColumnsFromModel();
-                jtTrans.repaint();
+                jtTransList.setModel(tModel);  
+                jtTransList.createDefaultColumnsFromModel();
+                jtTransList.repaint();
             }
             else{
                 JOptionPane.showMessageDialog(null, "No results found!" , "No such record.", JOptionPane.ERROR_MESSAGE);
             }     
-    }//GEN-LAST:event_jLabel1MouseClicked
+    }//GEN-LAST:event_jlblSearchMouseClicked
 
     private void jbtDeleteTransMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDeleteTransMouseClicked
         // TODO add your handling code here:
         MainMenu.action="delete";
-       Staff selectedTrans=null;
+       Transaction selectedTrans=null;
        if(jtTransList.getSelectedRow()>=0 ) {
            String ic  = (String) jtTransList.getValueAt(jtTransList.getSelectedRow(),0);
-           selectedTrans = TransactionControl.searchRecord(ic);
+           selectedTrans = transControl.searchRecord(ic);
             
        }
        else{
@@ -356,7 +500,7 @@ public class TransactionPanel extends javax.swing.JPanel {
     private void jbtModifyTransMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtModifyTransMouseClicked
         // TODO add your handling code here:
        MainMenu.action="modify";
-       Trans selectedTrans=null;
+       Transaction selectedTrans=null;
        if(jtTransList.getSelectedRow()>=0 ) {
            String ic  = (String) jtTransList.getValueAt(jtTransList.getSelectedRow(),0);
            selectedTrans = transControl.searchRecord(ic);
@@ -367,32 +511,138 @@ public class TransactionPanel extends javax.swing.JPanel {
        }
     }//GEN-LAST:event_jbtModifyTransMouseClicked
 
+    private void jbtAddTransActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddTransActionPerformed
+        // TODO add your handling code here:
+        Transaction trans = validateInput();
+        
+        if(trans!=null){
+            Transaction t = transControl.searchRecord(trans.getTransID());
+                
+                if(t != null)
+                {
+                    JOptionPane.showMessageDialog(null,"This transaction already exist.", "Duplicate Record", JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                {
+                    t = trans;
+                    try{
+                    transControl.addRecord(t);
+                    //add to transaction service 
+                    resetFields();
+                    JOptionPane.showMessageDialog(null,"New staff is created.","Success",JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    catch (Exception ex){
+                        JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
+                    }
+                }  
+        }
+        else{
+        int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Your input seems to have data that is invalid or in incorrect format. Would you like to reset all fields?", "Invalid Data!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+            if(reply==JOptionPane.YES_OPTION){
+                resetFields();
+            }
+        }
+
+    }//GEN-LAST:event_jbtAddTransActionPerformed
+
+    private void jbtRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtRefreshActionPerformed
+        // TODO add your handling code here:
+        //check if null 
+        jtService.setModel(new DefaultTableModel());
+        jtService.repaint();
+        if(serviceDetail!=null){
+            if(action=="add"||action=="edit"){
+                if(addService(serviceDetail)==false){
+                    int option = JOptionPane.showConfirmDialog(null, "This service already exists. Are you sure you want to overwrite it?", "Overwrite service details?", JOptionPane.YES_NO_OPTION);
+                    if(option==JOptionPane.YES_OPTION){
+                        editService(serviceDetail);
+                        JOptionPane.showMessageDialog(null,"Service item edited successfully","Success",JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+                else    {
+                    JOptionPane.showMessageDialog(null,"Service item added succesfully","Success",JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            
+           if(servList.size()!=0&&servList!=null){
+                Object[][] data = new Object[100][8];
+                for(int i=0; i<servList.size();i++){
+                    data[i] = servList.get(i).getObjects();
+                } 
+                String[] columnNames = {"Service","Staff","Remarks"};
+                TableModel tModel = new TableModel(data, columnNames);
+                jtService.setModel(tModel);  
+                jtService.createDefaultColumnsFromModel();
+                jtService.repaint();
+            }
+        }
+        else{
+        
+            JOptionPane.showMessageDialog(null,"No item found!","Error",JOptionPane.ERROR_MESSAGE);
+        }
+        System.out.print(serviceDetail.getRemarks());
+    }//GEN-LAST:event_jbtRefreshActionPerformed
+
+    public Transaction validateInput(){
+        
+        boolean valid = true;
+        Transaction transaction = null;
+        int hours  = Integer.parseInt((String)jcbHours.getSelectedItem());
+        int minutes = Integer.parseInt((String)jcbMins.getSelectedItem());
+        long milliseconds = (minutes * 60000)+ (hours * 3600000)-(30 * 60000)- (7 * 3600000);
+        Time transTime = new Time(milliseconds);
+        
+        Date transDate = jdpTransDate.getDate();
+        String petID = jtfPetId.getText();
+        Pet pet = petControl.searchRecord(petID);
+        String transID = jtfTransId.getText(); //auto gen
+        
+        if(pet==null){
+            valid=false;
+        }
+        if(valid){
+            transaction = new Transaction (transID, transDate, transTime, pet, servList);
+        }
+        else{
+            transaction = null;
+        }
+        
+        return transaction;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbtAddService;
-    private javax.swing.JButton jbtDeleteService;
+    private javax.swing.JButton jbtAddTrans;
     private javax.swing.JButton jbtDeleteTrans;
+    private javax.swing.JButton jbtEditService;
     private javax.swing.JButton jbtModifyTrans;
+    private javax.swing.JButton jbtRefresh;
     private javax.swing.JButton jbtRemoveService;
     private javax.swing.JComboBox<String> jcbHours;
     private javax.swing.JComboBox<String> jcbMins;
     private com.toedter.calendar.JDateChooser jdpTransDate;
+    private javax.swing.JLabel jlblPetID;
+    private javax.swing.JLabel jlblSearch;
+    private javax.swing.JLabel jlblTrans;
+    private javax.swing.JLabel jlblTransDate;
+    private javax.swing.JLabel jlblTransId;
+    private javax.swing.JLabel jlblTransTime;
     private javax.swing.JPanel jpAdd;
-    private javax.swing.JTable jtTrans;
-    private javax.swing.JPanel jtTrans1;
+    private javax.swing.JPanel jpTrans1;
+    private javax.swing.JTable jtService;
     private javax.swing.JTable jtTransList;
     private javax.swing.JTextField jtfPetId;
     private javax.swing.JTextField jtfSearch;
     private javax.swing.JTextField jtfTransId;
     // End of variables declaration//GEN-END:variables
+
+    public static ServiceDetail getService() {
+        return serviceDetail;
+    }
 }
