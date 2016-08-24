@@ -5,6 +5,14 @@
  */
 package ui;
 
+import control.MaintainService;
+import control.MaintainStaff;
+import domain.Service;
+import domain.ServiceDetail;
+import domain.Staff;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Cheng
@@ -14,11 +22,40 @@ public class AddServiceDialog extends javax.swing.JDialog {
     /**
      * Creates new form AddServiceDialog
      */
+    
+    private MaintainService serviceControl;
+    private MaintainStaff staffControl;
+    private ServiceDetail service;
+    
     public AddServiceDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        serviceControl = new MaintainService();
+        staffControl = new MaintainStaff();
         initComponents();
+        setComboBoxOptions();
     }
 
+    
+    public void setComboBoxOptions(){
+        ArrayList<Service> serviceList = serviceControl.searchRecord("",0);
+        ArrayList<Staff> staffList = staffControl.searchRecord("",0);
+        
+        for(int i=0;i<serviceList.size();i++){
+            jcbService.addItem(serviceList.get(i).getServiceTitle());
+        }
+        for(int i=0;i<staffList.size();i++){
+            jcbStaff.addItem(staffList.get(i).getStaffName());
+        }
+    }
+    
+    public void fillFields (String serviceId, String staffName, String remarks){
+        ArrayList<Service> serviceList = serviceControl.searchRecord(serviceId,1);
+        ArrayList<Staff> staffList = staffControl.searchRecord(staffName,2);
+        jcbService.setSelectedItem(serviceList.get(0));
+        jcbStaff.setSelectedItem(staffList.get(0));
+        jtaRemarks.setText(remarks);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,10 +89,8 @@ public class AddServiceDialog extends javax.swing.JDialog {
         jlblRemarks.setText(" Remarks :");
         getContentPane().add(jlblRemarks, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
 
-        jcbService.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Grooming", "Item 2", "Item 3", "Item 4" }));
         getContentPane().add(jcbService, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 130, -1));
 
-        jcbStaff.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Xiao Liow", "Item 2", "Item 3", "Item 4" }));
         getContentPane().add(jcbStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 130, -1));
 
         jtaRemarks.setColumns(20);
@@ -65,6 +100,11 @@ public class AddServiceDialog extends javax.swing.JDialog {
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 180, 110));
 
         jbtConfirm.setText("Confirm");
+        jbtConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtConfirmActionPerformed(evt);
+            }
+        });
         getContentPane().add(jbtConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, -1, -1));
 
         jLabel1.setText("                ");
@@ -72,6 +112,21 @@ public class AddServiceDialog extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmActionPerformed
+        // TODO add your handling code here:
+            service = new ServiceDetail();   
+            
+            //search record by pk 
+            
+            
+            service.setService(serviceControl.searchRecord((String)jcbService.getSelectedItem(),2).get(0));
+            service.setStaffIC(staffControl.searchRecord((String)jcbStaff.getSelectedItem(),2).get(0));
+            service.setRemarks(jtaRemarks.getText());
+            TransactionPanel.setService(service);
+             JOptionPane.showMessageDialog(null,"Please click the refresh button to reflect the changes you've made.","Refresh!",JOptionPane.INFORMATION_MESSAGE);
+            dispose();
+    }//GEN-LAST:event_jbtConfirmActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,4 +181,14 @@ public class AddServiceDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jlblStaff;
     private javax.swing.JTextArea jtaRemarks;
     // End of variables declaration//GEN-END:variables
+
+    public ServiceDetail getService() {
+        return service;
+    }
+
+    public void setService(ServiceDetail service) {
+        this.service = service;
+    }
+    
+    
 }
