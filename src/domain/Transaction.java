@@ -72,4 +72,8 @@ public class Transaction {
         this.serviceList = serviceList;
     }
     
+    public Object[] getObjects() {
+        Object[] objList ={transID,transDate,transTime,pet.getPetID()};
+        return objList;
+    }
 }
