@@ -118,8 +118,13 @@ public class Pet {
     }
 
     public Object[] getObjects() {
-        Object[] objList ={petID,petName,petHeight, petWeight,petLength ,animalType,breed, petDOB,petGender,customer };
+        Object[] objList ={petID,petName,petHeight, petWeight,petLength ,animalType,breed, petDOB,petGender,customer.getCustIC() };
         return objList;
     }    
+    
+    public Object[] getObjectsSummary() {
+        Object[] objList ={petID,petName,animalType,petDOB,petGender};
+        return objList;
+    }  
   
 }
