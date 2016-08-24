@@ -103,8 +103,10 @@ public class PetPanel extends javax.swing.JPanel {
              jbtAddPet.setVisible(true);
              jtfPetId.setText(generatePetId());
         }
-        else if (MainMenu.action.equals("search")||MainMenu.action.equals("modify")||MainMenu.action.equals("delete")){
+        else if (MainMenu.action.equals("search")){
             targetPanel=jpSearch;
+            jbtDeletePet.setVisible(false);
+            jbtModifyPet.setVisible(false);
         }
         else if(MainMenu.action.equals("modifySelected")){
              targetPanel=jpAdd;
@@ -117,6 +119,15 @@ public class PetPanel extends javax.swing.JPanel {
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(true);
              jbtAddPet.setVisible(false);
+        }else if(MainMenu.action.equals("modify")){
+                targetPanel=jpSearch;
+                jbtDeletePet.setVisible(false);
+                jbtModifyPet.setVisible(true);
+        }
+        else if(MainMenu.action.equals("delete")){
+                targetPanel=jpSearch;
+                jbtDeletePet.setVisible(true);
+                jbtModifyPet.setVisible(false);
         }
         
         dynamicPanel.removeAll();
@@ -157,12 +168,13 @@ public class PetPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jlblSearch = new javax.swing.JLabel();
         jtfSearch = new javax.swing.JTextField();
+        jlblPet = new javax.swing.JLabel();
         dynamicPanel = new javax.swing.JPanel();
         jpSearch = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtPet = new javax.swing.JTable();
-        jbtModifyStaff = new javax.swing.JButton();
-        jbtDeleteStaff = new javax.swing.JButton();
+        jbtModifyPet = new javax.swing.JButton();
+        jbtDeletePet = new javax.swing.JButton();
         jpAdd = new javax.swing.JPanel();
         jlblId = new javax.swing.JLabel();
         jtfPetId = new javax.swing.JTextField();
@@ -202,14 +214,18 @@ public class PetPanel extends javax.swing.JPanel {
                 jlblSearchMouseClicked(evt);
             }
         });
-        jPanel2.add(jlblSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, -1, -1));
+        jPanel2.add(jlblSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, -1, -1));
 
         jtfSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfSearchActionPerformed(evt);
             }
         });
-        jPanel2.add(jtfSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 260, 30));
+        jPanel2.add(jtfSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 260, 30));
+
+        jlblPet.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jlblPet.setText("Pet");
+        jPanel2.add(jlblPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 70));
 
@@ -217,6 +233,8 @@ public class PetPanel extends javax.swing.JPanel {
 
         jpSearch.setBackground(new java.awt.Color(255, 255, 204));
         jpSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         jtPet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -248,31 +266,31 @@ public class PetPanel extends javax.swing.JPanel {
 
         jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 660, 310));
 
-        jbtModifyStaff.setText("Modify Pet");
-        jbtModifyStaff.addMouseListener(new java.awt.event.MouseAdapter() {
+        jbtModifyPet.setText("Modify Pet");
+        jbtModifyPet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtModifyStaffMouseClicked(evt);
+                jbtModifyPetMouseClicked(evt);
             }
         });
-        jbtModifyStaff.addActionListener(new java.awt.event.ActionListener() {
+        jbtModifyPet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtModifyStaffActionPerformed(evt);
+                jbtModifyPetActionPerformed(evt);
             }
         });
-        jpSearch.add(jbtModifyStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, -1, -1));
+        jpSearch.add(jbtModifyPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 370, -1, -1));
 
-        jbtDeleteStaff.setText("Delete Pet");
-        jbtDeleteStaff.addMouseListener(new java.awt.event.MouseAdapter() {
+        jbtDeletePet.setText("Delete Pet");
+        jbtDeletePet.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtDeleteStaffMouseClicked(evt);
+                jbtDeletePetMouseClicked(evt);
             }
         });
-        jbtDeleteStaff.addActionListener(new java.awt.event.ActionListener() {
+        jbtDeletePet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtDeleteStaffActionPerformed(evt);
+                jbtDeletePetActionPerformed(evt);
             }
         });
-        jpSearch.add(jbtDeleteStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 370, -1, -1));
+        jpSearch.add(jbtDeletePet, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 370, -1, -1));
 
         dynamicPanel.add(jpSearch, "card2");
 
@@ -282,7 +300,7 @@ public class PetPanel extends javax.swing.JPanel {
         jlblId.setText("Pet ID :");
         jpAdd.add(jlblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
 
-        jtfPetId.setToolTipText("Enter pet ID");
+        jtfPetId.setToolTipText("Pet ID");
         jpAdd.add(jtfPetId, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 90, -1));
 
         jlblName.setText("Pet Name :");
@@ -356,9 +374,19 @@ public class PetPanel extends javax.swing.JPanel {
         jpAdd.add(jdpBirthDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, -1, -1));
 
         jbtConfirmChange.setText("Confirm Changes");
+        jbtConfirmChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtConfirmChangeActionPerformed(evt);
+            }
+        });
         jpAdd.add(jbtConfirmChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, -1, -1));
 
         jbtConfirmDelete.setText("Confirm Delete");
+        jbtConfirmDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtConfirmDeleteActionPerformed(evt);
+            }
+        });
         jpAdd.add(jbtConfirmDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, -1, -1));
 
         dynamicPanel.add(jpAdd, "card3");
@@ -376,13 +404,54 @@ public class PetPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfPetNameActionPerformed
 
-    private void jbtModifyStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtModifyStaffActionPerformed
+    private void jbtModifyPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtModifyPetActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbtModifyStaffActionPerformed
+       MainMenu.action="modifySelected";
+       Pet selectedPet=null;
+       if(jtPet.getSelectedRow()>=0 ) {
+           String id  = (String) jtPet.getValueAt(jtPet.getSelectedRow(),0);
+           selectedPet = petControl.searchRecord(id);
+           if(selectedPet!=null){
+                setDynamicPanel();
+                fillFields(selectedPet);
+           }
+            else{
+                JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_jbtModifyPetActionPerformed
 
-    private void jbtDeleteStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDeleteStaffActionPerformed
+    private void jbtDeletePetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDeletePetActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbtDeleteStaffActionPerformed
+        MainMenu.action="deleteSelected";
+       Pet selectedPet=null;
+       if(jtPet.getSelectedRow()>=0 ) {
+           String id  = (String) jtPet.getValueAt(jtPet.getSelectedRow(),0);
+           selectedPet = petControl.searchRecord(id);
+           if(selectedPet!=null){
+                setDynamicPanel();
+                fillFields(selectedPet); 
+                jtfSearch.setEnabled(false);
+                jtfBreed.setEnabled(false);
+                jtfHeight.setEnabled(false);
+                jtfLength.setEnabled(false);
+                jtfOwnerIc.setEnabled(false);
+                jtfPetId.setEnabled(false);
+                jtfPetName.setEnabled(false);
+                jtfWeight.setEnabled(false);
+                jcbGender.setEnabled(false);
+                jcbType.setEnabled(false);
+                jdpBirthDate.setEnabled(false);
+                
+           }
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_jbtDeletePetActionPerformed
 
     private void jbtAddPetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddPetMouseClicked
         // TODO add your handling code here:
@@ -395,27 +464,37 @@ public class PetPanel extends javax.swing.JPanel {
 
         jtPet.setModel(new DefaultTableModel());
         jtPet.repaint();
-        String queryStr =jlblSearch.getText();
-        int option =0;
         
+        if(MainMenu.action == "modifySelected"){
+            MainMenu.action="modify";
+        }
+        else if(MainMenu.action == "deleteSelected"){
+            MainMenu.action="delete";
+        }else if(MainMenu.action == "add"){
+               MainMenu.action="search";
+        }
+            setDynamicPanel();
+        
+        String queryStr =jtfSearch.getText();
+        int option =-1;
+        ArrayList<Pet> petList = null;
 
-            if(Pattern.matches("\\d{12}", queryStr)){
-                option=1;
+            if(Pattern.matches("A\\d+", queryStr)){
+                petList = petControl.searchRecord(queryStr,1);
+            }else if(Pattern.matches("\\d{12}", queryStr)){
+                petList = petControl.searchRecord(queryStr,2);
+            }else{
+                petList = petControl.searchRecord(queryStr,3);
             }
-           
-            else{
-                option=2;
-            }
-            ArrayList<Pet> petList = petControl.searchRecord(queryStr,option);
 
-    //        MainMenu.action="search";
-    //        setDynamicPanel();
+
+
             if(petList.size()!=0&&petList!=null){
-                Object[][] data = new Object[100][8];
+                Object[][] data = new Object[100][10];
                 for(int i=0; i<petList.size();i++){
                 data[i] = petList.get(i).getObjects();
                 } 
-                String[] columnNames = {"Staff IC","Name","Address","Phone No","Position","Qualification"};
+                String[] columnNames = {"Pet ID","Name","Height","Weight","Length ","Animal Type","Breed","Date Of Birth","Gender","Customer"};
                 TableModel tModel = new TableModel(data, columnNames);
                 jtPet.setModel(tModel);  
                 jtPet.createDefaultColumnsFromModel();
@@ -426,40 +505,40 @@ public class PetPanel extends javax.swing.JPanel {
             }     
     }//GEN-LAST:event_jlblSearchMouseClicked
 
-    private void jbtModifyStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtModifyStaffMouseClicked
+    private void jbtModifyPetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtModifyPetMouseClicked
         // TODO add your handling code here:
-         MainMenu.action="modifySelected";
-       Pet selectedPet=null;
-       if(jtPet.getSelectedRow()>=0 ) {
-           String ic  = (String) jtPet.getValueAt(jtPet.getSelectedRow(),0);
-           selectedPet = petControl.searchRecord(ic);
-           if(selectedPet!=null){
-                setDynamicPanel();
-                fillFields(selectedPet);
-           }
-       }
-       else{
-           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
-       }
+//         MainMenu.action="modifySelected";
+//       Pet selectedPet=null;
+//       if(jtPet.getSelectedRow()>=0 ) {
+//           String ic  = (String) jtPet.getValueAt(jtPet.getSelectedRow(),0);
+//           selectedPet = petControl.searchRecord(ic);
+//           if(selectedPet!=null){
+//                setDynamicPanel();
+//                fillFields(selectedPet);
+//           }
+//       }
+//       else{
+//           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+//       }
 
-    }//GEN-LAST:event_jbtModifyStaffMouseClicked
+    }//GEN-LAST:event_jbtModifyPetMouseClicked
 
-    private void jbtDeleteStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDeleteStaffMouseClicked
+    private void jbtDeletePetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtDeletePetMouseClicked
         // TODO add your handling code here:
-        MainMenu.action="delete";
-       Pet selectedPet=null;
-       if(jtPet.getSelectedRow()>=0 ) {
-           String ic  = (String) jtPet.getValueAt(jtPet.getSelectedRow(),0);
-           selectedPet = petControl.searchRecord(ic);
-          if(selectedPet!=null){
-                setDynamicPanel();
-                fillFields(selectedPet);
-           } 
-       }
-       else{
-           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to delete","Empty selection",JOptionPane.ERROR_MESSAGE);
-       }
-    }//GEN-LAST:event_jbtDeleteStaffMouseClicked
+//        MainMenu.action="delete";
+//       Pet selectedPet=null;
+//       if(jtPet.getSelectedRow()>=0 ) {
+//           String ic  = (String) jtPet.getValueAt(jtPet.getSelectedRow(),0);
+//           selectedPet = petControl.searchRecord(ic);
+//          if(selectedPet!=null){
+//                setDynamicPanel();
+//                fillFields(selectedPet);
+//           } 
+//       }
+//       else{
+//           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to delete","Empty selection",JOptionPane.ERROR_MESSAGE);
+//       }
+    }//GEN-LAST:event_jbtDeletePetMouseClicked
 
     private void jbtAddPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddPetActionPerformed
         // TODO add your handling code here:
@@ -497,6 +576,85 @@ public class PetPanel extends javax.swing.JPanel {
         }         
     }//GEN-LAST:event_jbtAddPetActionPerformed
 
+    private void jbtConfirmChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmChangeActionPerformed
+        // TODO add your handling code here:
+        Pet pet = validateInput();
+        if(pet!=null){
+         //write to database ****
+                Pet p = petControl.searchRecord(pet.getPetID());
+                
+                if(p == null)
+                {
+                    JOptionPane.showMessageDialog(null,"This pet does not exist.", "Record Not Found", JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                {
+//                    p = pet;
+                    int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Are you sure you want commit the changes made?", "Confirm changes?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+                    if(reply==JOptionPane.YES_OPTION){
+                        try{
+                            petControl.updateRecord(pet);
+                            resetFields();
+                            JOptionPane.showMessageDialog(null,"Pet details of pet "+ pet.getPetID()+" has been updated.","Success",JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        catch (Exception ex){
+                            JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                }
+                
+                //---*****
+        }
+        else{
+            //****
+            int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Your input seems to have data that is invalid or in incorrect format. Would you like to reset all fields?", "Invalid Data!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+            if(reply==JOptionPane.YES_OPTION){
+                resetFields();
+            }
+            //***
+        }   
+    }//GEN-LAST:event_jbtConfirmChangeActionPerformed
+
+    private void jbtConfirmDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmDeleteActionPerformed
+        // TODO add your handling code here:
+                Pet pet = validateInput();
+        if(pet!=null){
+            Pet p = petControl.searchRecord(pet.getPetID());
+
+            if(p == null)
+            {
+                JOptionPane.showMessageDialog(null,"This pet does not exist.", "Record Not Found", JOptionPane.ERROR_MESSAGE);
+            }
+            else
+            {
+                p = pet;
+                int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Are you sure you want delete pet "+pet.getPetID()+" ?", "Confirm delete?", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+
+                if(reply==JOptionPane.YES_OPTION){
+                    try{
+                        petControl.deleteRecord(p.getPetID());
+                        resetFields();
+                        JOptionPane.showMessageDialog(null,"Pet "+ pet.getPetID()+" has been deleted.","Success",JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    catch (Exception ex){
+                        JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+                
+        }
+        else{
+            //****
+            int reply =JOptionPane.showConfirmDialog(this.getParent().getParent().getParent(), "Your input seems to have data that is invalid or in incorrect format. Would you like to reset all fields?", "Invalid Data!", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            
+            if(reply==JOptionPane.YES_OPTION){
+                resetFields();
+            }
+        }
+    }//GEN-LAST:event_jbtConfirmDeleteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
@@ -506,8 +664,8 @@ public class PetPanel extends javax.swing.JPanel {
     private javax.swing.JButton jbtAddPet;
     private javax.swing.JButton jbtConfirmChange;
     private javax.swing.JButton jbtConfirmDelete;
-    private javax.swing.JButton jbtDeleteStaff;
-    private javax.swing.JButton jbtModifyStaff;
+    private javax.swing.JButton jbtDeletePet;
+    private javax.swing.JButton jbtModifyPet;
     private javax.swing.JComboBox<String> jcbGender;
     private javax.swing.JComboBox<String> jcbType;
     private com.toedter.calendar.JDateChooser jdpBirthDate;
@@ -519,6 +677,7 @@ public class PetPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jlblName;
     private javax.swing.JLabel jlblOwnIc;
     private javax.swing.JLabel jlblPBD;
+    private javax.swing.JLabel jlblPet;
     private javax.swing.JLabel jlblSearch;
     private javax.swing.JLabel jlblType;
     private javax.swing.JLabel jlblWeight;
