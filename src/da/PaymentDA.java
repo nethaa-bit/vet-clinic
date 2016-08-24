@@ -119,6 +119,17 @@ public class PaymentDA {
         String queryStr="SELECT * FROM "+ tableName +" WHERE paymentID = ?";
         Payment payment = null;
         
+        switch(option){
+            case 0: queryStr= "SELECT * FROM "+ tableName ;
+            break;
+            case 1: queryStr= "SELECT * FROM "+ tableName +" WHERE petID = ?";
+            break;
+            case 2: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffname)  LIKE LOWER('%' || ? || '%')";
+            break;
+            case 3: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffposition)  = LOWER(?) ";
+            break;
+        }
+        
         ArrayList<Payment> paymentList = new ArrayList<Payment>();
         try
         {
@@ -126,7 +137,7 @@ public class PaymentDA {
             stmt.setString(1,searchStr);
             ResultSet rs = stmt.executeQuery();
             
-            if(rs.next())
+            while(rs.next())
             {
                 payment = new Payment(searchStr,rs.getDouble("amountpaid"),rs.getString("methodofpayment"),rs.getDate("paymentdate"),new Transaction(),new Staff(),new CreditCard());
                 payment.getTransaction().setTransID(rs.getString("transid"));
@@ -139,7 +150,7 @@ public class PaymentDA {
         {
             JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
         }
-        return payment;
+        return paymentList;
     }
      
      public void deleteRecord(String paymentID)

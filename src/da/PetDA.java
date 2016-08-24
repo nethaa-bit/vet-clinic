@@ -39,8 +39,7 @@ public class PetDA {
         }
     }
     
-      public void addRecord(Pet pet)
-    {
+public void addRecord(Pet pet){
         String insertStr = "INSERT INTO " + tableName + " VALUES(?,?,?,?,?,?,?,?,?,?)";
         try
         {
@@ -65,9 +64,8 @@ public class PetDA {
         }
     }
     
-      public void updateRecord(Pet pet)
-    {
-        String updateStr = "UPDATE " + tableName + "SET petid = ?, petname = ?, petheight = ?, petweight = ?, petlength = ?, animaltype = ?, breed = ?, petbirthdate = ?, custic = ? "+" WHERE petid = ? ";
+public void updateRecord(Pet pet){
+        String updateStr = "UPDATE " + tableName + " SET petid = ?, petname = ?, petheight = ?, petweight = ?, petlength = ?, animaltype = ?, breed = ?, petbirthdate = ?, petgender = ?, custic = ? "+" WHERE petid = ? ";
         try
         {
             stmt = conn.prepareStatement(updateStr);
@@ -81,6 +79,7 @@ public class PetDA {
             stmt.setDate(8, convertJavaDateToSqlDate(pet.getPetDOB()));
             stmt.setString(9,String.valueOf(pet.getPetGender()));
             stmt.setString(10, pet.getCustomer().getCustIC());
+            stmt.setString(11, pet.getPetID());
 
             stmt.executeUpdate();
    
@@ -91,8 +90,7 @@ public class PetDA {
         }
     }
     
-public Pet getRecord(String petID)
-    {
+public Pet getRecord(String petID){
         String queryStr="SELECT * FROM "+ tableName +" WHERE petID = ?";
         Pet pet = null;
         try
@@ -114,7 +112,7 @@ public Pet getRecord(String petID)
         return pet;
     }
  
- public ArrayList<Pet> getRecord(String searchStr, int option){
+public ArrayList<Pet> getRecord(String searchStr, int option){
     
         String queryStr=null;
         Pet pet = null;
@@ -123,9 +121,9 @@ public Pet getRecord(String petID)
             break;
             case 1: queryStr= "SELECT * FROM "+ tableName +" WHERE petID = ?";
             break;
-            case 2: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffname)  LIKE LOWER('%' || ? || '%')";
+            case 2: queryStr= "SELECT * FROM "+ tableName +" WHERE custIC = ?";
             break;
-            case 3: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffposition)  = LOWER(?) ";
+            case 3: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(petname)  LIKE LOWER('%' || ? || '%')";
             break;
         }
 

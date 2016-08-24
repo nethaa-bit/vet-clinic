@@ -107,25 +107,38 @@ public void addRecord(Transaction transaction)
         String queryStr="SELECT * FROM "+ tableName +" WHERE transID = ?";
         Transaction transaction = null;
         
-        ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
-        try
-        {
-            stmt = conn.prepareStatement(queryStr);
-            stmt.setString(1,transID);
-            ResultSet rs = stmt.executeQuery();
-            
-            if(rs.next())
-            {
-                transaction = new Transaction(transID,rs.getDate("transdate"),rs.getTime("transtime"),new Pet(rs.getPet("petid"))); 
-                
-            }
+        switch(option){
+            case 0: queryStr= "SELECT * FROM "+ tableName ;
+            break;
+            case 1: queryStr= "SELECT * FROM "+ tableName +" WHERE petID = ?";
+            break;
+            case 2: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffname)  LIKE LOWER('%' || ? || '%')";
+            break;
+            case 3: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffposition)  = LOWER(?) ";
+            break;
         }
-        catch(SQLException ex)
+        
+    ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
+    try
+    {
+        stmt = conn.prepareStatement(queryStr);
+        stmt.setString(1,transID);
+        ResultSet rs = stmt.executeQuery();
+
+        while(rs.next())
         {
-            JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+            Pet pet = new Pet();
+            pet.setPetID(rs.getString("petid"));
+            transaction = new Transaction(transID,rs.getDate("transdate"),rs.getTime("transtime"),pet); 
+
         }
-        return transaction;
     }
+    catch(SQLException ex)
+    {
+        JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+    }
+    return transactionList;
+}
 
  public void deleteRecord(String transID)
 {

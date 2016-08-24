@@ -11,8 +11,8 @@ public class NewMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println(!Pattern.matches("\\d{12}", "123456789012"));
-        System.out.println(Pattern.matches("\\d{2,4}-\\d{7,8}", "0700-12345678"));
+        System.out.println(Pattern.matches("\\d{12}", "123456789012"));
+        System.out.println(Pattern.matches("A\\d+", "A1"));
     }
     
 }

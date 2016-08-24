@@ -105,20 +105,28 @@ public class CustomerDA {
    
     public ArrayList<Customer> getRecord(String searchStr, int option)
     {
-        String queryStr="SELECT * FROM "+ tableName +" WHERE custIC = ?";
-        Customer customer = null;
+       String queryStr=null;
+       String criteria=null;
+       switch(option){
+            case 1: queryStr="SELECT * FROM "+ tableName +" WHERE custIC = ?";
+            break;
+            case 3: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(custname)  LIKE LOWER('%' || ? || '%')";
+            break;
+            case 2: queryStr="SELECT * FROM "+ tableName +" WHERE custphonenum  = ? ";
+            break;
+        }
         
         ArrayList<Customer> customerList = new ArrayList<Customer>();
         
         try
         {
             stmt = conn.prepareStatement(queryStr);
-            stmt.setString(1,custIC);
+            stmt.setString(1,searchStr);
             ResultSet rs = stmt.executeQuery();
             
-            if(rs.next())
+            while(rs.next())
             {
-                customer = new Customer(custIC,rs.getString("custname"),rs.getString("custgender").charAt(0),rs.getString("custaddress"),rs.getString("custphonenum")); 
+                customerList.add( new Customer(rs.getString("custic"),rs.getString("custname"),rs.getString("custgender").charAt(0),rs.getString("custaddress"),rs.getString("custphonenum"))); 
                 
             }
         }
@@ -126,7 +134,7 @@ public class CustomerDA {
         {
             JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
         }
-        return customer;
+        return customerList;
     }
      public void deleteRecord(String custIC)
     {

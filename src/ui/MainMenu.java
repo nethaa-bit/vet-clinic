@@ -86,7 +86,12 @@ public class MainMenu extends javax.swing.JFrame {
                 }
                 else if (e.getSource()==searchItem){
                     action="search";
+                }else if(e.getSource()==modifyItem){
+                    action="modify";
+                }else if(e.getSource()==deleteItem){
+                    action="delete";
                 }
+                
                 
                 if(moduleObject.equals("staff")){ 
                     targetPanel= new StaffPanel();

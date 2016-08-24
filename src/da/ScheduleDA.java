@@ -110,14 +110,25 @@ public class ScheduleDA {
         String queryStr="SELECT * FROM "+ tableName +" WHERE staffIC = ?";
         Schedule schedule = null;
         
+        switch(option){
+            case 0: queryStr= "SELECT * FROM "+ tableName ;
+            break;
+            case 1: queryStr= "SELECT * FROM "+ tableName +" WHERE petID = ?";
+            break;
+            case 2: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffname)  LIKE LOWER('%' || ? || '%')";
+            break;
+            case 3: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffposition)  = LOWER(?) ";
+            break;
+        }
+        
         ArrayList<Schedule> scheduleList = new ArrayList<Schedule>();
         try
         {
             stmt = conn.prepareStatement(queryStr);
-            stmt.setString(1,staffIC);
+            stmt.setString(1,searchStr);
             ResultSet rs = stmt.executeQuery();
             
-            if(rs.next())
+            while(rs.next())
             {
                 schedule = new Schedule(staffIC,rs.getInt("timeslotnum"),rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custname"),rs.getString("custphonenum")); 
                 
@@ -127,7 +138,7 @@ public class ScheduleDA {
         {
             JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
         }
-        return schedule;
+        return scheduleList;
     }
       
         public void deleteRecord(String staffIC)

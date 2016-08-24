@@ -32,7 +32,7 @@ public class CustomerPanel extends javax.swing.JPanel {
      */
      public void setDynamicPanel() {
         JPanel targetPanel = new JPanel();
-        if(MainMenu.action.equals("add")||MainMenu.action.equals("modify")||MainMenu.action.equals("delete")){
+        if(MainMenu.action.equals("add")){
              targetPanel=jpAdd;
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(false);
@@ -40,6 +40,8 @@ public class CustomerPanel extends javax.swing.JPanel {
         }
         else if (MainMenu.action.equals("search")){
             targetPanel=jpSearch;
+            jbtDeleteCus.setVisible(false);
+            jbtModifyCus.setVisible(false);
         }
         else if(MainMenu.action.equals("modifySelected")){
              targetPanel=jpAdd;
@@ -52,6 +54,15 @@ public class CustomerPanel extends javax.swing.JPanel {
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(true);
              jbtAddCus.setVisible(false);
+        }else if(MainMenu.action.equals("modify")){
+                targetPanel=jpSearch;
+                jbtDeleteCus.setVisible(false);
+                jbtModifyCus.setVisible(true);
+        }
+        else if(MainMenu.action.equals("delete")){
+                targetPanel=jpSearch;
+                jbtDeleteCus.setVisible(true);
+                jbtModifyCus.setVisible(false);
         }
         
         dynamicPanel.removeAll();
@@ -235,9 +246,9 @@ public class CustomerPanel extends javax.swing.JPanel {
         });
         jPanel2.add(jtfSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 260, 30));
 
-        jlblCustomer.setFont(new java.awt.Font("Verdana", 1, 11)); // NOI18N
+        jlblCustomer.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jlblCustomer.setText("Customer");
-        jPanel2.add(jlblCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, -1, -1));
+        jPanel2.add(jlblCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 110));
 
@@ -287,7 +298,7 @@ public class CustomerPanel extends javax.swing.JPanel {
                 jbtModifyCusActionPerformed(evt);
             }
         });
-        jpSearch.add(jbtModifyCus, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 330, -1, -1));
+        jpSearch.add(jbtModifyCus, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, -1, -1));
 
         jbtDeleteCus.setText("Delete Customer");
         jbtDeleteCus.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -300,7 +311,7 @@ public class CustomerPanel extends javax.swing.JPanel {
                 jbtDeleteCusActionPerformed(evt);
             }
         });
-        jpSearch.add(jbtDeleteCus, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, -1, -1));
+        jpSearch.add(jbtDeleteCus, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, -1, -1));
 
         jbtViewPets.setText("View Pets");
         jbtViewPets.addActionListener(new java.awt.event.ActionListener() {
@@ -308,7 +319,7 @@ public class CustomerPanel extends javax.swing.JPanel {
                 jbtViewPetsActionPerformed(evt);
             }
         });
-        jpSearch.add(jbtViewPets, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, -1, -1));
+        jpSearch.add(jbtViewPets, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 330, -1, -1));
 
         dynamicPanel.add(jpSearch, "card2");
 
@@ -474,6 +485,9 @@ public class CustomerPanel extends javax.swing.JPanel {
                 setDynamicPanel();
                 fillFields(selectedCustomer);
            }
+           else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
        }
        else{
            JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
@@ -511,6 +525,16 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         jtCustomer.setModel(new DefaultTableModel());
         jtCustomer.repaint();
+        
+         if(MainMenu.action == "modifySelected"){
+            MainMenu.action="modify";
+        }
+        else if(MainMenu.action == "deleteSelected"){
+            MainMenu.action="delete";
+        }else if(MainMenu.action == "add"){
+               MainMenu.action="search";
+        }
+        
         String queryStr =jtfSearch.getText();
         int option =0;
         
@@ -527,7 +551,7 @@ public class CustomerPanel extends javax.swing.JPanel {
             }
             ArrayList<Customer> customerList = customerControl.searchRecord(queryStr,option);
 
-            MainMenu.action="search";
+//            MainMenu.action="search";
             setDynamicPanel();
             if(customerList.size()!=0&&customerList!=null){
                 Object[][] data = new Object[100][8];
@@ -546,20 +570,20 @@ public class CustomerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jlblSearchMouseClicked
 
     private void jbtModifyCusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtModifyCusMouseClicked
-        // TODO add your handling code here:
-       MainMenu.action="modifySelected";
-       Customer selectedCustomer=null;
-       if(jtCustomer.getSelectedRow()>=0 ) {
-           String ic  = (String) jtCustomer.getValueAt(jtCustomer.getSelectedRow(),0);
-           selectedCustomer = customerControl.searchRecord(ic);
-           if(selectedCustomer!=null){
-                setDynamicPanel();
-                fillFields(selectedCustomer);
-           }
-       }
-       else{
-           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
-       }
+//        // TODO add your handling code here:
+//       MainMenu.action="modifySelected";
+//       Customer selectedCustomer=null;
+//       if(jtCustomer.getSelectedRow()>=0 ) {
+//           String ic  = (String) jtCustomer.getValueAt(jtCustomer.getSelectedRow(),0);
+//           selectedCustomer = customerControl.searchRecord(ic);
+//           if(selectedCustomer!=null){
+//                setDynamicPanel();
+//                fillFields(selectedCustomer);
+//           }
+//       }
+//       else{
+//           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+//       }
 
     }//GEN-LAST:event_jbtModifyCusMouseClicked
 

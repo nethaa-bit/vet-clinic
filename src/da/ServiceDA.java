@@ -104,19 +104,31 @@ public class ServiceDA {
      
      public ArrayList<Service> getRecord(String searchStr, int option)
     {
-        String queryStr="SELECT * FROM "+ tableName +" WHERE serviceid = ?";
+        String queryStr=null;
         Service service = null;
         
-        ArrayList<Service> staffList = new ArrayList<Service>();
+        switch(option){
+            case 0: queryStr= "SELECT * FROM "+ tableName ;
+            break;
+            case 1: queryStr= "SELECT * FROM "+ tableName +" WHERE LOWER(serviceid) = LOWER(?) ";
+            break;
+            case 2: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(servicetitle)  LIKE LOWER('%' || ? || '%')";
+            break;
+
+        }
+        
+        ArrayList<Service> serviceList = new ArrayList<Service>();
         try
         {
             stmt = conn.prepareStatement(queryStr);
-            stmt.setString(1,serviceID);
+            if(option!=0){
+            stmt.setString(1,searchStr);
+            }
             ResultSet rs = stmt.executeQuery();
             
-            if(rs.next())
+            while(rs.next())
             {
-                service = new Service(serviceID,rs.getString("servicetitle"),rs.getDouble("unitprice"),rs.getString("servicedesp")); 
+                serviceList.add(new Service(rs.getString("serviceID"),rs.getString("servicetitle"),rs.getDouble("unitprice"),rs.getString("servicedesp"))); 
                 
             }
         }
@@ -124,17 +136,17 @@ public class ServiceDA {
         {
             JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
         }
-        return service;
+        return serviceList;
     }
      
-       public void deleteRecord(String staffID)
+       public void deleteRecord(String serviceID)
     {
         try
         {
-            String deleStr = "DELETE FROM " + tableName + " WHERE staffid = ?";
+            String deleStr = "DELETE FROM " + tableName + " WHERE serviceid = ?";
             
             stmt = conn.prepareStatement(deleStr);
-            stmt.setString(1, staffID);
+            stmt.setString(1, serviceID);
             stmt.executeUpdate();
         }
         catch(SQLException ex)

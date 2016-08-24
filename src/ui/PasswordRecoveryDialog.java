@@ -50,18 +50,18 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         jcbRecoverQues = new javax.swing.JComboBox<>();
         jtfRecoverAns = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jlblUsername = new javax.swing.JLabel();
+        jlblReAns = new javax.swing.JLabel();
         jbtNext = new javax.swing.JButton();
         jbtCancel = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jtfUsername = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        jlblReQues = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jlblNewPass = new javax.swing.JLabel();
+        jlblConfirmNewPass = new javax.swing.JLabel();
         jbtConfirm = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jbtBack = new javax.swing.JButton();
         jpfConfirm = new javax.swing.JPasswordField();
         jpfPass = new javax.swing.JPasswordField();
 
@@ -84,11 +84,11 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         });
         jPanel3.add(jtfRecoverAns, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 170, -1));
 
-        jLabel1.setText(" Username : ");
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 70, -1));
+        jlblUsername.setText(" Username : ");
+        jPanel3.add(jlblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 70, -1));
 
-        jLabel2.setText("Recovery Answer   : ");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
+        jlblReAns.setText("Recovery Answer   : ");
+        jPanel3.add(jlblReAns, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
 
         jbtNext.setText("Next");
         jbtNext.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -121,18 +121,18 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         });
         jPanel3.add(jtfUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 170, -1));
 
-        jLabel7.setText("Recovery Question : ");
-        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
+        jlblReQues.setText("Recovery Question : ");
+        jPanel3.add(jlblReQues, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
 
         jPanel1.add(jPanel3, "card3");
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setText("New Password :");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
+        jlblNewPass.setText("New Password :");
+        jPanel2.add(jlblNewPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
 
-        jLabel5.setText("Confirm New Password :");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
+        jlblConfirmNewPass.setText("Confirm New Password :");
+        jPanel2.add(jlblConfirmNewPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
 
         jbtConfirm.setText("Confirm");
         jbtConfirm.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -142,18 +142,18 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         });
         jPanel2.add(jbtConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, -1, -1));
 
-        jButton4.setText("Back");
-        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+        jbtBack.setText("Back");
+        jbtBack.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton4MouseClicked(evt);
+                jbtBackMouseClicked(evt);
             }
         });
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jbtBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jbtBackActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
+        jPanel2.add(jbtBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
 
         jpfConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,11 +180,11 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfRecoverAnsActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jbtBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtBackActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jbtBackActionPerformed
 
-    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+    private void jbtBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtBackMouseClicked
         // TODO add your handling code here:
        
         jPanel1.removeAll();
@@ -196,7 +196,7 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         jPanel1.repaint();
         jPanel1.revalidate();
         
-    }//GEN-LAST:event_jButton4MouseClicked
+    }//GEN-LAST:event_jbtBackMouseClicked
 
     private void jtfUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfUsernameActionPerformed
         // TODO add your handling code here:
@@ -325,20 +325,20 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JButton jbtBack;
     private javax.swing.JButton jbtCancel;
     private javax.swing.JButton jbtConfirm;
     private javax.swing.JButton jbtNext;
     private javax.swing.JComboBox<String> jcbRecoverQues;
+    private javax.swing.JLabel jlblConfirmNewPass;
+    private javax.swing.JLabel jlblNewPass;
+    private javax.swing.JLabel jlblReAns;
+    private javax.swing.JLabel jlblReQues;
+    private javax.swing.JLabel jlblUsername;
     private javax.swing.JPasswordField jpfConfirm;
     private javax.swing.JPasswordField jpfPass;
     private javax.swing.JTextField jtfRecoverAns;

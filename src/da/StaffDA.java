@@ -74,7 +74,7 @@ public class StaffDA {
             stmt.setString(4, staff.getStaffPhone());
             stmt.setString(5, staff.getStaffPosition());
             stmt.setString(6, staff.getStaffQualification());
-            stmt.setString(7, staff.getPassword());
+            stmt.setString(7, staff.getStaffIC());
 
             stmt.executeUpdate();
    
@@ -162,6 +162,8 @@ public class StaffDA {
         String queryStr=null;
         String criteria=null;
         switch(option){
+            case 0: queryStr="SELECT * FROM "+ tableName;
+            break;
             case 1: queryStr="SELECT * FROM "+ tableName +" WHERE staffic = ?";
             break;
             case 2: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffname)  LIKE LOWER('%' || ? || '%')";
@@ -176,10 +178,12 @@ public class StaffDA {
         try
         {
             stmt = conn.prepareStatement(queryStr);
+            if(option!=0){
             stmt.setString(1,searchStr);
+            }
             ResultSet rs = stmt.executeQuery();
             
-            if(rs.next())
+            while(rs.next())
             {
                 staffList.add(new Staff(rs.getString("staffic"),rs.getString("staffname"),rs.getString("staffaddress"),rs.getString("staffphone"),rs.getString("staffposition"),rs.getString("staffqualification"),rs.getString("password"),rs.getString("securityans")));
             }
@@ -195,7 +199,7 @@ public class StaffDA {
     {
         try
         {
-            String deleStr = "DELETE FROM " + tableName + " WHERE staffid = ?";
+            String deleStr = "DELETE FROM " + tableName + " WHERE staffic = ?";
             
             stmt = conn.prepareStatement(deleStr);
             stmt.setString(1, staffID);
