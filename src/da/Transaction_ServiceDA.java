@@ -18,10 +18,16 @@ public class Transaction_ServiceDA {
     
     private Connection conn;
     private PreparedStatement stmt;
+    private ServiceDA serviceDA;
+    private StaffDA staffDA;
+    private TransactionDA transDA;
     
     public Transaction_ServiceDA()
     {
         createConnection();
+        serviceDA = new ServiceDA();
+        staffDA = new StaffDA();
+        transDA = new TransactionDA();
     }
     
     public void createConnection()
@@ -46,12 +52,14 @@ public void addRecord(Transaction transaction)
         try
         {
             for(int i=0; i<servList.size();i++){
-                stmt = conn.prepareStatement(insertStr);
-                stmt.setString(1, transaction.getTransID());
-                stmt.setString(2, servList.get(i).getService().getServiceID());
-                stmt.setString(3, servList.get(i).getStaffIC().getStaffIC());
-                stmt.setString(4, servList.get(i).getRemarks());
-                stmt.executeUpdate();
+                if(getRecord(transaction, transaction.getServiceList().get(i).getService())==null){
+                    stmt = conn.prepareStatement(insertStr);
+                    stmt.setString(1, transaction.getTransID());
+                    stmt.setString(2, servList.get(i).getService().getServiceID());
+                    stmt.setString(3, servList.get(i).getStaffIC().getStaffIC());
+                    stmt.setString(4, servList.get(i).getRemarks());
+                    stmt.executeUpdate();
+                }
              }
    
         }
@@ -60,52 +68,82 @@ public void addRecord(Transaction transaction)
             JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
         }
     }
-        
- public void updateRecord(Transaction transaction)
-    {
-        String updateStr = "UPDATE " + tableName + "SET transid = ?, serviceid = ?, staffic = ?, remarks = ? "+" WHERE transid = ? AND serviceid = ? ";
-         ArrayList<ServiceDetail> servList = transaction.getServiceList();
-        try
-        {   for(int i=0; i<servList.size();i++){
-            stmt = conn.prepareStatement(updateStr);
-            stmt.setString(1, transaction.getTransID());
-            stmt.setString(2, servList.get(i).getService().getServiceID());
-            stmt.setString(3, servList.get(i).getStaffIC().getStaffIC());
-            stmt.setString(4, servList.get(i).getRemarks());
-            stmt.setString(5, transaction.getTransID());
-            stmt.setString(6, servList.get(i).getService().getServiceID());
 
-            stmt.executeUpdate();
-            }
+public void addRecord(Transaction trans, ServiceDetail servD){
+    
+        String insertStr = "INSERT INTO " + tableName + " VALUES(?,?,?,?)";
+        try
+        {
+                    stmt = conn.prepareStatement(insertStr);
+                    stmt.setString(1, trans.getTransID());
+                    stmt.setString(2, servD.getService().getServiceID());
+                    stmt.setString(3, servD.getStaffIC().getStaffIC());
+                    stmt.setString(4, servD.getRemarks());
+                    stmt.executeUpdate();
         }
         catch(SQLException ex)
         {
             JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
         }
-    }    
-    
- public Transaction getRecord(String transID)
-    {
-        String queryStr="SELECT * FROM "+ tableName +" WHERE transID = ?";
-        Transaction transaction = null;
+    }
+        
+ public void updateRecord(Transaction transaction){
+        String updateStr = "UPDATE " + tableName + " SET transid = ?, serviceid = ?, staffic = ?, remarks = ? "+" WHERE transid = ? AND serviceid = ? ";
+         ArrayList<ServiceDetail> servList = transaction.getServiceList();
+         ArrayList<ServiceDetail> oldServList = this.getRecord(transaction.getTransID(),1);
         try
-        {
-            stmt = conn.prepareStatement(queryStr);
-            stmt.setString(1,transID);
-            ResultSet rs = stmt.executeQuery();
+        {   
             
-            if(rs.next())
-            {
-                Pet pet =  (Pet)rs.getObject("petid");
-                transaction = new Transaction(transID,rs.getDate("transdate"),rs.getTime("transtime"),pet);
+            for(int i=0; i<oldServList.size();i++){
+                if(!servList.contains(oldServList.get(i))){
+                    deleteRecord(transaction.getTransID(),oldServList.get(i).getService().getServiceID());
+                }
             }
+            for(int i=0; i<servList.size();i++){
+                if(oldServList.contains(servList.get(i))){
+                        stmt = conn.prepareStatement(updateStr);
+                        stmt.setString(1, transaction.getTransID());
+                        stmt.setString(2, servList.get(i).getService().getServiceID());
+                        stmt.setString(3, servList.get(i).getStaffIC().getStaffIC());
+                        stmt.setString(4, servList.get(i).getRemarks());
+                        stmt.setString(5, transaction.getTransID());
+                        stmt.setString(6, servList.get(i).getService().getServiceID());
+                        stmt.executeUpdate();
+               }
+               else {
+                    addRecord(transaction, servList.get(i));
+               }
+            }
+                
         }
         catch(SQLException ex)
         {
-            JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, ex.getMessage()+"2","Error",JOptionPane.ERROR_MESSAGE);
         }
-        return transaction;
-    }
+    }    
+    
+// public Transaction getRecord(String transID)
+//    {
+//        String queryStr="SELECT * FROM "+ tableName +" WHERE transID = ?";
+//        Transaction transaction = null;
+//        try
+//        {
+//            stmt = conn.prepareStatement(queryStr);
+//            stmt.setString(1,transID);
+//            ResultSet rs = stmt.executeQuery();
+//            
+//            if(rs.next())
+//            {
+//                Pet pet =  (Pet)rs.getObject("petid");
+//                transaction = new Transaction(transID,rs.getDate("transdate"),rs.getTime("transtime"),pet);
+//            }
+//        }
+//        catch(SQLException ex)
+//        {
+//            JOptionPane.showMessageDialog(null,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+//        }
+//        return transaction;
+//    }
  public ServiceDetail getRecord(Transaction trans, Service service)
     {
         String queryStr="SELECT * FROM "+ tableName +" WHERE transID = ? AND serviceid = ?";
@@ -114,13 +152,13 @@ public void addRecord(Transaction transaction)
         {
             stmt = conn.prepareStatement(queryStr);
             stmt.setString(1,trans.getTransID());
-            stmt.setString(1,service.getServiceID());
+            stmt.setString(2,service.getServiceID());
             ResultSet rs = stmt.executeQuery();
             
             if(rs.next())
             {
-                Pet pet =  (Pet)rs.getObject("petid");
-                servDetail = new ServiceDetail( service,(Staff)rs.getObject("staffic"),rs.getString("remarks"));
+                Staff staff = staffDA.getRecord(rs.getString("staffic"));
+                servDetail = new ServiceDetail(service,staff,rs.getString("remarks"));
             }
         }
         catch(SQLException ex)
@@ -154,8 +192,10 @@ public void addRecord(Transaction transaction)
 
         while(rs.next())
         {
-            Pet pet =  (Pet)rs.getObject("petid");
-            servDetail = new ServiceDetail((Service)rs.getObject("serviceid"),(Staff)rs.getObject("staffic"),rs.getString("remarks"));
+//            Pet pet =  (Pet)rs.getObject("petid");
+            Service service = serviceDA.getRecord(rs.getString("serviceid"));
+            Staff staff = staffDA.getRecord(rs.getString("staffic"));
+            servDetail = new ServiceDetail(service,staff,rs.getString("remarks"));
             servList.add(servDetail);
         }
     }
@@ -170,10 +210,27 @@ public void addRecord(Transaction transaction)
 {
     try
     {
-        String deleStr = "DELETE FROM " + tableName + " WHERE transid = ?";
+        String deleStr = " DELETE FROM " + tableName + " WHERE transid = ? ";
 
         stmt = conn.prepareStatement(deleStr);
         stmt.setString(1, transID);
+        stmt.executeUpdate();
+    }
+    catch(SQLException ex)
+    {
+        JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+    }
+}
+ 
+  public void deleteRecord(String transID, String serviceid)
+{
+    try
+    {
+        String deleStr = "DELETE FROM " + tableName + " WHERE transid = ? AND serviceid = ?";
+
+        stmt = conn.prepareStatement(deleStr);
+        stmt.setString(1, transID);
+        stmt.setString(2, serviceid);
         stmt.executeUpdate();
     }
     catch(SQLException ex)
