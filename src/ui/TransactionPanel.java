@@ -65,7 +65,7 @@ public class TransactionPanel extends javax.swing.JPanel {
     }
 
     public void resetFields(){
-         
+         jtfTransId.setText("");
          jtfPetId.setText("");
          jtfSearch.setText("");
          jtService.setModel(new DefaultTableModel());
@@ -611,6 +611,7 @@ public class TransactionPanel extends javax.swing.JPanel {
                     transServControl.addRecord(t);
                     resetFields();
                     JOptionPane.showMessageDialog(null,"New transaction has been created.","Success",JOptionPane.INFORMATION_MESSAGE);
+                    jtfTransId.setText(generateTransId());
                     }
                     catch (Exception ex){
                         JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);

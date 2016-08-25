@@ -9,6 +9,8 @@ import java.awt.Color;
 import javax.swing.*;
 import control.MaintainStaff;
 import domain.*;
+import java.awt.Container;
+import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.*;
@@ -18,17 +20,18 @@ import javax.swing.table.DefaultTableModel;
 public class StaffPanel extends javax.swing.JPanel {
     
     MaintainStaff staffControl; //***
-  ArrayList<Staff> staffList;
+    ArrayList<Staff> staffList;
+
     /**
      * Creates new form StaffFrame
      */
 
 
+
     public StaffPanel() {
         
         initComponents();
-        staffControl = new MaintainStaff(); // ****
-        
+        staffControl = new MaintainStaff(); // *** 
         jlblCross.setVisible(false);
         jlblCheck.setVisible(false);
         jtfSearch.setOpaque(false);
@@ -38,6 +41,7 @@ public class StaffPanel extends javax.swing.JPanel {
         
         
     }
+    
     public void setDynamicPanel() {
         JPanel targetPanel = new JPanel();
         if(MainMenu.action.equals("add")){
@@ -45,11 +49,13 @@ public class StaffPanel extends javax.swing.JPanel {
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(false);
              jbtAdd.setVisible(true);
+ 
         }
         else if (MainMenu.action.equals("search")){
             targetPanel=jpSearch;
             jbtDeleteStaff.setVisible(false);
             jbtModifyStaff.setVisible(false);
+
 
         }else if(MainMenu.action.equals("modifySelected")){
              targetPanel=jpAddUpdate;
@@ -57,21 +63,25 @@ public class StaffPanel extends javax.swing.JPanel {
              jbtConfirmDelete.setVisible(false);
              jbtAdd.setVisible(false);
              jtfIc.setEnabled(false);
+ 
         
         }else if(MainMenu.action.equals("deleteSelected")){
              targetPanel=jpAddUpdate;
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(true);
              jbtAdd.setVisible(false);
+
         }else if(MainMenu.action.equals("modify")){
                 targetPanel=jpSearch;
                 jbtDeleteStaff.setVisible(false);
                 jbtModifyStaff.setVisible(true);
+ 
         }
         else if(MainMenu.action.equals("delete")){
                 targetPanel=jpSearch;
                 jbtDeleteStaff.setVisible(true);
                 jbtModifyStaff.setVisible(false);
+
         }
         
         dynamicPanel.removeAll();
@@ -83,6 +93,7 @@ public class StaffPanel extends javax.swing.JPanel {
         dynamicPanel.repaint();
         dynamicPanel.revalidate();
     }
+    
     public Staff validateInput(){
         
         //Declare domain object
@@ -753,7 +764,7 @@ public class StaffPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
                 jtfPasswordMouseClicked(evt);
     }//GEN-LAST:event_jtfConfirmPassMouseClicked
-
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;

@@ -62,7 +62,7 @@ PRIMARY KEY (petID)
 );
 
 CREATE TABLE TRANSACTION1 (
-transID CHAR(15) NOT NULL,
+transID VARCHAR(15) NOT NULL,
 transDate DATE NOT NULL,
 transTime VARCHAR(10) NOT NULL,
 petID VARCHAR(10) references PET(petID),
@@ -70,7 +70,7 @@ PRIMARY KEY (transID)
 );
 
 CREATE TABLE TRANSACTION_SERVICE (
-transID CHAR(15) references TRANSACTION1(transID),
+transID VARCHAR(15) references TRANSACTION1(transID),
 serviceID VARCHAR(5) references SERVICE(serviceID),
 staffIC CHAR(12) references STAFF(staffIC),
 remarks VARCHAR(250),
@@ -93,7 +93,7 @@ paymentID VARCHAR(15) NOT NULL,
 amountPaid DECIMAL(6,2) NOT NULL CHECK (amountPaid>= 0.00),
 methodOfPayment VARCHAR(10) NOT NULL,
 paymentDate DATE NOT NULL,
-transID CHAR(15) references TRANSACTION1(transID),
+transID VARCHAR(15) references TRANSACTION1(transID),
 staffIC CHAR(12) references STAFF(staffIC),
 CCNum CHAR(16) references CREDITCARD(CCNum),
 PRIMARY KEY (paymentID)

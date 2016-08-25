@@ -51,8 +51,8 @@ public class AddServiceDialog extends javax.swing.JDialog {
     public void fillFields (String serviceId, String staffName, String remarks){
         ArrayList<Service> serviceList = serviceControl.searchRecord(serviceId,1);
         ArrayList<Staff> staffList = staffControl.searchRecord(staffName,2);
-        jcbService.setSelectedItem(serviceList.get(0));
-        jcbStaff.setSelectedItem(staffList.get(0));
+        jcbService.setSelectedItem(serviceList.get(0).getServiceTitle());
+        jcbStaff.setSelectedItem(staffList.get(0).getStaffName());
         jtaRemarks.setText(remarks);
     }
     

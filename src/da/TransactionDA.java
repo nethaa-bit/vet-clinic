@@ -18,10 +18,12 @@ public class TransactionDA {
     
     private Connection conn;
     private PreparedStatement stmt;
+    private PetDA petDA;
     
     public TransactionDA()
     {
         createConnection();
+        petDA = new PetDA();
     }
     
     public void createConnection()
@@ -60,7 +62,7 @@ public void addRecord(Transaction transaction)
         
  public void updateRecord(Transaction transaction)
     {
-        String updateStr = "UPDATE " + tableName + "SET transid = ?, transdate = ?, transtime = ?, petid = ? "+" WHERE transid = ? ";
+        String updateStr = "UPDATE " + tableName + " SET transid = ?, transdate = ?, transtime = ?, petid = ? "+" WHERE transid = ? ";
         try
         {
             stmt = conn.prepareStatement(updateStr);
@@ -68,13 +70,13 @@ public void addRecord(Transaction transaction)
             stmt.setDate(2, convertJavaDateToSqlDate(transaction.getTransDate()));
             stmt.setTime(3, transaction.getTransTime());
             stmt.setString(4, transaction.getPet().getPetID());
-
+            stmt.setString(5, transaction.getTransID());
             stmt.executeUpdate();
    
         }
         catch(SQLException ex)
         {
-            JOptionPane.showMessageDialog(null, ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, ex.getMessage()+"1","Error",JOptionPane.ERROR_MESSAGE);
         }
     }    
     
@@ -90,8 +92,8 @@ public void addRecord(Transaction transaction)
             
             if(rs.next())
             {
-                transaction = new Transaction(transID,rs.getDate("transdate"),rs.getTime("transtime"),new Pet());
-                //pet =  rs.getObject("petid")
+            Pet pet = petDA.getRecord(rs.getString("petid"));
+            transaction = new Transaction(rs.getString("transID"),rs.getDate("transdate"),rs.getTime("transtime"),pet); 
                 
             }
         }
@@ -110,26 +112,27 @@ public void addRecord(Transaction transaction)
         switch(option){
             case 0: queryStr= "SELECT * FROM "+ tableName ;
             break;
-            case 1: queryStr= "SELECT * FROM "+ tableName +" WHERE petID = ?";
+            case 1: queryStr= "SELECT * FROM "+ tableName +" WHERE transID = ?";
             break;
-            case 2: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffname)  LIKE LOWER('%' || ? || '%')";
+            case 2: queryStr="SELECT * FROM "+ tableName +" WHERE staffname = ?";
             break;
-            case 3: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffposition)  = LOWER(?) ";
-            break;
+            
         }
         
     ArrayList<Transaction> transactionList = new ArrayList<Transaction>();
     try
     {
         stmt = conn.prepareStatement(queryStr);
+        if(option!=0){
         stmt.setString(1,transID);
+        }
         ResultSet rs = stmt.executeQuery();
 
         while(rs.next())
         {
-            Pet pet = new Pet();
-            pet.setPetID(rs.getString("petid"));
-            transaction = new Transaction(transID,rs.getDate("transdate"),rs.getTime("transtime"),pet); 
+            Pet pet = petDA.getRecord(rs.getString("petid"));
+            transaction = new Transaction(rs.getString("transID"),rs.getDate("transdate"),rs.getTime("transtime"),pet); 
+            transactionList.add(transaction);
 
         }
     }
@@ -144,7 +147,7 @@ public void addRecord(Transaction transaction)
 {
     try
     {
-        String deleStr = "DELETE FROM " + tableName + " WHERE transid = ?";
+        String deleStr = " DELETE FROM " + tableName + " WHERE transid = ? ";
 
         stmt = conn.prepareStatement(deleStr);
         stmt.setString(1, transID);
