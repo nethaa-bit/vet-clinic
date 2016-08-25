@@ -6,6 +6,7 @@
 package control;
 
 import da.Transaction_ServiceDA;
+import domain.Service;
 import domain.ServiceDetail;
 import domain.Transaction;
 import java.util.ArrayList;
@@ -23,9 +24,9 @@ public class MaintainTransactionService {
         transDA.addRecord(trans);
     }
     
-    public Transaction searchRecord(String ID)        
+    public ServiceDetail searchRecord(Transaction trans, Service service)        
     {
-        return transDA.getRecord(ID);              
+        return transDA.getRecord(trans,service);              
     }
     
     public ArrayList<ServiceDetail> searchRecord(String queryStr, int option) 
