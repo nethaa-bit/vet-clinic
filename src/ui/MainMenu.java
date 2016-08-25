@@ -12,7 +12,10 @@ import javax.swing.JPanel;
 
 public class MainMenu extends javax.swing.JFrame {
 
-   public static String action ="";
+    public static String action ="";
+    private String panelTitle;
+    private String actionTitle;
+    private String systemTitle="Veterinary Clinic System";;
    Staff currentStaff = LoginFrame.currentstaff;
     /**
      * Creates new form MainMenu
@@ -20,8 +23,11 @@ public class MainMenu extends javax.swing.JFrame {
     public MainMenu() {
         initComponents();
         setDefaultPanel();
+        panelTitle="Main Menu";
+        actionTitle="";
+        systemTitle="Veterinary Clinic System";
         jlblWelcome.setText("Welcome, "+currentStaff.getStaffName());
-        this.setTitle("Main Menu - Veterinary Clinic System");
+        this.setTitle(panelTitle+" - "+systemTitle);
         addPopupOptions(jPopupMenu1,"staff");
         addPopupOptions(jPopupMenu2,"appointment");
         addPopupOptions(jPopupMenu3,"pet");
@@ -35,7 +41,6 @@ public class MainMenu extends javax.swing.JFrame {
 //        JMenuItem excRep = new JMenuItem("Generate exception report");
 //        JMenuItem detRep = new JMenuItem("Generate detail report");
         JMenuItem calcBil = new JMenuItem("Calculate bill");
-//        JMenuItem auth = new JMenuItem("Password Recover");
         JMenuItem changePw = new JMenuItem("Change password");
         
         changePw.addActionListener(new ActionListener() {
@@ -48,6 +53,7 @@ public class MainMenu extends javax.swing.JFrame {
                     jpContent.add(new ChangePasswordPanel());
                     jpContent.repaint();
                     jpContent.revalidate();
+                    setTitle("Change Password - Veterinary Clinic System");
                 }
         });
         
@@ -62,7 +68,10 @@ public class MainMenu extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
     }
-
+    
+    public void setFrameTitle(String title){
+        this.setTitle(title);
+    }
     private void addPopupOptions(javax.swing.JPopupMenu jp, String moduleObject){
         
         JMenuItem addItem = new JMenuItem("Add new "+moduleObject);
@@ -83,14 +92,19 @@ public class MainMenu extends javax.swing.JFrame {
                 if(e.getSource()==addItem){
                     
                     action="add";
+                    actionTitle="Add";
                 }
                 else if (e.getSource()==searchItem){
                     action="search";
+                    actionTitle="Search";
                 }else if(e.getSource()==modifyItem){
                     action="modify";
+                    actionTitle="Modify";
                 }else if(e.getSource()==deleteItem){
                     action="delete";
+                    actionTitle="Delete";
                 }
+                
                 
                 
                 if(moduleObject.equals("staff")){ 
@@ -115,7 +129,30 @@ public class MainMenu extends javax.swing.JFrame {
                 else if(moduleObject.equals("payment")){
                     targetPanel= new PaymentPanel();
                 }
-     
+                
+                //Set Frame Title
+                if(targetPanel instanceof StaffPanel){ 
+                    panelTitle = "Staff";                   
+                }
+                else if(targetPanel instanceof CustomerPanel){ 
+                    panelTitle = "Customer";
+                }
+                else if(targetPanel instanceof TransactionPanel){
+                    panelTitle = "Transaction";
+                }
+                else if(targetPanel instanceof ServicePanel){
+                    panelTitle = "Service";
+                }
+                else if(targetPanel instanceof SchedulePanel){
+                    panelTitle = "Appointment";
+                }
+                else if(targetPanel instanceof PetPanel){
+                    panelTitle = "Pet";
+                }
+                else if(targetPanel instanceof PaymentPanel){
+                    panelTitle = "Payment";;
+                } 
+                
                 //Remove all panel
                 jpContent.removeAll();
                 jpContent.repaint();
@@ -124,7 +161,8 @@ public class MainMenu extends javax.swing.JFrame {
                 //Adding Pannel
                 jpContent.add(targetPanel);
                 jpContent.repaint();
-                jpContent.revalidate();       
+                jpContent.revalidate();      
+                setFrameTitle(actionTitle +" "+panelTitle+" - "+systemTitle);
                 
                 
                 }
@@ -149,6 +187,7 @@ public class MainMenu extends javax.swing.JFrame {
         jpContent.repaint();
         jpContent.revalidate();
     }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -516,6 +555,8 @@ public class MainMenu extends javax.swing.JFrame {
         jpContent.add(new ReportPanel());
         jpContent.repaint();
         jpContent.revalidate();
+        
+        setTitle("Generate Report - Veterinary Clinic System");
     }//GEN-LAST:event_jlblReportMouseClicked
 
     private void jlblSecMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblSecMouseClicked
