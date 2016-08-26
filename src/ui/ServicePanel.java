@@ -43,6 +43,7 @@ public class ServicePanel extends javax.swing.JPanel {
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(false);
              jbtAddService.setVisible(true);
+             jtfServiceId.setText(generateServiceId());
         }
         else if (MainMenu.action.equals("search")){
             targetPanel=jpSearch;
@@ -130,6 +131,21 @@ public class ServicePanel extends javax.swing.JPanel {
     jtfTitle.setText("");
     jtaDescrip.setText("");
     }
+    
+    public String generateServiceId(){
+        ArrayList<Service> sevList = serviceControl.searchRecord("", 0);
+        
+        //implement sorting 
+        
+        String idStr = sevList.get(sevList.size()-1).getServiceID();
+        int idNo = Integer.parseInt(idStr.split("S")[1])+1;
+        String zeroes = "";
+        zeroes = idNo%1000==0?"0":"";
+        zeroes = idNo%100==0?"00":"";
+        zeroes = idNo%10==0?"000":"";
+        return "S"+zeroes+idNo;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -428,7 +444,7 @@ public class ServicePanel extends javax.swing.JPanel {
 
     private void jbtAddServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddServiceActionPerformed
         // TODO add your handling code here:
-                Service service = validateInput();
+        Service service = validateInput();
         if(service!=null){
          //write to database
          Service s = serviceControl.searchRecord(service.getServiceID());
@@ -444,6 +460,7 @@ public class ServicePanel extends javax.swing.JPanel {
                     serviceControl.addRecord(s);
                     resetFields();
                     JOptionPane.showMessageDialog(null,"New service is created.","Success",JOptionPane.INFORMATION_MESSAGE);
+                    jtfServiceId.setText(generateServiceId());
                     }
                     catch (Exception ex){
                         JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
