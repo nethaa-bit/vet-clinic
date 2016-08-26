@@ -55,6 +55,7 @@ public class StaffPanel extends javax.swing.JPanel {
             targetPanel=jpSearch;
             jbtDeleteStaff.setVisible(false);
             jbtModifyStaff.setVisible(false);
+            jbtView.setVisible(true);
 
 
         }else if(MainMenu.action.equals("modifySelected")){
@@ -75,12 +76,20 @@ public class StaffPanel extends javax.swing.JPanel {
                 targetPanel=jpSearch;
                 jbtDeleteStaff.setVisible(false);
                 jbtModifyStaff.setVisible(true);
+                jbtView.setVisible(false);
  
         }
         else if(MainMenu.action.equals("delete")){
                 targetPanel=jpSearch;
                 jbtDeleteStaff.setVisible(true);
                 jbtModifyStaff.setVisible(false);
+                jbtView.setVisible(false);
+
+        }else if(MainMenu.action.equals("viewSelected")){
+             targetPanel=jpAddUpdate;
+             jbtConfirmChange.setVisible(false);
+             jbtConfirmDelete.setVisible(false);
+             jbtAdd.setVisible(false);
 
         }
         
@@ -209,7 +218,6 @@ public class StaffPanel extends javax.swing.JPanel {
         jtfPassword.setEnabled(false);
         jtfPhoneNum.setEnabled(false);
         jtfPostCode.setEnabled(false);
-        jtfSearch.setEnabled(false);
         jtfState.setEnabled(false);
         jcbPosition.setEnabled(false);
         jcbQualification.setEnabled(false);
@@ -292,6 +300,7 @@ public class StaffPanel extends javax.swing.JPanel {
         jtStaff = new javax.swing.JTable();
         jbtModifyStaff = new javax.swing.JButton();
         jbtDeleteStaff = new javax.swing.JButton();
+        jbtView = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -496,6 +505,14 @@ public class StaffPanel extends javax.swing.JPanel {
         });
         jpSearch.add(jbtDeleteStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 350, -1, -1));
 
+        jbtView.setText("View Staff");
+        jbtView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtViewActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jbtView, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 350, -1, -1));
+
         dynamicPanel.add(jpSearch, "card2");
 
         add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 77, 930, 530));
@@ -511,7 +528,7 @@ public class StaffPanel extends javax.swing.JPanel {
         }
         else if(MainMenu.action == "deleteSelected"){
             MainMenu.action="delete";
-        }else if(MainMenu.action == "add"){
+        }else if(MainMenu.action == "add"||MainMenu.action == "viewSelected" ){
                MainMenu.action="search";
         }
 //        MainMenu.action="search";
@@ -584,9 +601,12 @@ public class StaffPanel extends javax.swing.JPanel {
                 fillFields(selectedStaff);
                 disableFields();
            }
+           else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to delete","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
        }
        else{
-           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to delete","Empty selection",JOptionPane.ERROR_MESSAGE);
        }
     }//GEN-LAST:event_jbtDeleteStaffActionPerformed
 
@@ -764,6 +784,27 @@ public class StaffPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
                 jtfPasswordMouseClicked(evt);
     }//GEN-LAST:event_jtfConfirmPassMouseClicked
+
+    private void jbtViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtViewActionPerformed
+        // TODO add your handling code here:
+        MainMenu.action="viewSelected";
+       Staff selectedStaff=null;
+       if(jtStaff.getSelectedRow()>=0 ) {
+           String ic  = (String) jtStaff.getValueAt(jtStaff.getSelectedRow(),0);
+           selectedStaff = staffControl.searchRecord(ic);
+           if(selectedStaff!=null){
+                setDynamicPanel();
+                fillFields(selectedStaff);
+                disableFields();
+           }
+           else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to view.","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to view.","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_jbtViewActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -776,6 +817,7 @@ public class StaffPanel extends javax.swing.JPanel {
     private javax.swing.JButton jbtConfirmDelete;
     private javax.swing.JButton jbtDeleteStaff;
     private javax.swing.JButton jbtModifyStaff;
+    private javax.swing.JButton jbtView;
     private javax.swing.JComboBox<String> jcbPosition;
     private javax.swing.JComboBox<String> jcbQualification;
     private javax.swing.JComboBox<String> jcbQuestion;

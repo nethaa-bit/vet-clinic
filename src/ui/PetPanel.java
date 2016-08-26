@@ -23,6 +23,7 @@ public class PetPanel extends javax.swing.JPanel {
     /**
      * Creates new form Pet
      */
+    
     public PetPanel() {
         initComponents();
         petControl = new MaintainPet();
@@ -82,7 +83,20 @@ public class PetPanel extends javax.swing.JPanel {
     jtfPetName.setText("");
     jtfWeight.setText("");
     }
- 
+    
+    public void disableFields(){
+        jtfBreed.setEnabled(false);
+        jtfHeight.setEnabled(false);
+        jtfLength.setEnabled(false);
+        jtfOwnerIc.setEnabled(false);
+        jtfPetId.setEnabled(false);
+        jtfPetName.setEnabled(false);
+        jtfWeight.setEnabled(false);
+        jcbGender.setEnabled(false);
+        jcbType.setEnabled(false);
+        jdpBirthDate.setEnabled(false);
+    }
+    
     public String generatePetId(){
         ArrayList<Pet> petList = petControl.searchRecord("", 0);
         
@@ -93,6 +107,7 @@ public class PetPanel extends javax.swing.JPanel {
         
         return "A"+idNo;
     }
+    
     public void setDynamicPanel() {
         JPanel targetPanel = new JPanel();
         jtfPetId.setEnabled(false);
@@ -128,6 +143,12 @@ public class PetPanel extends javax.swing.JPanel {
                 targetPanel=jpSearch;
                 jbtDeletePet.setVisible(true);
                 jbtModifyPet.setVisible(false);
+        }else if(MainMenu.action.equals("viewSelected")){
+             targetPanel=jpAdd;
+             jbtConfirmChange.setVisible(false);
+             jbtConfirmDelete.setVisible(false);
+             jbtAddPet.setVisible(false);
+
         }
         
         dynamicPanel.removeAll();
@@ -434,17 +455,7 @@ public class PetPanel extends javax.swing.JPanel {
            if(selectedPet!=null){
                 setDynamicPanel();
                 fillFields(selectedPet); 
-                jtfSearch.setEnabled(false);
-                jtfBreed.setEnabled(false);
-                jtfHeight.setEnabled(false);
-                jtfLength.setEnabled(false);
-                jtfOwnerIc.setEnabled(false);
-                jtfPetId.setEnabled(false);
-                jtfPetName.setEnabled(false);
-                jtfWeight.setEnabled(false);
-                jcbGender.setEnabled(false);
-                jcbType.setEnabled(false);
-                jdpBirthDate.setEnabled(false);
+                disableFields();
                 
            }
        }
@@ -470,7 +481,7 @@ public class PetPanel extends javax.swing.JPanel {
         }
         else if(MainMenu.action == "deleteSelected"){
             MainMenu.action="delete";
-        }else if(MainMenu.action == "add"){
+        }else if(MainMenu.action == "add"||MainMenu.action == "viewSelected" ){
                MainMenu.action="search";
         }
             setDynamicPanel();

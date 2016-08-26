@@ -27,6 +27,15 @@ public class ServicePanel extends javax.swing.JPanel {
     /**
      * Creates new form Service
      */
+    public ServicePanel() {
+        initComponents();
+        serviceControl = new MaintainService();
+        jtfSearch.setOpaque(false);
+        jtfSearch.setBackground(new Color(255,255,255,127));
+        jtfSearch.setBorder(null);
+        setDynamicPanel();
+    }
+    
     public void setDynamicPanel() {
         JPanel targetPanel = new JPanel();
         if(MainMenu.action.equals("add")){
@@ -60,6 +69,12 @@ public class ServicePanel extends javax.swing.JPanel {
                 targetPanel=jpSearch;
                 jbtModifyService.setVisible(false);
                 jbtDeleteService.setVisible(true);
+        }else if(MainMenu.action.equals("viewSelected")){
+             targetPanel=jpAdd;
+             jbtConfirmChange.setVisible(false);
+             jbtConfirmDelete.setVisible(false);
+             jbtAddService.setVisible(false);
+
         }
         
         dynamicPanel.removeAll();
@@ -72,23 +87,14 @@ public class ServicePanel extends javax.swing.JPanel {
         dynamicPanel.revalidate();
     }
     
-     public void fillFields(Service service){
+    public void fillFields(Service service){
      
     jtfPrice.setText(""+service.getUnitPrice());
     jtfServiceId.setText(service.getServiceID());
     jtfTitle.setText(service.getServiceTitle());
     jtaDescrip.setText(service.getServiceDesp());
      }
-        
-    public ServicePanel() {
-        initComponents();
-        serviceControl = new MaintainService();
-        jtfSearch.setOpaque(false);
-        jtfSearch.setBackground(new Color(255,255,255,127));
-        jtfSearch.setBorder(null);
-        setDynamicPanel();
-    }
-    
+
     public Service validateInput(){
     
     Service service;
@@ -115,9 +121,7 @@ public class ServicePanel extends javax.swing.JPanel {
          
          return service;
     }
-    
-    
-    
+
     public void resetFields(){
     
     jtfPrice.setText("");
@@ -265,22 +269,12 @@ public class ServicePanel extends javax.swing.JPanel {
         jpAdd.add(jlblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, -1, -1));
 
         jtfPrice.setToolTipText("Enter price");
-        jtfPrice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfPriceActionPerformed(evt);
-            }
-        });
         jpAdd.add(jtfPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, 70, -1));
 
         jlblPrice.setText("Unit Price (RM) :");
         jpAdd.add(jlblPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, -1, -1));
 
         jtfTitle.setToolTipText("Enter service title");
-        jtfTitle.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfTitleActionPerformed(evt);
-            }
-        });
         jpAdd.add(jtfTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 290, -1));
 
         jlblDescrip.setText("Service Description:");
@@ -293,11 +287,6 @@ public class ServicePanel extends javax.swing.JPanel {
         jpAdd.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 290, 120));
 
         jbtAddService.setText("Add Service");
-        jbtAddService.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtAddServiceMouseClicked(evt);
-            }
-        });
         jbtAddService.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtAddServiceActionPerformed(evt);
@@ -333,14 +322,6 @@ public class ServicePanel extends javax.swing.JPanel {
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 0, 970, 560));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtfPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfPriceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfPriceActionPerformed
-
-    private void jtfTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfTitleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtfTitleActionPerformed
-
     private void jtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfSearchActionPerformed
@@ -365,11 +346,6 @@ public class ServicePanel extends javax.swing.JPanel {
        }
     }//GEN-LAST:event_jbtModifyServiceActionPerformed
 
-    private void jbtAddServiceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddServiceMouseClicked
-        // TODO add your handling code here:
-          // TODO add your handling code here:
-    }//GEN-LAST:event_jbtAddServiceMouseClicked
-
     private void jlblSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblSearchMouseClicked
         // TODO add your handling code here:
         //I used all my 洪荒之力 to make this method 
@@ -382,10 +358,10 @@ public class ServicePanel extends javax.swing.JPanel {
         }
         else if(MainMenu.action == "deleteSelected"){
             MainMenu.action="delete";
-        }else if(MainMenu.action == "add"){
+        }else if(MainMenu.action == "add"||MainMenu.action == "viewSelected" ){
                MainMenu.action="search";
         }
-                    setDynamicPanel();
+        setDynamicPanel();
         
         String queryStr =jtfSearch.getText().toUpperCase();
         int option =0;

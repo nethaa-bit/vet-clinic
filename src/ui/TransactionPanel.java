@@ -197,6 +197,12 @@ public class TransactionPanel extends javax.swing.JPanel {
                 targetPanel=jpTrans1;
                 jbtDeleteTrans.setVisible(true);
                 jbtModifyTrans.setVisible(false);
+        }else if(MainMenu.action.equals("viewSelected")){
+             targetPanel=jpAdd;
+             jbtConfirmChange.setVisible(false);
+             jbtConfirmDelete.setVisible(false);
+             jbtAddTrans.setVisible(false);
+
         }
         
         dynamicPanel.removeAll();
@@ -553,8 +559,8 @@ public class TransactionPanel extends javax.swing.JPanel {
         }
         else if(MainMenu.action == "deleteSelected"){
             MainMenu.action="delete";
-        }else if(MainMenu.action == "add"){
-            MainMenu.action="search";
+        }else if(MainMenu.action == "add"||MainMenu.action == "viewSelected" ){
+               MainMenu.action="search";
         }
         setDynamicPanel();
         String queryStr =jtfSearch.getText();

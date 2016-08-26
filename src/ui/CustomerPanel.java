@@ -30,7 +30,17 @@ public class CustomerPanel extends javax.swing.JPanel {
     /**
      * Creates new form CustomerPanel
      */
-     public void setDynamicPanel() {
+    
+    public CustomerPanel() {
+        initComponents();
+        customerControl = new MaintainCustomer();
+        petControl = new MaintainPet();
+        jtfSearch.setOpaque(false);
+        jtfSearch.setBackground(new Color(255,255,255,127));
+        jtfSearch.setBorder(null);
+        setDynamicPanel();
+    }
+    public void setDynamicPanel() {
         JPanel targetPanel = new JPanel();
         if(MainMenu.action.equals("add")){
              targetPanel=jpAdd;
@@ -48,6 +58,7 @@ public class CustomerPanel extends javax.swing.JPanel {
              jbtConfirmChange.setVisible(true);
              jbtConfirmDelete.setVisible(false);
              jbtAddCus.setVisible(false);
+             jtfIc.setEnabled(false);
         
         }else if(MainMenu.action.equals("deleteSelected")){
              targetPanel=jpAdd;
@@ -63,6 +74,12 @@ public class CustomerPanel extends javax.swing.JPanel {
                 targetPanel=jpSearch;
                 jbtDeleteCus.setVisible(true);
                 jbtModifyCus.setVisible(false);
+        }else if(MainMenu.action.equals("viewSelected")){
+             targetPanel=jpAdd;
+             jbtConfirmChange.setVisible(false);
+             jbtConfirmDelete.setVisible(false);
+             jbtAddCus.setVisible(false);
+
         }
         
         dynamicPanel.removeAll();
@@ -75,7 +92,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         dynamicPanel.revalidate();
     }
      
-      public void fillFields(Customer customer){
+    public void fillFields(Customer customer){
       
         jtfIc.setText(customer.getCustIC());
         jtfName.setText(customer.getCustName());
@@ -92,7 +109,7 @@ public class CustomerPanel extends javax.swing.JPanel {
        
       }
       
-      public void disableFields(){
+    public void disableFields(){
         jtfCity.setEnabled(false);
         jtfDoor.setEnabled(false);
         jtfIc.setEnabled(false);
@@ -100,12 +117,11 @@ public class CustomerPanel extends javax.swing.JPanel {
         jtfNeighbour.setEnabled(false);
         jtfPhoneNum.setEnabled(false);
         jtfPostCode.setEnabled(false);
-        jtfSearch.setEnabled(false);
         jtfState.setEnabled(false);
         jcbGender.setEnabled(false);
       }
       
-      public HashMap reformatAddress(String fulladdress){
+    public HashMap reformatAddress(String fulladdress){
        HashMap<String, String> addressMap = new HashMap<String, String>();
        String[] address = fulladdress.split("_");
        addressMap.put("Door", address[0]);
@@ -117,15 +133,7 @@ public class CustomerPanel extends javax.swing.JPanel {
        return addressMap;
     }
     
-    public CustomerPanel() {
-        initComponents();
-        customerControl = new MaintainCustomer();
-        petControl = new MaintainPet();
-        jtfSearch.setOpaque(false);
-        jtfSearch.setBackground(new Color(255,255,255,127));
-        jtfSearch.setBorder(null);
-        setDynamicPanel();
-    }
+
     
     public Customer validateInput(){
     
@@ -531,7 +539,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         }
         else if(MainMenu.action == "deleteSelected"){
             MainMenu.action="delete";
-        }else if(MainMenu.action == "add"){
+        }else if(MainMenu.action == "add"||MainMenu.action == "viewSelected" ){
                MainMenu.action="search";
         }
         
