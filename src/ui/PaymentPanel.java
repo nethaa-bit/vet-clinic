@@ -6,14 +6,35 @@
 package ui;
 
 import control.MaintainPayment;
+import control.MaintainService;
+import control.MaintainTransaction;
+import control.MaintainTransactionService;
 import domain.Payment;
+import domain.Service;
+import domain.ServiceDetail;
 import domain.TableModel;
+import domain.Transaction;
 import java.awt.Color;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -25,15 +46,20 @@ public class PaymentPanel extends javax.swing.JPanel {
      * Creates new form PaymentPanel
      */
     MaintainPayment paymentControl;
+    MaintainTransaction transControl;
+    MaintainService servControl;
+    MaintainTransactionService transServControl;
     
     public PaymentPanel() {
         initComponents();
         paymentControl = new MaintainPayment();
-//        JFrame parentFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-//        parentFrame.setTitle("Payment - Veterinary Clinic System");
+        transControl = new MaintainTransaction();
+        transServControl = new MaintainTransactionService();
+        servControl = new MaintainService();
         jtfSearch.setOpaque(false);
         jtfSearch.setBackground(new Color(255,255,255,127));
         jtfSearch.setBorder(null);
+        initFields();
         setDynamicPanel();
     }
 
@@ -67,12 +93,18 @@ public class PaymentPanel extends javax.swing.JPanel {
         jdpPayDate = new com.toedter.calendar.JDateChooser();
         jbtAddPay = new javax.swing.JButton();
         jcbTransId = new javax.swing.JComboBox<>();
-        jcbStaffName = new javax.swing.JComboBox<>();
+        jtfStaff = new javax.swing.JTextField();
+        jtfChange = new javax.swing.JTextField();
+        jlblChange = new javax.swing.JLabel();
+        jlblAmountPayable = new javax.swing.JLabel();
+        jtfAmountPayable = new javax.swing.JTextField();
+        jbtGenBill = new javax.swing.JButton();
         jpSearch = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtPayment = new javax.swing.JTable();
         jbtModifyPay = new javax.swing.JButton();
         jbtDeletePay = new javax.swing.JButton();
+        jbtView = new javax.swing.JButton();
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -107,48 +139,68 @@ public class PaymentPanel extends javax.swing.JPanel {
         jpAdd.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlblId.setText("Payment ID :");
-        jpAdd.add(jlblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, -1, -1));
+        jpAdd.add(jlblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 50, -1, -1));
 
         jtfPayId.setToolTipText("Enter payment ID");
         jtfPayId.setEnabled(false);
-        jpAdd.add(jtfPayId, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, 120, -1));
+        jpAdd.add(jtfPayId, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 140, -1));
 
         jlblAmount.setText("Amount Paid (RM) :");
-        jpAdd.add(jlblAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
+        jpAdd.add(jlblAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, -1, -1));
 
         jtfAmount.setToolTipText("Enter amount paid");
-        jpAdd.add(jtfAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 120, -1));
+        jpAdd.add(jtfAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 140, -1));
 
         jlblMethodPay.setText("Method Of Payment :");
-        jpAdd.add(jlblMethodPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, -1, -1));
+        jpAdd.add(jlblMethodPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
 
         jcbMethodPay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "Credit Card" }));
-        jpAdd.add(jcbMethodPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 60, 110, -1));
+        jpAdd.add(jcbMethodPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 140, -1));
 
         jlblDate.setText("Payment Date :");
-        jpAdd.add(jlblDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, -1, -1));
+        jpAdd.add(jlblDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, -1, -1));
 
         jlblTransId.setText("Transaction ID :");
-        jpAdd.add(jlblTransId, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
+        jpAdd.add(jlblTransId, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
 
         jlblStaffName.setText("Staff Name:");
-        jpAdd.add(jlblStaffName, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 150, -1, -1));
+        jpAdd.add(jlblStaffName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 60, -1));
 
         jlblCCNum.setText("Credit Card No. :");
         jpAdd.add(jlblCCNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, -1, -1));
 
         jtfCcNum.setToolTipText("Enter credit card no.");
-        jpAdd.add(jtfCcNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 140, -1));
-        jpAdd.add(jdpPayDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 110, 110, -1));
+        jpAdd.add(jtfCcNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, 140, -1));
+        jpAdd.add(jdpPayDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 100, 140, -1));
 
         jbtAddPay.setText("Add Payment");
-        jpAdd.add(jbtAddPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, -1, -1));
+        jbtAddPay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtAddPayActionPerformed(evt);
+            }
+        });
+        jpAdd.add(jbtAddPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 270, -1, -1));
 
-        jcbTransId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "T00000000000000" }));
-        jpAdd.add(jcbTransId, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, -1, -1));
+        jpAdd.add(jcbTransId, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 140, -1));
+        jpAdd.add(jtfStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 140, -1));
+        jpAdd.add(jtfChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 200, 140, -1));
 
-        jcbStaffName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Xiao Liow" }));
-        jpAdd.add(jcbStaffName, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 150, 110, -1));
+        jlblChange.setText("Change Rendered:");
+        jpAdd.add(jlblChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 200, -1, -1));
+
+        jlblAmountPayable.setText("Amount Payable (RM) :");
+        jpAdd.add(jlblAmountPayable, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, -1, -1));
+
+        jtfAmountPayable.setToolTipText("Enter amount paid");
+        jpAdd.add(jtfAmountPayable, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 150, 140, -1));
+
+        jbtGenBill.setText("Generate Bill");
+        jbtGenBill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtGenBillActionPerformed(evt);
+            }
+        });
+        jpAdd.add(jbtGenBill, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 50, -1, 20));
 
         dynamicPanel.add(jpAdd, "card3");
 
@@ -211,6 +263,14 @@ public class PaymentPanel extends javax.swing.JPanel {
         });
         jpSearch.add(jbtDeletePay, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 270, -1, -1));
 
+        jbtView.setText("View Payment");
+        jbtView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtViewActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jbtView, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, -1, -1));
+
         dynamicPanel.add(jpSearch, "card2");
 
         jPanel1.add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 970, 400));
@@ -232,9 +292,35 @@ public class PaymentPanel extends javax.swing.JPanel {
         JPanel targetPanel = new JPanel();
         if(MainMenu.action.equals("add")){
              targetPanel=jpAdd;
+             jtfPayId.setText(generatePaymentId());
         }
         else if (MainMenu.action.equals("search")){
             targetPanel=jpSearch;
+            jbtView.setVisible(true);
+        }else if(MainMenu.action.equals("bill")){
+            targetPanel=jpAdd;
+            jlblAmount.setVisible(false);
+            jlblAmountPayable.setVisible(false);
+            jlblCCNum.setVisible(false);
+            jlblChange.setVisible(false);
+            jlblDate.setVisible(false);
+            jlblId.setVisible(false);
+            jlblMethodPay.setVisible(false);
+            jlblPayment.setVisible(false);
+            jlblSearch.setVisible(false);
+            jlblStaffName.setVisible(false);
+            jbtAddPay.setVisible(false);
+            jtfAmount.setVisible(false);
+            jtfCcNum.setVisible(false);
+            jtfChange.setVisible(false);
+            jtfPayId.setVisible(false);
+            jtfStaff.setVisible(false);
+            jcbMethodPay.setVisible(false);
+            jtfAmountPayable.setVisible(false);
+            jdpPayDate.setVisible(false);
+            
+            jbtGenBill.setVisible(true);
+        
         }
         
         dynamicPanel.removeAll();
@@ -247,9 +333,108 @@ public class PaymentPanel extends javax.swing.JPanel {
         dynamicPanel.revalidate();
     }
     
+    public void initFields(){
+        jtfCcNum.setVisible(false);
+        jlblCCNum.setVisible(false);
+        jtfAmountPayable.setEditable(false);
+       ArrayList<Transaction> transactionList = transControl.searchRecord("", 0);
+       ArrayList<Payment> paymentList = paymentControl.searchRecord("",2);
+       
+       for(int i=0; i<paymentList.size();i++){
+           for(int j=0; j<transactionList.size();j++){
+             if(paymentList.get(i).getTransaction().equals(transactionList.get(j))){
+                 transactionList.remove(transactionList.get(j));
+             }
+           }
+       }
+       jcbTransId.addItem("");
+       for(int j=0; j<transactionList.size();j++){
+             jcbTransId.addItem(transactionList.get(j).getTransID());
+       }
+       
+       jtfStaff.setText(LoginFrame.getCurrentstaff().getStaffName());
+       jtfStaff.setEditable(false);
+       
+       jcbMethodPay.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent evt) {
+                JComboBox cb = (JComboBox) evt.getSource();
+                String item = (String) evt.getItem();
+                if(item.equals("Credit Card")){
+                    jtfCcNum.setVisible(true);
+                    jlblCCNum.setVisible(true);
+                    jlblAmount.setVisible(false);
+                    jtfAmount.setVisible(false);
+                    jlblChange.setVisible(false);
+                    jtfChange.setVisible(false);
+                }else{
+                    jtfCcNum.setVisible(false);
+                    jlblCCNum.setVisible(false);
+                    jlblAmount.setVisible(true);
+                    jtfAmount.setVisible(true);
+                    jlblChange.setVisible(true);
+                    jtfChange.setVisible(true);
+                }
+            }});
+       
+       jdpPayDate.setDateFormatString("dd-MM-yyyy");
+       jdpPayDate.setDate(new Date());
+       jcbTransId.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent evt) {
+                JComboBox cb = (JComboBox) evt.getSource();
+                String item = (String) evt.getItem();
+                ArrayList<ServiceDetail> servDList = transServControl.searchRecord(item,1);
+                Double amountPayable= 0.0;
+                for(int i=0;i<servDList.size();i++){
+                    Service ser = servControl.searchRecord(servDList.get(i).getService().getServiceID());
+                    amountPayable+=ser.getUnitPrice();
+                }
+                
+                jtfAmountPayable.setText(""+amountPayable);
+            }});
+       jbtGenBill.setVisible(false);
+    }
+    
+    public void disableFields(){
+        
+        jtfAmount.setEditable(false);
+        jtfCcNum.setEditable(false);
+        jtfChange.setEditable(false);
+        jtfPayId.setEditable(false);
+        jtfStaff.setEditable(false);
+        jcbMethodPay.setEditable(false);
+        jcbTransId.setEditable(false);
+        jdpPayDate.setEnabled(false);
+        jtfAmountPayable.setEditable(false);
+    
+    }
+    public String generatePaymentId(){
+        
+        ArrayList<Payment> paymentList = paymentControl.searchRecord("", 0);
+        ArrayList<Integer> idList = new ArrayList<Integer>();  //fixed
+
+        for(int i=0; i<paymentList.size(); i++){
+            String idStr = paymentList.get(i).getPaymentID();//
+            int idNo = Integer.parseInt(idStr.split("P")[1]); ///
+            idList.add(idNo);
+        }
+        Collections.sort(idList);
+        
+        int idNo = 0; 
+        for(int i=0; i<idList.size(); i++){
+            if(idList.get(i)!=i+1){
+                idNo=i+1;
+                break;
+            }
+        } 
+        return "P"+idNo+1; //uhfeuh
+        
+    }
+    
     private void jtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearchActionPerformed
     // TODO add your handling code here:
-        //I used all my 洪荒之力 to make this method 
+    //I used all my 洪荒之力 to make this method 
 
         jtPayment.setModel(new DefaultTableModel());
         jtPayment.repaint();
@@ -324,6 +509,48 @@ public class PaymentPanel extends javax.swing.JPanel {
        }
     }//GEN-LAST:event_jbtDeletePayMouseClicked
 
+    private void jbtViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtViewActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jbtViewActionPerformed
+
+    private void jbtAddPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddPayActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jbtAddPayActionPerformed
+
+    private void jbtGenBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtGenBillActionPerformed
+        // TODO add your handling code here:
+        
+        String host = "jdbc:derby://localhost:1527/vetdb";
+       String user = "nbuser";
+       String password = "nbuser";
+       Connection conn = null;
+       
+       String reportSource = "src/reportTemplates/Bill.jrxml"; 
+       
+       String transID = (String) jcbTransId.getSelectedItem();
+
+       Map<String, Object> params = new HashMap<String, Object>(); 
+       params.put("rTransID",transID);
+       try    {	 
+         Class.forName("org.apache.derby.jdbc.ClientDriver");
+         conn = DriverManager.getConnection(host, user, password);
+               JasperReport jasperReport = JasperCompileManager.compileReport(reportSource);
+
+      JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, conn);
+      JasperViewer.viewReport(jasperPrint, false); 
+        
+
+      } catch (JRException jrex) {
+            JOptionPane.showMessageDialog(this, "Error in generating report");
+  	      jrex.printStackTrace();
+      }  catch(Exception ex) {
+            JOptionPane.showMessageDialog(this, "Unble to generate report~!");
+	      ex.printStackTrace();
+      }
+    }//GEN-LAST:event_jbtGenBillActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
@@ -332,13 +559,16 @@ public class PaymentPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtAddPay;
     private javax.swing.JButton jbtDeletePay;
+    private javax.swing.JButton jbtGenBill;
     private javax.swing.JButton jbtModifyPay;
+    private javax.swing.JButton jbtView;
     private javax.swing.JComboBox<String> jcbMethodPay;
-    private javax.swing.JComboBox<String> jcbStaffName;
     private javax.swing.JComboBox<String> jcbTransId;
     private com.toedter.calendar.JDateChooser jdpPayDate;
     private javax.swing.JLabel jlblAmount;
+    private javax.swing.JLabel jlblAmountPayable;
     private javax.swing.JLabel jlblCCNum;
+    private javax.swing.JLabel jlblChange;
     private javax.swing.JLabel jlblDate;
     private javax.swing.JLabel jlblId;
     private javax.swing.JLabel jlblMethodPay;
@@ -350,8 +580,11 @@ public class PaymentPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jpSearch;
     private javax.swing.JTable jtPayment;
     private javax.swing.JTextField jtfAmount;
+    private javax.swing.JTextField jtfAmountPayable;
     private javax.swing.JTextField jtfCcNum;
+    private javax.swing.JTextField jtfChange;
     private javax.swing.JTextField jtfPayId;
     private javax.swing.JTextField jtfSearch;
+    private javax.swing.JTextField jtfStaff;
     // End of variables declaration//GEN-END:variables
 }
