@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="20d17f0a-dbb5-4a74-a412-a154b7b81ad4">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bc8797c8-d6fd-4fc6-be8c-3713fd83a68c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -35,22 +35,46 @@ GROUP BY
 		<groupHeader>
 			<band height="33">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="0" width="100" height="32" forecolor="#666666" backcolor="#E6E6E6" uuid="8e81b945-1e58-4041-9655-4cb7864e23eb"/>
+					<reportElement mode="Opaque" x="0" y="0" width="141" height="32" forecolor="#666666" backcolor="#E6E6E6" uuid="ff93d525-fa23-49ab-b271-f4eced0a21dc"/>
 					<textElement>
 						<font size="12"/>
 					</textElement>
-					<text><![CDATA[CUSTOMER_CUSTIC]]></text>
+					<text><![CDATA[CUSTOMER IC]]></text>
 				</staticText>
 				<textField>
-					<reportElement mode="Opaque" x="100" y="0" width="455" height="32" forecolor="#006699" backcolor="#E6E6E6" uuid="39a1836d-3a7c-4075-89a9-1a0b92151c8e"/>
+					<reportElement mode="Opaque" x="141" y="0" width="414" height="32" forecolor="#006699" backcolor="#E6E6E6" uuid="07643123-baef-43a2-ba24-25f5cf65e7ac"/>
 					<textElement>
-						<font size="24" isBold="true"/>
+						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{CUSTOMER_CUSTIC}]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement x="-20" y="32" width="595" height="1" forecolor="#666666" uuid="d696319b-31e2-4380-a4cd-ca292d84f780"/>
+					<reportElement x="-20" y="32" width="595" height="1" forecolor="#666666" uuid="fcd86c92-e0a4-434a-8762-7096fabea833"/>
 				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="CUSTOMER_CUSTNAME">
+		<groupExpression><![CDATA[$F{CUSTOMER_CUSTNAME}]]></groupExpression>
+		<groupHeader>
+			<band height="32">
+				<textField>
+					<reportElement x="141" y="0" width="414" height="32" forecolor="#006699" uuid="c18383a4-bedb-43d4-9704-8645fa8f68fb"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CUSTOMER_CUSTNAME}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="141" height="32" forecolor="#666666" uuid="ce099279-8d2a-41c8-a2f0-d8411e038cdc"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[CUSTOMER NAME]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
 		<groupFooter>
@@ -61,124 +85,114 @@ GROUP BY
 		<band/>
 	</background>
 	<title>
-		<band height="72">
+		<band height="149">
 			<frame>
-				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="ab6b8d24-104e-4326-a953-21a7a603c81a"/>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="144" backcolor="#006699" uuid="a15d8205-20ce-4f6e-89fe-5a34bde6de65"/>
 				<staticText>
-					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="dd1b2011-3aa5-4824-bbc2-0746c5bbbd21"/>
-					<textElement>
-						<font size="34" isBold="true"/>
+					<reportElement x="48" y="14" width="507" height="63" forecolor="#FFFFFF" uuid="6414ffa4-8ea5-44f1-a07d-4a97ae09da73"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="14" isBold="true"/>
 					</textElement>
-					<text><![CDATA[TITLE]]></text>
+					<text><![CDATA[Animal Medical Centre
+510 E 62nd St, 81100 Johor Bahru, Johor Darul Takzim, Malaysia
+Phone no: 607-3676531]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="46d0d862-464f-47d1-a693-3feb2eb1b491"/>
-					<textElement textAlignment="Right">
-						<font size="14" isBold="false"/>
+					<reportElement x="30" y="77" width="262" height="35" forecolor="#FFFFFF" uuid="52849b5e-c448-4b9e-9e1b-5c3e2bba8f4d"/>
+					<textElement textAlignment="Left">
+						<font size="20" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Add a description here]]></text>
+					<text><![CDATA[Customer Summary Report for ]]></text>
 				</staticText>
+				<elementGroup>
+					<textField pattern="d/M/yyyy">
+						<reportElement x="257" y="112" width="124" height="20" forecolor="#FFFFFF" uuid="bfb660fd-ba37-4e58-9357-b5a836eeecfe"/>
+						<textElement>
+							<font size="13"/>
+						</textElement>
+						<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+					</textField>
+					<staticText>
+						<reportElement x="192" y="112" width="65" height="20" forecolor="#FFFFFF" uuid="63e97b78-2aaf-4b64-a39d-dca6d3847159"/>
+						<textElement>
+							<font size="13"/>
+						</textElement>
+						<text><![CDATA[Printed on]]></text>
+					</staticText>
+				</elementGroup>
 			</frame>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="13"/>
+		<band/>
 	</pageHeader>
 	<columnHeader>
 		<band height="21">
 			<line>
-				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="e1431977-75d1-4713-9527-cc7ab19f3ac2"/>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="e66c89c0-3e66-44d7-bb06-cbf1e52c0a75"/>
 			</line>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="747806f4-7a9e-4274-8b80-f8154dae8edb"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+				<reportElement mode="Opaque" x="0" y="0" width="141" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="d139d455-c235-49f3-ab3f-c269198c3a6f"/>
+				<textElement>
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[CUSTOMER_CUSTNAME]]></text>
+				<text><![CDATA[PET ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="92" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="40f3dc68-1576-4bb9-aab8-a480bb4279df"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+				<reportElement mode="Opaque" x="141" y="1" width="151" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="776cb6f7-b149-4185-8e6c-9468f3b76c71"/>
+				<textElement>
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[PET_PETID]]></text>
+				<text><![CDATA[NAME]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="184" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="506f4f4c-1dba-44c2-88d2-d18d1f8a451c"/>
+				<reportElement mode="Opaque" x="292" y="0" width="127" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="e51332cf-aa3a-4897-afb9-d45dc4ad74fb"/>
 				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[PET_PETNAME]]></text>
+				<text><![CDATA[ANIMALTYPE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="276" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="1d98e93a-ee87-4860-bc85-9885d06f5433"/>
+				<reportElement mode="Opaque" x="419" y="1" width="136" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="c7dfc0bc-43d1-4d09-be4d-313bb892f3c7"/>
 				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[PET_ANIMALTYPE]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="368" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="15ff05c5-3b11-4f15-804c-96b7f35cd75b"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[TOTALAMOUNT]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="460" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="b7ab05bc-1db2-4e03-9095-fa62b7e66755"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[AVERAGESPENDPERTRANSACTION]]></text>
+				<text><![CDATA[TOTAL AMOUNT]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20">
+		<band height="35">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="596b16dd-354a-424e-b3d2-1617f8d88dc2"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="21" width="555" height="1" uuid="76035720-1bc5-4db9-af3c-ae1f66a95027"/>
 			</line>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="0" width="92" height="20" uuid="f962e522-ec4d-41fd-8c3d-b6cb6569a483"/>
+				<reportElement x="0" y="0" width="111" height="20" uuid="75c2f0dd-8aaa-4c71-814b-603f0bbaf77e"/>
 				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{CUSTOMER_CUSTNAME}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="92" y="0" width="92" height="20" uuid="b57469df-44de-40c0-bf37-62bb1ca9cc93"/>
-				<textElement>
-					<font size="14"/>
+					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{PET_PETID}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="184" y="0" width="92" height="20" uuid="5e461b8b-106b-4e01-bb2c-fb2d1c11896d"/>
+				<reportElement x="141" y="0" width="151" height="20" uuid="73e3d036-d5c6-4be5-8686-e789ebcf57d4"/>
 				<textElement>
-					<font size="14"/>
+					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{PET_PETNAME}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="276" y="0" width="92" height="20" uuid="e57c51f5-5e96-451b-99e4-fe96177f3b3a"/>
+				<reportElement x="444" y="1" width="111" height="20" uuid="25671b5e-7783-4779-9d3b-8b510bddec6d"/>
 				<textElement>
-					<font size="14"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{PET_ANIMALTYPE}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="368" y="0" width="92" height="20" uuid="2ec10138-79c8-44b3-b756-03fb87f10dca"/>
-				<textElement>
-					<font size="14"/>
+					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TOTALAMOUNT}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="460" y="0" width="92" height="20" uuid="86654e71-9e32-4c22-b6d9-543f35338a5b"/>
+				<reportElement x="308" y="0" width="111" height="20" uuid="c9b9ab9b-f55f-4537-b722-223896f93631"/>
 				<textElement>
-					<font size="14"/>
+					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{AVERAGESPENDPERTRANSACTION}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{PET_ANIMALTYPE}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -188,17 +202,13 @@ GROUP BY
 	<pageFooter>
 		<band height="17">
 			<textField>
-				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="2f85f6a6-aa71-4926-87cb-418ed580b071"/>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="7b5e7e3f-0062-44c7-bce5-9797b8ae7d89"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="2c9798a0-afcf-4f43-bb97-bb6b9b8d5e91"/>
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="45648643-dac7-4200-ab28-71882248de76"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
-			</textField>
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="0" y="4" width="100" height="13" uuid="b761a0a8-01b4-4ca6-871c-03a3d2f4783e"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
