@@ -42,14 +42,7 @@ public class TransactionPanel extends javax.swing.JPanel {
         TransactionPanel.serviceDetail = service;
     }
     
-    
-//    public String getTimeString (long milliseconds){
-//        String timeString = null;
-//
-//            milliseconds+= (30 * 60000)+ (7 * 3600000);
-//            return timeString;
-//
-//    }
+   
     public TransactionPanel() {
         initComponents();
         transControl = new MaintainTransaction();
@@ -613,6 +606,7 @@ public class TransactionPanel extends javax.swing.JPanel {
             else if(Pattern.matches("A\\d+", queryStr)){
                 option=2;
             }
+            
             ArrayList<Transaction> transactionList = transControl.searchRecord(queryStr,option);
 
 //            MainMenu.action="search";

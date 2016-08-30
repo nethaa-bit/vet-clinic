@@ -126,9 +126,15 @@ public class ScheduleDA {
             case 0: queryStr= "SELECT * FROM "+ tableName ;
             break;
             case 1: queryStr= "SELECT * FROM "+ tableName +" WHERE appid = ?";
-            appID = searchStr;
             break;
-            
+            case 2: queryStr= "SELECT * FROM "+ tableName +" WHERE transid = ?";
+            break;
+            case 3: queryStr= "SELECT * FROM "+ tableName +" WHERE custphonenum = ?";
+            break;
+            case 4: queryStr= "SELECT * FROM "+ tableName +" WHERE LOWER(custname)  LIKE LOWER('%' || ? || '%')";
+            break;
+            case 5: queryStr= "SELECT * FROM "+ tableName +" WHERE LOWER(status) = LOWER(?)";
+            break;
         }
         
         ArrayList<Schedule> scheduleList = new ArrayList<Schedule>();
@@ -140,13 +146,12 @@ public class ScheduleDA {
             
             while(rs.next())
             {
-             //   schedule = new Schedule(appID,rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status"),t);
                 Transaction t = transControl.searchRecord(rs.getString("transid"));
                 if(t!=null){
-                    schedule = new Schedule(appID,rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status"),t); 
+                    schedule = new Schedule(rs.getString("appid"),rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status"),t); 
                 }
                 else{
-                    schedule = new Schedule(appID,rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status")); 
+                    schedule = new Schedule(rs.getString("appid"),rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status")); 
                 }
                 scheduleList.add(schedule);
             }

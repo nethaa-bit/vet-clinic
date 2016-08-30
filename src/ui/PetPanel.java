@@ -701,7 +701,7 @@ public class PetPanel extends javax.swing.JPanel {
 
     private void jbtViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtViewActionPerformed
         // TODO add your handling code here:
-        MainMenu.action="viewSelected";
+       MainMenu.action="viewSelected";
        Pet selectedPet=null;
        if(jtPet.getSelectedRow()>=0 ) {
            String id  = (String) jtPet.getValueAt(jtPet.getSelectedRow(),0);

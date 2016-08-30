@@ -106,6 +106,10 @@ public class Schedule {
         this.transID = transID;
     }
 
+   public Object[] getObjects(){
    
+       Object[] objList = {appID, appTime, appDate, custName, custPhoneNum, status, transID};
+       return objList;
+   }
     
 }
