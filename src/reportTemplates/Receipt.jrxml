@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="75f708a3-d5df-4fa1-9196-dc2c2709516a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="16"/>
+	<parameter name="rTransID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     CUSTOMER."CUSTIC" AS CUSTOMER_CUSTIC,
+     CUSTOMER."CUSTNAME" AS CUSTOMER_CUSTNAME,
+     CUSTOMER."CUSTADDRESS" AS CUSTOMER_CUSTADDRESS,
+     CUSTOMER."CUSTPHONENUM" AS CUSTOMER_CUSTPHONENUM,
+     PET."PETNAME" AS PET_PETNAME,
+     TRANSACTION1."TRANSID" AS TRANSACTION1_TRANSID,
+     TRANSACTION1."TRANSDATE" AS TRANSACTION1_TRANSDATE,
+     TRANSACTION1."TRANSTIME" AS TRANSACTION1_TRANSTIME,
+     SERVICE."SERVICEID" AS SERVICE_SERVICEID,
+     SERVICE."SERVICETITLE" AS SERVICE_SERVICETITLE,
+     SERVICE."UNITPRICE" AS SERVICE_UNITPRICE,
+     SERVICE."SERVICEDESP" AS SERVICE_SERVICEDESP,
+     PET."ANIMALTYPE" AS PET_ANIMALTYPE
+FROM
+     "NBUSER"."CUSTOMER" CUSTOMER INNER JOIN "NBUSER"."PET" PET ON CUSTOMER."CUSTIC" = PET."CUSTIC"
+     INNER JOIN "NBUSER"."TRANSACTION1" TRANSACTION1 ON PET."PETID" = TRANSACTION1."PETID"
+     INNER JOIN "NBUSER"."TRANSACTION_SERVICE" TRANSACTION_SERVICE ON TRANSACTION1."TRANSID" = TRANSACTION_SERVICE."TRANSID"
+     INNER JOIN "NBUSER"."SERVICE" SERVICE ON TRANSACTION_SERVICE."SERVICEID" = SERVICE."SERVICEID"
+WHERE
+	TRANSACTION1."TRANSID"=$P{rTransID}]]>
+	</queryString>
+	<field name="CUSTOMER_CUSTIC" class="java.lang.String"/>
+	<field name="CUSTOMER_CUSTNAME" class="java.lang.String"/>
+	<field name="CUSTOMER_CUSTADDRESS" class="java.lang.String"/>
+	<field name="CUSTOMER_CUSTPHONENUM" class="java.lang.String"/>
+	<field name="PET_PETNAME" class="java.lang.String"/>
+	<field name="TRANSACTION1_TRANSID" class="java.lang.String"/>
+	<field name="TRANSACTION1_TRANSDATE" class="java.sql.Date"/>
+	<field name="TRANSACTION1_TRANSTIME" class="java.lang.String"/>
+	<field name="SERVICE_SERVICEID" class="java.lang.String"/>
+	<field name="SERVICE_SERVICETITLE" class="java.lang.String"/>
+	<field name="SERVICE_UNITPRICE" class="java.math.BigDecimal"/>
+	<field name="SERVICE_SERVICEDESP" class="java.lang.String"/>
+	<field name="PET_ANIMALTYPE" class="java.lang.String"/>
+	<variable name="TotalPayable" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{SERVICE_UNITPRICE}]]></variableExpression>
+	</variable>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="116">
+			<frame>
+				<reportElement mode="Opaque" x="3" y="0" width="552" height="116" backcolor="#006699" uuid="19ea115c-82d9-4e09-a164-4512db108c27"/>
+				<staticText>
+					<reportElement x="0" y="0" width="552" height="51" forecolor="#FFFFFF" uuid="78d14be5-d955-4fb2-86d8-00e4a13a376a"/>
+					<textElement textAlignment="Center" verticalAlignment="Top">
+						<font size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Animal Medical Centre
+510 E 62nd St, 81100 Johor Bahru, Johor Darul Takzim, Malaysia
+Phone no: 607-3676531]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="220" y="62" width="105" height="24" forecolor="#FFFFFF" uuid="35033952-e592-47ea-8194-422cc730e708"/>
+					<textElement textAlignment="Center">
+						<font size="15" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Receipt]]></text>
+				</staticText>
+				<elementGroup>
+					<elementGroup>
+						<textField pattern="d/M/yyyy">
+							<reportElement x="276" y="86" width="124" height="20" forecolor="#FFFFFF" uuid="140f4fc2-1081-4836-b35f-df4b1a8e0a28"/>
+							<textElement>
+								<font size="13"/>
+							</textElement>
+							<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+						</textField>
+						<staticText>
+							<reportElement x="211" y="86" width="65" height="20" forecolor="#FFFFFF" uuid="0239c7a2-bc7e-434e-8090-a98a5442f982"/>
+							<textElement>
+								<font size="13"/>
+							</textElement>
+							<text><![CDATA[Printed on]]></text>
+						</staticText>
+					</elementGroup>
+				</elementGroup>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="86">
+			<textField>
+				<reportElement x="142" y="10" width="124" height="20" uuid="d092d2be-9935-4354-8c50-af8a3e01456c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CUSTOMER_CUSTNAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="10" width="128" height="20" uuid="31e18aa7-10f6-4d16-a140-4a1d0e707127"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Customer Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="10" width="122" height="20" uuid="8693c90b-e078-4ace-bbce-4094abe4c936"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Phone no:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="407" y="10" width="135" height="20" uuid="fa27392f-925e-4575-b0fb-6b0b3456bfa1"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CUSTOMER_CUSTPHONENUM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="142" y="30" width="124" height="20" uuid="ead9dc85-e414-4809-86d0-815fabbca287"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PET_PETNAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="30" width="128" height="20" uuid="23f0ba1f-9c1b-4138-a8a4-0a0c9da9537d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Pet Name:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="407" y="30" width="135" height="20" uuid="813a4806-2877-4bfc-a264-166cf2700a26"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PET_ANIMALTYPE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="285" y="30" width="122" height="20" uuid="61ccdde0-0714-4c04-bf67-03d29a17be5d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Pet Type:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="142" y="50" width="124" height="20" uuid="57138e27-c538-4608-8761-a0d33041857b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TRANSACTION1_TRANSID}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="407" y="50" width="135" height="20" uuid="b2c4bdb5-9294-4033-aeb5-cca2562dc1c0"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TRANSACTION1_TRANSDATE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="50" width="128" height="20" uuid="f6b293fd-5330-4172-8f42-31e476750bf6"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Transaction ID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="50" width="122" height="20" uuid="706201c4-f183-44f3-8c7c-da175ad56a93"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="47613465-ba24-4624-b874-2472eb6742e8"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="127" y="1" width="152" height="19" forecolor="#006699" backcolor="#E6E6E6" uuid="4ff2584a-60dd-4ab1-8ed4-cd991c7bd132"/>
+				<textElement textAlignment="Left">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="279" y="0" width="99" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="04deca2e-aa82-429b-ae94-a82e064a9535"/>
+				<textElement textAlignment="Left">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unit Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="378" y="0" width="164" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="5024efa0-4df3-4066-acc0-4b4f38985be6"/>
+				<textElement textAlignment="Left">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Description]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="14" y="0" width="113" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="33921bb6-49a0-4f32-9c3f-b2ab53490c38"/>
+				<textElement textAlignment="Left">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Service ID]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="9540eed8-95ec-42b9-a8b0-dee456514064"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="279" y="0" width="99" height="20" uuid="3fb1bbcd-e67f-4520-b62c-27deb3eff05b"/>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SERVICE_UNITPRICE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="378" y="0" width="164" height="20" uuid="d7332141-834f-44ac-8425-851e014c65cd"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SERVICE_SERVICEDESP}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="127" y="1" width="152" height="19" uuid="38c2f570-bda0-4fea-99ec-a11f0821272c"/>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SERVICE_SERVICETITLE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="14" y="2" width="113" height="18" uuid="b8164a79-9d6a-425e-8cb7-5ca8435a9f37"/>
+				<textElement textAlignment="Left">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SERVICE_SERVICEID}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="90">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="77" width="515" height="13" backcolor="#E6E6E6" uuid="8bec3582-f174-49cc-8b35-997dffcd1834"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="77" width="40" height="13" backcolor="#E6E6E6" uuid="ed65e719-7172-4e5c-8ac9-e3265efb406d"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="443" y="13" width="99" height="20" uuid="d2e98e19-8135-4fef-93b7-709a14032ac7"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TotalPayable}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="338" y="13" width="105" height="20" uuid="2bd52469-ea71-41f4-a600-68b4cd131b1b"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Amount Paid: RM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="475" y="13" width="10" height="20" uuid="4b4499bc-e67e-4f5b-ace7-f828519d61ef"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[0]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

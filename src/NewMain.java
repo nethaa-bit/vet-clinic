@@ -12,7 +12,8 @@ public class NewMain {
      */
     public static void main(String[] args) {
         System.out.println(Pattern.matches("\\d{12}", "123456789012"));
-        System.out.println(Pattern.matches("A\\d+", "A1"));
+        String zeroes = "";
+        System.out.println(999/100);
     }
     
 }

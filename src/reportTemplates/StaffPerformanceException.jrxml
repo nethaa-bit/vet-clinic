@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="17e9b7c9-9691-43f9-84fe-8d6ba9623a35">
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     count(TRANSACTION_SERVICE."SERVICEID") AS Number_of_Services,
+     SUM(SERVICE."UNITPRICE") AS TotalRevenue,
+     STAFF."STAFFIC" AS STAFF_STAFFIC,
+     STAFF."STAFFNAME" AS STAFF_STAFFNAME,
+     STAFF."STAFFPOSITION" AS STAFF_STAFFPOSITION
+FROM
+     "NBUSER"."STAFF" STAFF INNER JOIN "NBUSER"."TRANSACTION_SERVICE" TRANSACTION_SERVICE ON STAFF."STAFFIC" = TRANSACTION_SERVICE."STAFFIC"
+     INNER JOIN "NBUSER"."SERVICE" SERVICE ON TRANSACTION_SERVICE."SERVICEID" = SERVICE."SERVICEID"
+GROUP BY
+     STAFF."STAFFIC",
+      STAFF."STAFFNAME",
+     STAFF."STAFFPOSITION"]]>
+	</queryString>
+	<field name="NUMBER_OF_SERVICES" class="java.lang.Integer"/>
+	<field name="TOTALREVENUE" class="java.math.BigDecimal"/>
+	<field name="STAFF_STAFFIC" class="java.lang.String"/>
+	<field name="STAFF_STAFFNAME" class="java.lang.String"/>
+	<field name="STAFF_STAFFPOSITION" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="038b3d50-19b5-49f6-bc40-7dda16caeac5"/>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="e978ec4f-4784-4877-a5d2-b64b219522a9"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TITLE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="c0a9a9af-d434-48c0-b3e6-70b811ed14ab"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Add a description here]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="9383e636-6dfc-443f-92b0-3784e48645ee"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="0bf57f0e-db09-4b9b-a21e-5ef2a6f9dfa5"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NUMBER_OF_SERVICES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="111" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="7a9a42fa-19a9-4a57-9489-dd54b3b3e592"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTALREVENUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="222" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="d0f6e7c3-a2af-4afb-8cdc-03e45b29b97b"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[STAFF_STAFFIC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="333" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="719d0761-34cb-4458-baec-097cf7c5884e"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[STAFF_STAFFNAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="444" y="0" width="111" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="e7a89580-c46d-4d19-a600-c58aefe7818a"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[STAFF_STAFFPOSITION]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="25c5c661-201f-4b3c-9477-3cff04697c8c"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="111" height="20" uuid="fa997124-067b-44e2-8725-e0487c5df820"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NUMBER_OF_SERVICES}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="111" y="0" width="111" height="20" uuid="4193c783-b134-4572-b88e-91e50adc97d3"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTALREVENUE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="222" y="0" width="111" height="20" uuid="b2b807a5-38fc-40e2-9703-70b508b0cae4"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{STAFF_STAFFIC}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="333" y="0" width="111" height="20" uuid="af1eae9a-6825-4a34-a81f-5d8e9ae6cedb"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{STAFF_STAFFNAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="444" y="0" width="111" height="20" uuid="70d57475-2c40-48bb-a5fa-53a721618f5a"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{STAFF_STAFFPOSITION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="f5777a99-7d7b-4c69-958d-3f36e954419a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="9ba766ee-524f-49d5-8998-48d72f1003d8"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="c9dd27a3-a79b-43f6-be17-781fb9845a4d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

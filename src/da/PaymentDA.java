@@ -22,10 +22,16 @@ public class PaymentDA {
     
     private Connection conn;
     private PreparedStatement stmt;
+    private TransactionDA transactionDA;
+    private StaffDA staffDA;
+    private CreditCardDA creditCardDA;
     
     public PaymentDA()
     {
         createConnection();
+        transactionDA = new TransactionDA();
+        staffDA = new StaffDA();
+        creditCardDA = new CreditCardDA();
     }
     
     public void createConnection()
@@ -53,7 +59,7 @@ public class PaymentDA {
             stmt.setDate(4, convertJavaDateToSqlDate(payment.getPaymentDate()));
             stmt.setString(5, payment.getTransaction().getTransID());
             stmt.setString(6, payment.getStaff().getStaffIC());
-            stmt.setString(7, payment.getCc().getCcNum());
+            stmt.setString(7, payment.getCc()==null?null:payment.getCc().getCcNum());
             
             stmt.executeUpdate();
    
@@ -91,6 +97,7 @@ public class PaymentDA {
      public Payment getRecord(String paymentID)
     {
         String queryStr="SELECT * FROM "+ tableName +" WHERE paymentID = ?";
+        
         Payment payment = null;
         try
         {
@@ -122,11 +129,9 @@ public class PaymentDA {
         switch(option){
             case 0: queryStr= "SELECT * FROM "+ tableName ;
             break;
-            case 1: queryStr= "SELECT * FROM "+ tableName +" WHERE petID = ?";
+            case 1: queryStr= "SELECT * FROM "+ tableName +" WHERE paymentID = ?";
             break;
-            case 2: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffname)  LIKE LOWER('%' || ? || '%')";
-            break;
-            case 3: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffposition)  = LOWER(?) ";
+            case 2: queryStr="SELECT * FROM "+ tableName +" WHERE transID = ?";
             break;
         }
         
@@ -134,15 +139,21 @@ public class PaymentDA {
         try
         {
             stmt = conn.prepareStatement(queryStr);
-            stmt.setString(1,searchStr);
+            if(option!=0){
+                stmt.setString(1,searchStr);
+            }
             ResultSet rs = stmt.executeQuery();
             
             while(rs.next())
             {
-                payment = new Payment(searchStr,rs.getDouble("amountpaid"),rs.getString("methodofpayment"),rs.getDate("paymentdate"),new Transaction(),new Staff(),new CreditCard());
-                payment.getTransaction().setTransID(rs.getString("transid"));
-                payment.getStaff().setStaffIC(rs.getString("staffic"));
-                payment.getCc().setCcNum(rs.getString("ccnum"));
+                Transaction transaction = transactionDA.getRecord(rs.getString("transid"));
+                Staff staff = staffDA.getRecord(rs.getString("staffic"));
+                CreditCard cc = null;
+                if(rs.getString("ccNum")!=null){
+                     cc = creditCardDA.getRecord(rs.getString("ccNum"));
+                }
+                payment = new Payment(rs.getString("paymentid"),rs.getDouble("amountpaid"),rs.getString("methodofpayment"),rs.getDate("paymentdate"),transaction,staff,cc);
+                paymentList.add(payment);
                 
             }
         }

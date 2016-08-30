@@ -93,6 +93,7 @@ public void addRecord(Transaction transaction)
             if(rs.next())
             {
             Pet pet = petDA.getRecord(rs.getString("petid"));
+         
             transaction = new Transaction(rs.getString("transID"),rs.getDate("transdate"),rs.getTime("transtime"),pet); 
                 
             }

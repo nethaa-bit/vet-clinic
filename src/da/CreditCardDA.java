@@ -59,7 +59,7 @@ public class CreditCardDA {
     
     public void updateRecord(CreditCard cc)
     {
-        String updateStr = "UPDATE " + tableName + "SET ccNum = ?, ccExpiryDate = ?, issuingagent = ?, cvc = ?, cardholdername = ?, cardname = ?, custic = ? "+" WHERE ccnum = ? ";
+        String updateStr = "UPDATE " + tableName + " SET ccNum = ?, ccExpiryDate = ?, issuingagent = ?, cvc = ?, cardholdername = ?, cardname = ?, custic = ? "+" WHERE ccnum = ? ";
         try
         {
             stmt = conn.prepareStatement(updateStr);

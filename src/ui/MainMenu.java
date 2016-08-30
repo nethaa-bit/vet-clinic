@@ -16,7 +16,7 @@ public class MainMenu extends javax.swing.JFrame {
     private String panelTitle;
     private String actionTitle;
     private String systemTitle="Veterinary Clinic System";;
-   Staff currentStaff = LoginFrame.currentstaff;
+    private Staff currentStaff = LoginFrame.getCurrentstaff();
     /**
      * Creates new form MainMenu
      */
@@ -40,9 +40,23 @@ public class MainMenu extends javax.swing.JFrame {
 //        JMenuItem sumRep = new JMenuItem("Generate summary report");
 //        JMenuItem excRep = new JMenuItem("Generate exception report");
 //        JMenuItem detRep = new JMenuItem("Generate detail report");
-        JMenuItem calcBil = new JMenuItem("Calculate bill");
+        JMenuItem calcBil = new JMenuItem("Generate bill");
         JMenuItem changePw = new JMenuItem("Change password");
         
+        calcBil.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    action="bill";
+                    jpContent.removeAll();
+                    jpContent.repaint();
+                    jpContent.revalidate();
+            
+                    //Adding Pannel
+                    jpContent.add(new PaymentPanel());
+                    jpContent.repaint();
+                    jpContent.revalidate();
+                    setTitle("Generate Bill - Veterinary Clinic System");
+                }
+        });
         changePw.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     jpContent.removeAll();
@@ -606,7 +620,7 @@ public class MainMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabel2MouseClicked
 
-
+    
     
     /**
      * @param args the command line arguments

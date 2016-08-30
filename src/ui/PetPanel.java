@@ -30,7 +30,9 @@ public class PetPanel extends javax.swing.JPanel {
         customerControl = new MaintainCustomer();
         jtfSearch.setOpaque(false);
         jtfSearch.setBackground(new Color(255,255,255,127));
-        jtfSearch.setBorder(null);        
+//        jtfSearch.setBorder(null);        
+        jdpBirthDate.setDateFormatString("dd-MM-yyyy");
+
         setDynamicPanel();
     }
     
@@ -85,26 +87,29 @@ public class PetPanel extends javax.swing.JPanel {
     }
     
     public void disableFields(){
-        jtfBreed.setEnabled(false);
-        jtfHeight.setEnabled(false);
-        jtfLength.setEnabled(false);
-        jtfOwnerIc.setEnabled(false);
-        jtfPetId.setEnabled(false);
-        jtfPetName.setEnabled(false);
-        jtfWeight.setEnabled(false);
-        jcbGender.setEnabled(false);
-        jcbType.setEnabled(false);
+        jtfBreed.setEditable(false);
+        jtfHeight.setEditable(false);
+        jtfLength.setEditable(false);
+        jtfOwnerIc.setEditable(false);
+        jtfPetId.setEditable(false);
+        jtfPetName.setEditable(false);
+        jtfWeight.setEditable(false);
+        jcbGender.setEditable(false);
+        jcbType.setEditable(false);
         jdpBirthDate.setEnabled(false);
     }
     
     public String generatePetId(){
         ArrayList<Pet> petList = petControl.searchRecord("", 0);
-        
-        //implement sorting 
-        
-        String idStr = petList.get(petList.size()-1).getPetID();
-        int idNo = Integer.parseInt(idStr.split("A")[1])+1;
-        
+        ArrayList<Integer> idList = new ArrayList<Integer>();  //fixed
+
+        for(int i=0; i<petList.size(); i++){
+            String idStr = petList.get(i).getPetID();//
+            int idNo = Integer.parseInt(idStr.split("A")[1])+1; ///
+            idList.add(idNo);
+        }
+        Collections.sort(idList);
+        int idNo = idList.get(idList.size()-1); //
         return "A"+idNo;
     }
     
@@ -122,6 +127,7 @@ public class PetPanel extends javax.swing.JPanel {
             targetPanel=jpSearch;
             jbtDeletePet.setVisible(false);
             jbtModifyPet.setVisible(false);
+            jbtView.setVisible(true);
         }
         else if(MainMenu.action.equals("modifySelected")){
              targetPanel=jpAdd;
@@ -138,11 +144,14 @@ public class PetPanel extends javax.swing.JPanel {
                 targetPanel=jpSearch;
                 jbtDeletePet.setVisible(false);
                 jbtModifyPet.setVisible(true);
+                jbtView.setVisible(false);
         }
         else if(MainMenu.action.equals("delete")){
                 targetPanel=jpSearch;
                 jbtDeletePet.setVisible(true);
                 jbtModifyPet.setVisible(false);
+                jbtView.setVisible(false);
+                
         }else if(MainMenu.action.equals("viewSelected")){
              targetPanel=jpAdd;
              jbtConfirmChange.setVisible(false);
@@ -196,6 +205,7 @@ public class PetPanel extends javax.swing.JPanel {
         jtPet = new javax.swing.JTable();
         jbtModifyPet = new javax.swing.JButton();
         jbtDeletePet = new javax.swing.JButton();
+        jbtView = new javax.swing.JButton();
         jpAdd = new javax.swing.JPanel();
         jlblId = new javax.swing.JLabel();
         jtfPetId = new javax.swing.JTextField();
@@ -220,6 +230,9 @@ public class PetPanel extends javax.swing.JPanel {
         jdpBirthDate = new com.toedter.calendar.JDateChooser();
         jbtConfirmChange = new javax.swing.JButton();
         jbtConfirmDelete = new javax.swing.JButton();
+        jlblCm = new javax.swing.JLabel();
+        jlblCm1 = new javax.swing.JLabel();
+        jlblCm2 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -246,7 +259,7 @@ public class PetPanel extends javax.swing.JPanel {
 
         jlblPet.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jlblPet.setText("Pet");
-        jPanel2.add(jlblPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, -1, -1));
+        jPanel2.add(jlblPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 70));
 
@@ -312,6 +325,14 @@ public class PetPanel extends javax.swing.JPanel {
             }
         });
         jpSearch.add(jbtDeletePet, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 370, -1, -1));
+
+        jbtView.setText("View Pet");
+        jbtView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtViewActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jbtView, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 370, -1, -1));
 
         dynamicPanel.add(jpSearch, "card2");
 
@@ -410,6 +431,15 @@ public class PetPanel extends javax.swing.JPanel {
         });
         jpAdd.add(jbtConfirmDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, -1, -1));
 
+        jlblCm.setText("cm");
+        jpAdd.add(jlblCm, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, -1, -1));
+
+        jlblCm1.setText("cm");
+        jpAdd.add(jlblCm1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, -1, -1));
+
+        jlblCm2.setText("cm");
+        jpAdd.add(jlblCm2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, -1, -1));
+
         dynamicPanel.add(jpAdd, "card3");
 
         jPanel1.add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 920, 460));
@@ -503,9 +533,12 @@ public class PetPanel extends javax.swing.JPanel {
             if(petList.size()!=0&&petList!=null){
                 Object[][] data = new Object[100][10];
                 for(int i=0; i<petList.size();i++){
-                data[i] = petList.get(i).getObjects();
+                    data[i] = petList.get(i).getObjects();
+                    data[i][8]=(char)data[i][8]=='M'?"Male":"Female";
+                    Customer owner = customerControl.searchRecord((String)data[i][9]);
+                    data[i][9] = owner.getCustName();
                 } 
-                String[] columnNames = {"Pet ID","Name","Height","Weight","Length ","Animal Type","Breed","Date Of Birth","Gender","Customer"};
+                String[] columnNames = {"Pet ID","Name","Height","Weight","Length ","Animal Type","Breed","Date Of Birth","Gender","Owner"};
                 TableModel tModel = new TableModel(data, columnNames);
                 jtPet.setModel(tModel);  
                 jtPet.createDefaultColumnsFromModel();
@@ -666,6 +699,27 @@ public class PetPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jbtConfirmDeleteActionPerformed
 
+    private void jbtViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtViewActionPerformed
+        // TODO add your handling code here:
+        MainMenu.action="viewSelected";
+       Pet selectedPet=null;
+       if(jtPet.getSelectedRow()>=0 ) {
+           String id  = (String) jtPet.getValueAt(jtPet.getSelectedRow(),0);
+           selectedPet = petControl.searchRecord(id);
+           if(selectedPet!=null){
+                setDynamicPanel();
+                fillFields(selectedPet);
+                disableFields();
+           }
+           else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to view.","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to view.","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_jbtViewActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
@@ -677,10 +731,14 @@ public class PetPanel extends javax.swing.JPanel {
     private javax.swing.JButton jbtConfirmDelete;
     private javax.swing.JButton jbtDeletePet;
     private javax.swing.JButton jbtModifyPet;
+    private javax.swing.JButton jbtView;
     private javax.swing.JComboBox<String> jcbGender;
     private javax.swing.JComboBox<String> jcbType;
     private com.toedter.calendar.JDateChooser jdpBirthDate;
     private javax.swing.JLabel jlblBreed;
+    private javax.swing.JLabel jlblCm;
+    private javax.swing.JLabel jlblCm1;
+    private javax.swing.JLabel jlblCm2;
     private javax.swing.JLabel jlblGender;
     private javax.swing.JLabel jlblHeight;
     private javax.swing.JLabel jlblId;

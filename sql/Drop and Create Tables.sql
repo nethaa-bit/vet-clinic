@@ -91,7 +91,7 @@ PRIMARY KEY (CCNum)
 CREATE TABLE Payment (
 paymentID VARCHAR(15) NOT NULL,
 amountPaid DECIMAL(6,2) NOT NULL CHECK (amountPaid>= 0.00),
-methodOfPayment VARCHAR(10) NOT NULL,
+methodOfPayment VARCHAR(12) NOT NULL,
 paymentDate DATE NOT NULL,
 transID VARCHAR(15) references TRANSACTION1(transID),
 staffIC CHAR(12) references STAFF(staffIC),

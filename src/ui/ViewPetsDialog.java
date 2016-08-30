@@ -23,6 +23,7 @@ public class ViewPetsDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setTableData(petList);
+        this.setLocationRelativeTo(null);
     }
     
     public void setTableData (ArrayList<Pet> petList){
@@ -30,6 +31,7 @@ public class ViewPetsDialog extends javax.swing.JDialog {
         Object[][] data = new Object[100][10];
         for(int i=0; i<petList.size();i++){
             data[i] = petList.get(i).getObjectsSummary();
+            data[i][4]= (char)data[i][4]=='M'?"Male":"Female";
         } 
         String[] columnNames = {"Pet ID","Name","AnimalType","Birth Date","Gender"};
         TableModel tModel = new TableModel(data, columnNames);
@@ -58,6 +60,8 @@ public class ViewPetsDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pets Summary");
+        setAlwaysOnTop(true);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setIconImage(Toolkit.getDefaultToolkit().getImage(MainMenu.class.getResource("/images/logo.png"))
         );
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

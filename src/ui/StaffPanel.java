@@ -36,7 +36,7 @@ public class StaffPanel extends javax.swing.JPanel {
         jlblCheck.setVisible(false);
         jtfSearch.setOpaque(false);
         jtfSearch.setBackground(new Color(255,255,255,127));
-        jtfSearch.setBorder(null);
+//        jtfSearch.setBorder(null);
         setDynamicPanel();
         
         
@@ -208,19 +208,19 @@ public class StaffPanel extends javax.swing.JPanel {
     
     }
     public void disableFields(){
-        jtfAnswer.setEnabled(false);
-        jtfCity.setEnabled(false);
-        jtfConfirmPass.setEnabled(false);
-        jtfDoor.setEnabled(false);
-        jtfIc.setEnabled(false);
-        jtfName.setEnabled(false);
-        jtfNeighbour.setEnabled(false);
-        jtfPassword.setEnabled(false);
-        jtfPhoneNum.setEnabled(false);
-        jtfPostCode.setEnabled(false);
-        jtfState.setEnabled(false);
-        jcbPosition.setEnabled(false);
-        jcbQualification.setEnabled(false);
+        jtfAnswer.setEditable(false);
+        jtfCity.setEditable(false);
+        jtfConfirmPass.setEditable(false);
+        jtfDoor.setEditable(false);
+        jtfIc.setEditable(false);
+        jtfName.setEditable(false);
+        jtfNeighbour.setEditable(false);
+        jtfPassword.setEditable(false);
+        jtfPhoneNum.setEditable(false);
+        jtfPostCode.setEditable(false);
+        jtfState.setEditable(false);
+        jcbPosition.setEditable(false);
+        jcbQualification.setEditable(false);
     }
     
     public HashMap reformatAddress(String fulladdress){
@@ -257,8 +257,8 @@ public class StaffPanel extends javax.swing.JPanel {
 
         jPanel2 = new javax.swing.JPanel();
         jlblSearch = new javax.swing.JLabel();
-        jtfSearch = new javax.swing.JTextField();
         jlblStaff = new javax.swing.JLabel();
+        jtfSearch = new javax.swing.JTextField();
         dynamicPanel = new javax.swing.JPanel();
         jpAddUpdate = new javax.swing.JPanel();
         jlblIC = new javax.swing.JLabel();
@@ -316,12 +316,16 @@ public class StaffPanel extends javax.swing.JPanel {
         });
         jPanel2.add(jlblSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, -1, -1));
 
-        jtfSearch.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jPanel2.add(jtfSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 260, 30));
-
         jlblStaff.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jlblStaff.setText("Staff");
-        jPanel2.add(jlblStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 40, -1));
+        jPanel2.add(jlblStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 40, -1));
+
+        jtfSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfSearchActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jtfSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 260, 30));
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 80));
 
@@ -787,7 +791,7 @@ public class StaffPanel extends javax.swing.JPanel {
 
     private void jbtViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtViewActionPerformed
         // TODO add your handling code here:
-        MainMenu.action="viewSelected";
+       MainMenu.action="viewSelected";
        Staff selectedStaff=null;
        if(jtStaff.getSelectedRow()>=0 ) {
            String ic  = (String) jtStaff.getValueAt(jtStaff.getSelectedRow(),0);
@@ -805,6 +809,10 @@ public class StaffPanel extends javax.swing.JPanel {
            JOptionPane.showMessageDialog(null,"Please search and select the record you wish to view.","Empty selection",JOptionPane.ERROR_MESSAGE);
        }
     }//GEN-LAST:event_jbtViewActionPerformed
+
+    private void jtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfSearchActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

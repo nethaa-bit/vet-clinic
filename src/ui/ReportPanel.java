@@ -5,8 +5,10 @@
  */
 package ui;
 
+import domain.Staff;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -28,8 +30,20 @@ public class ReportPanel extends javax.swing.JPanel {
      */
     public ReportPanel() {
         initComponents();
+        setAccess();
     }
 
+    private void setAccess (){
+        Staff staff = LoginFrame.getCurrentstaff();
+        if(!staff.getStaffPosition().equals("Manager")){
+            jbtGenerateReport.setEnabled(false);
+            jcbReportType.setEnabled(false);
+            jdpEndDate.setEnabled(false);
+            jdpStartDate.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "Report module is only accessible by managers", "Access Denied!", JOptionPane.ERROR_MESSAGE);
+        
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,8 +67,8 @@ public class ReportPanel extends javax.swing.JPanel {
         jlblReportType.setText("Report Type :");
         add(jlblReportType, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
 
-        jcbReportType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Transaction Detail", "Treatment Exception", "Customer Summary", "Services Summary" }));
-        add(jcbReportType, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 140, -1));
+        jcbReportType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Transaction Detail", "Staff Performance Exception", "Customer Summary", "Services Summary" }));
+        add(jcbReportType, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 210, -1));
 
         jlblStart.setText("Start Date :");
         add(jlblStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
@@ -65,26 +79,42 @@ public class ReportPanel extends javax.swing.JPanel {
         add(jdpEndDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 140, -1));
 
         jbtGenerateReport.setText("Generate Report");
-        jbtGenerateReport.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jbtGenerateReportMouseClicked(evt);
+        jbtGenerateReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtGenerateReportActionPerformed(evt);
             }
         });
         add(jbtGenerateReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtGenerateReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtGenerateReportMouseClicked
+    private void jbtGenerateReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtGenerateReportActionPerformed
         // TODO add your handling code here:
-        // event handler for button
-
-       String host = "jdbc:derby://localhost:1527/vetdb";
+        String host = "jdbc:derby://localhost:1527/vetdb";
        String user = "nbuser";
        String password = "nbuser";
        Connection conn = null;
        
        String reportSource = "src/reportTemplates/TransactionDetail.jrxml"; 
+       
+       String reportType = (String) jcbReportType.getSelectedItem();
+       
+       Date endDate = jdpEndDate.getDate();
+       Date startDate = jdpStartDate.getDate();
 
        Map<String, Object> params = new HashMap<String, Object>(); 
+       if(reportType.equals("Transaction Detail")){
+           reportSource = "src/reportTemplates/TransactionDetail.jrxml";
+       }else if (reportType.equals("Staff Performance Exception")){
+           reportSource = "src/reportTemplates/StaffPerformanceException.jrxml";
+       }else if (reportType.equals("Customer Summary")){
+           reportSource = "src/reportTemplates/CustomerSummary.jrxml";
+       }else if (reportType.equals("Services Summary")){
+           reportSource = "src/reportTemplates/ServiceSummary.jrxml";
+           params.put("rStartDate", startDate);
+           params.put("rEndDate", endDate);
+       }
+
+       
 
        try    {	 
          Class.forName("org.apache.derby.jdbc.ClientDriver");
@@ -102,9 +132,7 @@ public class ReportPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Unble to generate report~!");
 	      ex.printStackTrace();
       }
-
-
-    }//GEN-LAST:event_jbtGenerateReportMouseClicked
+    }//GEN-LAST:event_jbtGenerateReportActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -8,6 +8,7 @@ package ui;
 
 import control.MaintainStaff;
 import  domain.*;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 
@@ -27,6 +28,7 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         staffControl = new MaintainStaff();
+        this.setLocationRelativeTo(null);
         
     }
 
@@ -67,7 +69,8 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Password Recovery");
-        setAlwaysOnTop(true);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(LoginFrame.class.getResource("/images/logo.png")));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new java.awt.CardLayout());

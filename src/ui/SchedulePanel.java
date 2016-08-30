@@ -40,6 +40,7 @@ public class SchedulePanel extends javax.swing.JPanel {
             targetPanel=jpSearch;
             jbtDeleteSchedule.setVisible(false);
             jbtModifySchedule.setVisible(false);
+            jbtView.setVisible(true);
         }
         else if(MainMenu.action.equals("modifySelected")){
              targetPanel=jpAdd;
@@ -52,15 +53,23 @@ public class SchedulePanel extends javax.swing.JPanel {
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(true);
              jbtAddSchedule.setVisible(false);
+             
         }else if(MainMenu.action.equals("modify")){
                 targetPanel=jpSearch;
                 jbtDeleteSchedule.setVisible(false);
                 jbtModifySchedule.setVisible(true);
+                jbtView.setVisible(false);
         }
         else if(MainMenu.action.equals("delete")){
                 targetPanel=jpSearch;
                 jbtDeleteSchedule.setVisible(true);
                 jbtModifySchedule.setVisible(false);
+        }else if(MainMenu.action.equals("viewSelected")){
+             targetPanel=jpAdd;
+             jbtConfirmChange.setVisible(false);
+             jbtConfirmDelete.setVisible(false);
+             jbtAddSchedule.setVisible(false);
+
         }
         
         dynamicPanel.removeAll();
@@ -84,6 +93,16 @@ public class SchedulePanel extends javax.swing.JPanel {
         jdpAppDate.setDate(schedule.getAppDate());
         
          }
+         
+          public void disableFields(){
+          
+              jtfStafIc.setEditable(false);
+              jtfTimeSlotNum.setEditable(false);
+              jtfCusName.setEditable(false);
+              jdpAppDate.setEnabled(false);
+              jtfCusName.setEditable(false);
+              jtfCusPhoneNum.setEditable(false);
+          }
         
     public SchedulePanel() {
         initComponents();
@@ -91,7 +110,7 @@ public class SchedulePanel extends javax.swing.JPanel {
         scheduleControl = new MaintainSchedule();
         jtfSearch.setOpaque(false);
         jtfSearch.setBackground(new Color(255,255,255,127));
-        jtfSearch.setBorder(null);
+//        jtfSearch.setBorder(null);
         setDynamicPanel();
     }
 
@@ -149,6 +168,7 @@ public class SchedulePanel extends javax.swing.JPanel {
         jtSchedule = new javax.swing.JTable();
         jbtModifySchedule = new javax.swing.JButton();
         jbtDeleteSchedule = new javax.swing.JButton();
+        jbtView = new javax.swing.JButton();
         jpAdd = new javax.swing.JPanel();
         jlblIc = new javax.swing.JLabel();
         jtfStafIc = new javax.swing.JTextField();
@@ -167,6 +187,35 @@ public class SchedulePanel extends javax.swing.JPanel {
         jbtAddSchedule = new javax.swing.JButton();
         jbtConfirmChange = new javax.swing.JButton();
         jbtConfirmDelete = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jlblSearch1 = new javax.swing.JLabel();
+        jtfSearch1 = new javax.swing.JTextField();
+        jlblSchedule1 = new javax.swing.JLabel();
+        dynamicPanel1 = new javax.swing.JPanel();
+        jpSearch1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtSchedule1 = new javax.swing.JTable();
+        jbtModifySchedule1 = new javax.swing.JButton();
+        jbtDeleteSchedule1 = new javax.swing.JButton();
+        jpAdd1 = new javax.swing.JPanel();
+        jlblIc1 = new javax.swing.JLabel();
+        jtfStafIc1 = new javax.swing.JTextField();
+        jlblTimeSlot1 = new javax.swing.JLabel();
+        jtfTimeSlotNum1 = new javax.swing.JTextField();
+        jlblAppTime1 = new javax.swing.JLabel();
+        jlblAppDate1 = new javax.swing.JLabel();
+        jlblCustPhoneNum1 = new javax.swing.JLabel();
+        jlblCustName1 = new javax.swing.JLabel();
+        jtfCusPhoneNum1 = new javax.swing.JTextField();
+        jtfCusName1 = new javax.swing.JTextField();
+        jdpAppDate1 = new com.toedter.calendar.JDateChooser();
+        jcbHours1 = new javax.swing.JComboBox<>();
+        jlbmins1 = new javax.swing.JLabel();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jbtAddSchedule1 = new javax.swing.JButton();
+        jbtConfirmChange1 = new javax.swing.JButton();
+        jbtConfirmDelete1 = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -191,7 +240,7 @@ public class SchedulePanel extends javax.swing.JPanel {
 
         jlblSchedule.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jlblSchedule.setText("Schedule");
-        jPanel2.add(jlblSchedule, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, -1, -1));
+        jPanel2.add(jlblSchedule, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, -1, -1));
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 98));
 
@@ -208,7 +257,7 @@ public class SchedulePanel extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Staff IC", "Time Slot Number", "Application Time", "Application Date", "Customer Name", "Phone Number"
+                "Staff IC", "Time Slot Number", "Apppointment Time", "Appointment Date", "Customer Name", "Phone Number"
             }
         ) {
             Class[] types = new Class [] {
@@ -250,6 +299,14 @@ public class SchedulePanel extends javax.swing.JPanel {
             }
         });
         jpSearch.add(jbtDeleteSchedule, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, -1, -1));
+
+        jbtView.setText("View Schedule");
+        jbtView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtViewActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jbtView, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 290, -1, -1));
 
         dynamicPanel.add(jpSearch, "card2");
 
@@ -327,6 +384,168 @@ public class SchedulePanel extends javax.swing.JPanel {
         dynamicPanel.add(jpAdd, "card3");
 
         add(dynamicPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 94, 940, 430));
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel3.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jlblSearch1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jlblSearch1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        jlblSearch1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlblSearch1MouseClicked(evt);
+            }
+        });
+        jPanel3.add(jlblSearch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 40, -1, -1));
+
+        jtfSearch1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfSearch1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jtfSearch1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 260, 30));
+
+        jlblSchedule1.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
+        jlblSchedule1.setText("Schedule");
+        jPanel3.add(jlblSchedule1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, -1, -1));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 98));
+
+        dynamicPanel1.setLayout(new java.awt.CardLayout());
+
+        jpSearch1.setBackground(new java.awt.Color(204, 255, 204));
+        jpSearch1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jtSchedule1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Staff IC", "Time Slot Number", "Application Time", "Application Date", "Customer Name", "Phone Number"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jtSchedule1);
+
+        jpSearch1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 620, 180));
+
+        jbtModifySchedule1.setText("Modify Schedule");
+        jbtModifySchedule1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtModifySchedule1MouseClicked(evt);
+            }
+        });
+        jbtModifySchedule1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtModifySchedule1ActionPerformed(evt);
+            }
+        });
+        jpSearch1.add(jbtModifySchedule1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 290, -1, -1));
+
+        jbtDeleteSchedule1.setText("Delete Schedule");
+        jbtDeleteSchedule1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtDeleteSchedule1ActionPerformed(evt);
+            }
+        });
+        jpSearch1.add(jbtDeleteSchedule1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, -1, -1));
+
+        dynamicPanel1.add(jpSearch1, "card2");
+
+        jpAdd1.setBackground(new java.awt.Color(204, 255, 204));
+        jpAdd1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jlblIc1.setText("Staff IC :");
+        jpAdd1.add(jlblIc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+
+        jtfStafIc1.setToolTipText("Enter staff IC");
+        jtfStafIc1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtfStafIc1ActionPerformed(evt);
+            }
+        });
+        jpAdd1.add(jtfStafIc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 120, -1));
+
+        jlblTimeSlot1.setText("Time Slot Number :");
+        jpAdd1.add(jlblTimeSlot1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, -1, -1));
+        jpAdd1.add(jtfTimeSlotNum1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, 100, -1));
+
+        jlblAppTime1.setText("Appointment Time :");
+        jpAdd1.add(jlblAppTime1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, -1));
+
+        jlblAppDate1.setText("Appointment Date :");
+        jpAdd1.add(jlblAppDate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 110, -1));
+
+        jlblCustPhoneNum1.setText("Customer Phone No. :");
+        jpAdd1.add(jlblCustPhoneNum1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 130, 120, -1));
+
+        jlblCustName1.setText("Customer Name :");
+        jpAdd1.add(jlblCustName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 90, -1));
+        jpAdd1.add(jtfCusPhoneNum1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 100, -1));
+        jpAdd1.add(jtfCusName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 120, -1));
+        jpAdd1.add(jdpAppDate1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, 100, -1));
+
+        jcbHours1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+        jcbHours1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbHours1ActionPerformed(evt);
+            }
+        });
+        jpAdd1.add(jcbHours1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, -1, -1));
+
+        jlbmins1.setText("hours                minutes");
+        jpAdd1.add(jlbmins1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 150, 20));
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
+        jpAdd1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, -1, -1));
+
+        jbtAddSchedule1.setText("Add Schedule");
+        jbtAddSchedule1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtAddSchedule1MouseClicked(evt);
+            }
+        });
+        jbtAddSchedule1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtAddSchedule1ActionPerformed(evt);
+            }
+        });
+        jpAdd1.add(jbtAddSchedule1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, -1));
+
+        jbtConfirmChange1.setText("Confirm Changes");
+        jpAdd1.add(jbtConfirmChange1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 230, -1, -1));
+
+        jbtConfirmDelete1.setText("Confirm Delete");
+        jbtConfirmDelete1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtConfirmDelete1ActionPerformed(evt);
+            }
+        });
+        jpAdd1.add(jbtConfirmDelete1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, -1));
+
+        dynamicPanel1.add(jpAdd1, "card3");
+
+        jPanel1.add(dynamicPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 94, 940, 430));
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtfStafIcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfStafIcActionPerformed
@@ -366,6 +585,8 @@ public class SchedulePanel extends javax.swing.JPanel {
         }
         else if(MainMenu.action == "deleteSelected"){
             MainMenu.action="delete";
+        }else if(MainMenu.action == "add"||MainMenu.action == "viewSelected" ){
+               MainMenu.action="search";
         }
         
         String queryStr =jtfSearch.getText();
@@ -456,35 +677,126 @@ public class SchedulePanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtConfirmDeleteActionPerformed
 
+    private void jlblSearch1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblSearch1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jlblSearch1MouseClicked
+
+    private void jtfSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearch1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfSearch1ActionPerformed
+
+    private void jbtModifySchedule1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtModifySchedule1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtModifySchedule1MouseClicked
+
+    private void jbtModifySchedule1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtModifySchedule1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtModifySchedule1ActionPerformed
+
+    private void jbtDeleteSchedule1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDeleteSchedule1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtDeleteSchedule1ActionPerformed
+
+    private void jtfStafIc1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfStafIc1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfStafIc1ActionPerformed
+
+    private void jcbHours1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbHours1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcbHours1ActionPerformed
+
+    private void jbtAddSchedule1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtAddSchedule1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtAddSchedule1MouseClicked
+
+    private void jbtAddSchedule1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddSchedule1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtAddSchedule1ActionPerformed
+
+    private void jbtConfirmDelete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmDelete1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbtConfirmDelete1ActionPerformed
+
+    private void jbtViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtViewActionPerformed
+        // TODO add your handling code here:
+        MainMenu.action="viewSelected";
+       Schedule selectedSchedule=null;
+       if(jtSchedule.getSelectedRow()>=0 ) {
+           String ic  = (String) jtSchedule.getValueAt(jtSchedule.getSelectedRow(),0);
+           selectedSchedule = scheduleControl.searchRecord(ic);
+           if(selectedSchedule!=null){
+                setDynamicPanel();
+                fillFields(selectedSchedule);
+                disableFields();
+           }
+           else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to view.","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to view.","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_jbtViewActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
+    private javax.swing.JPanel dynamicPanel1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbtAddSchedule;
+    private javax.swing.JButton jbtAddSchedule1;
     private javax.swing.JButton jbtConfirmChange;
+    private javax.swing.JButton jbtConfirmChange1;
     private javax.swing.JButton jbtConfirmDelete;
+    private javax.swing.JButton jbtConfirmDelete1;
     private javax.swing.JButton jbtDeleteSchedule;
+    private javax.swing.JButton jbtDeleteSchedule1;
     private javax.swing.JButton jbtModifySchedule;
+    private javax.swing.JButton jbtModifySchedule1;
+    private javax.swing.JButton jbtView;
     private javax.swing.JComboBox<String> jcbHours;
+    private javax.swing.JComboBox<String> jcbHours1;
     private com.toedter.calendar.JDateChooser jdpAppDate;
+    private com.toedter.calendar.JDateChooser jdpAppDate1;
     private javax.swing.JLabel jlblAppDate;
+    private javax.swing.JLabel jlblAppDate1;
     private javax.swing.JLabel jlblAppTime;
+    private javax.swing.JLabel jlblAppTime1;
     private javax.swing.JLabel jlblCustName;
+    private javax.swing.JLabel jlblCustName1;
     private javax.swing.JLabel jlblCustPhoneNum;
+    private javax.swing.JLabel jlblCustPhoneNum1;
     private javax.swing.JLabel jlblIc;
+    private javax.swing.JLabel jlblIc1;
     private javax.swing.JLabel jlblSchedule;
+    private javax.swing.JLabel jlblSchedule1;
     private javax.swing.JLabel jlblSearch;
+    private javax.swing.JLabel jlblSearch1;
     private javax.swing.JLabel jlblTimeSlot;
+    private javax.swing.JLabel jlblTimeSlot1;
     private javax.swing.JLabel jlbmins;
+    private javax.swing.JLabel jlbmins1;
     private javax.swing.JPanel jpAdd;
+    private javax.swing.JPanel jpAdd1;
     private javax.swing.JPanel jpSearch;
+    private javax.swing.JPanel jpSearch1;
     private javax.swing.JTable jtSchedule;
+    private javax.swing.JTable jtSchedule1;
     private javax.swing.JTextField jtfCusName;
+    private javax.swing.JTextField jtfCusName1;
     private javax.swing.JTextField jtfCusPhoneNum;
+    private javax.swing.JTextField jtfCusPhoneNum1;
     private javax.swing.JTextField jtfSearch;
+    private javax.swing.JTextField jtfSearch1;
     private javax.swing.JTextField jtfStafIc;
+    private javax.swing.JTextField jtfStafIc1;
     private javax.swing.JTextField jtfTimeSlotNum;
+    private javax.swing.JTextField jtfTimeSlotNum1;
     // End of variables declaration//GEN-END:variables
 }

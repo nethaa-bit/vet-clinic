@@ -15,11 +15,15 @@ import javax.swing.JOptionPane;
 
 public class LoginFrame extends javax.swing.JFrame {
 
+    public static Staff getCurrentstaff() {
+        return currentstaff;
+    }
+
     /**
      * Creates new form LoginFrame
      */
     MaintainStaff staffControl;
-    public static Staff currentstaff;
+    private static Staff currentstaff;
     
     public LoginFrame() {
         initComponents();

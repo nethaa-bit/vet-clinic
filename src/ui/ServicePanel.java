@@ -11,6 +11,7 @@ import domain.Staff;
 import domain.TableModel;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -30,9 +31,11 @@ public class ServicePanel extends javax.swing.JPanel {
     public ServicePanel() {
         initComponents();
         serviceControl = new MaintainService();
+        jtfServiceId.setEnabled(false);
         jtfSearch.setOpaque(false);
+        
         jtfSearch.setBackground(new Color(255,255,255,127));
-        jtfSearch.setBorder(null);
+//        jtfSearch.setBorder(null);
         setDynamicPanel();
     }
     
@@ -49,6 +52,7 @@ public class ServicePanel extends javax.swing.JPanel {
             targetPanel=jpSearch;
             jbtModifyService.setVisible(false);
             jbtDeleteService.setVisible(false);
+            jbtView.setVisible(true);
         }
         else if(MainMenu.action.equals("modifySelected")){
              targetPanel=jpAdd;
@@ -61,15 +65,19 @@ public class ServicePanel extends javax.swing.JPanel {
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(true);
              jbtAddService.setVisible(false);
+             
         }else if(MainMenu.action.equals("modify")){
                 targetPanel=jpSearch;
                 jbtDeleteService.setVisible(false);
                 jbtModifyService.setVisible(true);
+                jbtView.setVisible(false);
         }
         else if(MainMenu.action.equals("delete")){
                 targetPanel=jpSearch;
                 jbtModifyService.setVisible(false);
                 jbtDeleteService.setVisible(true);
+                jbtView.setVisible(false);
+                
         }else if(MainMenu.action.equals("viewSelected")){
              targetPanel=jpAdd;
              jbtConfirmChange.setVisible(false);
@@ -95,6 +103,14 @@ public class ServicePanel extends javax.swing.JPanel {
     jtfTitle.setText(service.getServiceTitle());
     jtaDescrip.setText(service.getServiceDesp());
      }
+    
+    public void disableFields(){
+    
+        jtfPrice.setEditable(false);
+        jtfServiceId.setEditable(false);
+        jtfTitle.setEditable(false);
+        jtaDescrip.setEditable(false);
+    }
 
     public Service validateInput(){
     
@@ -134,15 +150,32 @@ public class ServicePanel extends javax.swing.JPanel {
     
     public String generateServiceId(){
         ArrayList<Service> sevList = serviceControl.searchRecord("", 0);
-        
+        ArrayList<Integer> idList = new ArrayList<Integer>(); 
         //implement sorting 
         
-        String idStr = sevList.get(sevList.size()-1).getServiceID();
-        int idNo = Integer.parseInt(idStr.split("S")[1])+1;
+        for(int i=0; i<sevList.size(); i++){
+        String idStr = sevList.get(i).getServiceID();
+        int idNo = Integer.parseInt(idStr.split("S")[1]);
+        idList.add(idNo);
+        }
+        
+        Collections.sort(idList);
+        int idNo = 1; 
+        for(int i=0; i<idList.size(); i++){
+            if(idList.get(i)!=i+1){
+                idNo=i+1;
+                break;
+            }
+            if(i==idList.size()-1){
+                idNo=idList.size()+1; 
+            }
+        } 
+        
         String zeroes = "";
-        zeroes = idNo%1000==0?"0":"";
-        zeroes = idNo%100==0?"00":"";
-        zeroes = idNo%10==0?"000":"";
+        if(idNo>999){zeroes="";}
+        else if(idNo>99){zeroes="0";}
+        else if(idNo>9){zeroes="00";}
+        else if (idNo>0){zeroes="000";}
         return "S"+zeroes+idNo;
     }
     
@@ -166,6 +199,7 @@ public class ServicePanel extends javax.swing.JPanel {
         jtService = new javax.swing.JTable();
         jbtModifyService = new javax.swing.JButton();
         jbtDeleteService = new javax.swing.JButton();
+        jbtView = new javax.swing.JButton();
         jpAdd = new javax.swing.JPanel();
         jlblId = new javax.swing.JLabel();
         jtfServiceId = new javax.swing.JTextField();
@@ -205,7 +239,7 @@ public class ServicePanel extends javax.swing.JPanel {
 
         jlblService.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jlblService.setText("Service");
-        jPanel2.add(jlblService, new org.netbeans.lib.awtextra.AbsoluteConstraints(195, 30, 60, -1));
+        jPanel2.add(jlblService, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 60, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 70));
 
@@ -269,6 +303,14 @@ public class ServicePanel extends javax.swing.JPanel {
             }
         });
         jpSearch.add(jbtDeleteService, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, -1, -1));
+
+        jbtView.setText("View Service");
+        jbtView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtViewActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jbtView, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 370, -1, -1));
 
         dynamicPanel.add(jpSearch, "card3");
 
@@ -588,6 +630,27 @@ public class ServicePanel extends javax.swing.JPanel {
        }
     }//GEN-LAST:event_jbtDeleteServiceActionPerformed
 
+    private void jbtViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtViewActionPerformed
+        // TODO add your handling code here:
+               MainMenu.action="viewSelected";
+       Service selectedService=null;
+       if(jtService.getSelectedRow()>=0 ) {
+           String id  = (String) jtService.getValueAt(jtService.getSelectedRow(),0);
+           selectedService = serviceControl.searchRecord(id);
+           if(selectedService!=null){
+                setDynamicPanel();
+                fillFields(selectedService);
+                disableFields();
+           }
+           else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to view.","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to view.","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_jbtViewActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -601,6 +664,7 @@ public class ServicePanel extends javax.swing.JPanel {
     private javax.swing.JButton jbtConfirmDelete;
     private javax.swing.JButton jbtDeleteService;
     private javax.swing.JButton jbtModifyService;
+    private javax.swing.JButton jbtView;
     private javax.swing.JLabel jlblDescrip;
     private javax.swing.JLabel jlblId;
     private javax.swing.JLabel jlblPrice;

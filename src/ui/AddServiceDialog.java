@@ -10,6 +10,7 @@ import control.MaintainStaff;
 import domain.Service;
 import domain.ServiceDetail;
 import domain.Staff;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -78,6 +79,7 @@ public class AddServiceDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add or Modify Service Item");
         setBackground(new java.awt.Color(255, 204, 204));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(LoginFrame.class.getResource("/images/logo.png")));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlblService.setText("Service :");

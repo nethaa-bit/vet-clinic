@@ -24,8 +24,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CustomerPanel extends javax.swing.JPanel {
 
-    MaintainCustomer customerControl;
-    MaintainPet petControl;
+    private MaintainCustomer customerControl;
+    private MaintainPet petControl;
     
     /**
      * Creates new form CustomerPanel
@@ -37,7 +37,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         petControl = new MaintainPet();
         jtfSearch.setOpaque(false);
         jtfSearch.setBackground(new Color(255,255,255,127));
-        jtfSearch.setBorder(null);
+//        jtfSearch.setBorder(null);
         setDynamicPanel();
     }
     public void setDynamicPanel() {
@@ -52,6 +52,7 @@ public class CustomerPanel extends javax.swing.JPanel {
             targetPanel=jpSearch;
             jbtDeleteCus.setVisible(false);
             jbtModifyCus.setVisible(false);
+            jbtView.setVisible(true);
         }
         else if(MainMenu.action.equals("modifySelected")){
              targetPanel=jpAdd;
@@ -69,11 +70,15 @@ public class CustomerPanel extends javax.swing.JPanel {
                 targetPanel=jpSearch;
                 jbtDeleteCus.setVisible(false);
                 jbtModifyCus.setVisible(true);
+                jbtView.setVisible(false);
+
         }
         else if(MainMenu.action.equals("delete")){
                 targetPanel=jpSearch;
                 jbtDeleteCus.setVisible(true);
                 jbtModifyCus.setVisible(false);
+                jbtView.setVisible(false);
+
         }else if(MainMenu.action.equals("viewSelected")){
              targetPanel=jpAdd;
              jbtConfirmChange.setVisible(false);
@@ -110,15 +115,15 @@ public class CustomerPanel extends javax.swing.JPanel {
       }
       
     public void disableFields(){
-        jtfCity.setEnabled(false);
-        jtfDoor.setEnabled(false);
-        jtfIc.setEnabled(false);
-        jtfName.setEnabled(false);
-        jtfNeighbour.setEnabled(false);
-        jtfPhoneNum.setEnabled(false);
-        jtfPostCode.setEnabled(false);
-        jtfState.setEnabled(false);
-        jcbGender.setEnabled(false);
+        jtfCity.setEditable(false);
+        jtfDoor.setEditable(false);
+        jtfIc.setEditable(false);
+        jtfName.setEditable(false);
+        jtfNeighbour.setEditable(false);
+        jtfPhoneNum.setEditable(false);
+        jtfPostCode.setEditable(false);
+        jtfState.setEditable(false);
+        jcbGender.setEditable(false);
       }
       
     public HashMap reformatAddress(String fulladdress){
@@ -208,6 +213,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         jbtModifyCus = new javax.swing.JButton();
         jbtDeleteCus = new javax.swing.JButton();
         jbtViewPets = new javax.swing.JButton();
+        jbtView = new javax.swing.JButton();
         jpAdd = new javax.swing.JPanel();
         jlblIc = new javax.swing.JLabel();
         jtfIc = new javax.swing.JTextField();
@@ -247,6 +253,7 @@ public class CustomerPanel extends javax.swing.JPanel {
         });
         jPanel2.add(jlblSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 50, -1, -1));
 
+        jtfSearch.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jtfSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfSearchActionPerformed(evt);
@@ -256,7 +263,7 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         jlblCustomer.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jlblCustomer.setText("Customer");
-        jPanel2.add(jlblCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, -1));
+        jPanel2.add(jlblCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 110));
 
@@ -306,7 +313,7 @@ public class CustomerPanel extends javax.swing.JPanel {
                 jbtModifyCusActionPerformed(evt);
             }
         });
-        jpSearch.add(jbtModifyCus, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, -1, -1));
+        jpSearch.add(jbtModifyCus, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, -1, -1));
 
         jbtDeleteCus.setText("Delete Customer");
         jbtDeleteCus.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -319,7 +326,7 @@ public class CustomerPanel extends javax.swing.JPanel {
                 jbtDeleteCusActionPerformed(evt);
             }
         });
-        jpSearch.add(jbtDeleteCus, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, -1, -1));
+        jpSearch.add(jbtDeleteCus, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 330, -1, -1));
 
         jbtViewPets.setText("View Pets");
         jbtViewPets.addActionListener(new java.awt.event.ActionListener() {
@@ -327,7 +334,15 @@ public class CustomerPanel extends javax.swing.JPanel {
                 jbtViewPetsActionPerformed(evt);
             }
         });
-        jpSearch.add(jbtViewPets, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 330, -1, -1));
+        jpSearch.add(jbtViewPets, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 330, -1, -1));
+
+        jbtView.setText("View Customer");
+        jbtView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtViewActionPerformed(evt);
+            }
+        });
+        jpSearch.add(jbtView, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 330, -1, -1));
 
         dynamicPanel.add(jpSearch, "card2");
 
@@ -565,6 +580,7 @@ public class CustomerPanel extends javax.swing.JPanel {
                 Object[][] data = new Object[100][8];
                 for(int i=0; i<customerList.size();i++){
                 data[i] = customerList.get(i).getObjects();
+                data[i][2]=(char)data[i][2]=='M'?"Male":"Female";
                 } 
                 String[] columnNames = {"Customer IC","Name","Gender","Address","Phone Number"};
                 TableModel tModel = new TableModel(data, columnNames);
@@ -744,6 +760,27 @@ public class CustomerPanel extends javax.swing.JPanel {
        }
     }//GEN-LAST:event_jbtViewPetsActionPerformed
 
+    private void jbtViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtViewActionPerformed
+        // TODO add your handling code here:
+         MainMenu.action="viewSelected";
+         Customer selectedCustomer=null;
+         if(jtCustomer.getSelectedRow()>=0 ) {
+           String ic  = (String) jtCustomer.getValueAt(jtCustomer.getSelectedRow(),0);
+           selectedCustomer = customerControl.searchRecord(ic);
+           if(selectedCustomer!=null){
+                setDynamicPanel();
+                fillFields(selectedCustomer);
+                disableFields();
+           }
+           else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to view.","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to view.","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+    }//GEN-LAST:event_jbtViewActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dynamicPanel;
@@ -755,6 +792,7 @@ public class CustomerPanel extends javax.swing.JPanel {
     private javax.swing.JButton jbtConfirmDelete;
     private javax.swing.JButton jbtDeleteCus;
     private javax.swing.JButton jbtModifyCus;
+    private javax.swing.JButton jbtView;
     private javax.swing.JButton jbtViewPets;
     private javax.swing.JComboBox<String> jcbGender;
     private javax.swing.JLabel jlblCity;

@@ -27,7 +27,7 @@ public class ChangePasswordPanel extends javax.swing.JPanel {
 //        JFrame parentFrame =(JFrame)this.getParent();
 //        parentFrame.setTitle("Change Password - Veterinary Clinic System");
         initComponents();
-        currentStaff = LoginFrame.currentstaff;
+        currentStaff = LoginFrame.getCurrentstaff();
         jcbRecoverQues.setEnabled(false);
         jtfRecoverAns.setEnabled(false);
         staffControl = new MaintainStaff();
