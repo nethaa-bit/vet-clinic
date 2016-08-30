@@ -107,10 +107,13 @@ public class PaymentDA {
             
             if(rs.next())
             {
-                payment = new Payment(paymentID,rs.getDouble("amountpaid"),rs.getString("methodofpayment"),rs.getDate("paymentdate"),new Transaction(),new Staff(),new CreditCard());
-                payment.getTransaction().setTransID(rs.getString("transid"));
-                payment.getStaff().setStaffIC(rs.getString("staffic"));
-                payment.getCc().setCcNum(rs.getString("ccnum"));
+                Transaction transaction = transactionDA.getRecord(rs.getString("transid"));
+                Staff staff = staffDA.getRecord(rs.getString("staffic"));
+                CreditCard cc = null;
+                if(rs.getString("ccNum")!=null){
+                     cc = creditCardDA.getRecord(rs.getString("ccNum"));
+                }
+                payment = new Payment(paymentID,rs.getDouble("amountpaid"),rs.getString("methodofpayment"),rs.getDate("paymentdate"),transaction,staff,cc);
                 
             }
         }

@@ -224,11 +224,11 @@ Phone no: 607-3676531]]></text>
 				<textFieldExpression><![CDATA[$V{TotalSales}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="621" y="9" width="81" height="20" uuid="c6e92c0b-cd3c-4c0a-bfee-6467062db165"/>
+				<reportElement x="600" y="9" width="102" height="20" uuid="c6e92c0b-cd3c-4c0a-bfee-6467062db165"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Total Amount :]]></text>
+				<text><![CDATA[Total Amount : RM]]></text>
 			</staticText>
 		</band>
 	</pageFooter>

@@ -100,11 +100,12 @@ PRIMARY KEY (paymentID)
 );
 
 CREATE TABLE Schedule(
-staffIC CHAR(12) references STAFF(staffIC),
-timeSlotNum INTEGER references WORKSHIFT(timeSlotNum),
+appID VARCHAR(10) NOT NULL,
 appTime TIME NOT NULL,
 appDate DATE NOT NULL,
 custName VARCHAR(30) NOT NULL,
 custPhoneNum VARCHAR(12) NOT NULL,
-PRIMARY KEY (staffIC, timeSlotNum)
+status VARCHAR(15) NOT NULL,
+transID VARCHAR(15) references TRANSACTION1(transID) UNIQUE,
+PRIMARY KEY (appID)
 );

@@ -5,7 +5,9 @@
  */
 package da;
 
+import control.MaintainTransaction;
 import domain.Schedule;
+import domain.Transaction;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -19,10 +21,12 @@ public class ScheduleDA {
     
     private Connection conn;
     private PreparedStatement stmt;
+    private MaintainTransaction transControl;
     
     public ScheduleDA()
     {
         createConnection();
+        transControl = new MaintainTransaction();
     }
     
     public void createConnection()
@@ -40,16 +44,18 @@ public class ScheduleDA {
     
      public void addRecord(Schedule schedule)
     {
-        String insertStr = "INSERT INTO " + tableName + " VALUES(?,?,?,?,?,?)";
+        String insertStr = "INSERT INTO " + tableName + " VALUES(?,?,?,?,?,?,?)";
         try
         {
             stmt = conn.prepareStatement(insertStr);
-            stmt.setString(1, schedule.getStaffIC());
-            stmt.setInt(2, schedule.getTimeSlotNum());
-            stmt.setTime(3, schedule.getAppTime());
-            stmt.setDate(4, convertJavaDateToSqlDate(schedule.getAppDate()));
-            stmt.setString(5, schedule.getCustName());
-            stmt.setString(6, schedule.getCustPhoneNum());
+            stmt.setString(1, schedule.getAppID());
+            stmt.setTime(2, schedule.getAppTime());
+            stmt.setDate(3, convertJavaDateToSqlDate(schedule.getAppDate()));
+            stmt.setString(4, schedule.getCustName());
+            stmt.setString(5, schedule.getCustPhoneNum());
+            stmt.setString(6, schedule.getStatus());
+            stmt.setString(7, null);
+            
             
             stmt.executeUpdate();
    
@@ -62,16 +68,17 @@ public class ScheduleDA {
      
       public void updateRecord(Schedule schedule)
     {
-        String updateStr = "UPDATE " + tableName + "SET staffic = ?, timeslotnum = ?, apptime = ?, appdate = ?, custname = ?, custphonenum = ? "+" WHERE custic = ? ";
+        String updateStr = "UPDATE " + tableName + " SET appid = ?, apptime = ?, appdate = ?, custname = ?, custphonenum = ?, status = ? "+" WHERE appid = ? ";
         try
         {
             stmt = conn.prepareStatement(updateStr);
-            stmt.setString(1, schedule.getStaffIC());
-            stmt.setInt(2, schedule.getTimeSlotNum());
-            stmt.setTime(3, schedule.getAppTime());
-            stmt.setDate(4, convertJavaDateToSqlDate(schedule.getAppDate()));
-            stmt.setString(5, schedule.getCustName());
-            stmt.setString(6, schedule.getCustPhoneNum());
+            stmt.setString(1, schedule.getAppID());
+            stmt.setTime(2, schedule.getAppTime());
+            stmt.setDate(3, convertJavaDateToSqlDate(schedule.getAppDate()));
+            stmt.setString(4, schedule.getCustName());
+            stmt.setString(5, schedule.getCustPhoneNum());
+            stmt.setString(6, schedule.getStatus());
+            stmt.setString(7, schedule.getAppID());
 
             stmt.executeUpdate();
    
@@ -82,20 +89,25 @@ public class ScheduleDA {
         }
     }
       
-      public Schedule getRecord(String staffIC)
+      public Schedule getRecord(String appID)
     {
-        String queryStr="SELECT * FROM "+ tableName +" WHERE staffIC = ?";
+        String queryStr="SELECT * FROM "+ tableName +" WHERE appid = ?";
         Schedule schedule = null;
         try
         {
             stmt = conn.prepareStatement(queryStr);
-            stmt.setString(1,staffIC);
+            stmt.setString(1,appID);
             ResultSet rs = stmt.executeQuery();
             
             if(rs.next())
-            {
-                schedule = new Schedule(staffIC,rs.getInt("timeslotnum"),rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custname"),rs.getString("custphonenum")); 
-                
+            {   
+                Transaction t = transControl.searchRecord(rs.getString("transid"));
+                if(t!=null){
+                    schedule = new Schedule(appID,rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status"),t); 
+                }
+                else{
+                    schedule = new Schedule(appID,rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status")); 
+                }
             }
         }
         catch(SQLException ex)
@@ -107,18 +119,16 @@ public class ScheduleDA {
  
       public ArrayList<Schedule> getRecord(String searchStr, int option)
     {
-        String queryStr="SELECT * FROM "+ tableName +" WHERE staffIC = ?";
+        String queryStr="SELECT * FROM "+ tableName +" WHERE appid = ?";
         Schedule schedule = null;
-        
+        String appID = "";
         switch(option){
             case 0: queryStr= "SELECT * FROM "+ tableName ;
             break;
-            case 1: queryStr= "SELECT * FROM "+ tableName +" WHERE petID = ?";
+            case 1: queryStr= "SELECT * FROM "+ tableName +" WHERE appid = ?";
+            appID = searchStr;
             break;
-            case 2: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffname)  LIKE LOWER('%' || ? || '%')";
-            break;
-            case 3: queryStr="SELECT * FROM "+ tableName +" WHERE LOWER(staffposition)  = LOWER(?) ";
-            break;
+            
         }
         
         ArrayList<Schedule> scheduleList = new ArrayList<Schedule>();
@@ -130,8 +140,15 @@ public class ScheduleDA {
             
             while(rs.next())
             {
-                schedule = new Schedule(staffIC,rs.getInt("timeslotnum"),rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custname"),rs.getString("custphonenum")); 
-                
+             //   schedule = new Schedule(appID,rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status"),t);
+                Transaction t = transControl.searchRecord(rs.getString("transid"));
+                if(t!=null){
+                    schedule = new Schedule(appID,rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status"),t); 
+                }
+                else{
+                    schedule = new Schedule(appID,rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status")); 
+                }
+                scheduleList.add(schedule);
             }
         }
         catch(SQLException ex)
@@ -141,14 +158,14 @@ public class ScheduleDA {
         return scheduleList;
     }
       
-        public void deleteRecord(String staffIC)
+        public void deleteRecord(String appID)
     {
         try
         {
-            String deleStr = "DELETE FROM " + tableName + " WHERE staffic = ?";
+            String deleStr = "DELETE FROM " + tableName + " WHERE appid = ?";
             
             stmt = conn.prepareStatement(deleStr);
-            stmt.setString(1, staffIC);
+            stmt.setString(1, appID);
             stmt.executeUpdate();
         }
         catch(SQLException ex)

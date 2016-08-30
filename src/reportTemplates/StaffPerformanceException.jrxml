@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="17e9b7c9-9691-43f9-84fe-8d6ba9623a35">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="22"/>
+	<property name="ireport.y" value="21"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT
      count(TRANSACTION_SERVICE."SERVICEID") AS Number_of_Services,
@@ -177,11 +177,11 @@ Phone no: 607-3676531]]></text>
 				<textFieldExpression><![CDATA[$V{TotalSales}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="382" y="85" width="72" height="20" uuid="a21c1a3a-20f8-4f4c-bb35-c61384f714ea"/>
+				<reportElement x="356" y="85" width="98" height="20" uuid="a21c1a3a-20f8-4f4c-bb35-c61384f714ea"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Total Sales :]]></text>
+				<text><![CDATA[Total Sales : RM]]></text>
 			</staticText>
 		</band>
 	</pageFooter>

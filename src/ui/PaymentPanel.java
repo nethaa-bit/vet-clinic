@@ -117,6 +117,7 @@ public class PaymentPanel extends javax.swing.JPanel {
         jtfAmountPayable = new javax.swing.JTextField();
         jbtGenBill = new javax.swing.JButton();
         jbtCredit = new javax.swing.JButton();
+        jtfTransID = new javax.swing.JTextField();
         jpSearch = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtPayment = new javax.swing.JTable();
@@ -229,6 +230,7 @@ public class PaymentPanel extends javax.swing.JPanel {
             }
         });
         jpAdd.add(jbtCredit, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 200, -1, -1));
+        jpAdd.add(jtfTransID, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 140, -1));
 
         dynamicPanel.add(jpAdd, "card3");
 
@@ -323,6 +325,13 @@ public class PaymentPanel extends javax.swing.JPanel {
             jbtCredit.setVisible(false);
             jbtGenBill.setVisible(true);
         
+        }else if(MainMenu.action.equals("viewSelected")){
+            targetPanel=jpAdd;
+            jbtAddPay.setVisible(false);
+            jlblAmount.setVisible(false);
+            jlblChange.setVisible(false);
+            jbtCredit.setVisible(false);
+            jcbMethodPay.setEnabled(false);
         }
         
         dynamicPanel.removeAll();
@@ -335,11 +344,30 @@ public class PaymentPanel extends javax.swing.JPanel {
         dynamicPanel.revalidate();
     }
     
+    public void fillFields(Payment  payment){
+        jtfTransID.setVisible(true);
+        jtfTransID.setEditable(false);
+        jtfTransID.setText((payment.getTransaction().getTransID()));
+        jcbTransId.setVisible(false);
+        jtfStaff.setText(payment.getStaff().getStaffName());
+        jcbMethodPay.setSelectedItem(payment.getMethodOfPayment());
+        jtfPayId.setText(payment.getPaymentID());
+        jdpPayDate.setDate(payment.getPaymentDate());
+        jtfAmountPayable.setText(""+payment.getAmountPaid());
+        if(payment.getCc()!=null){
+            jtfCcNum.setText(payment.getCc().getCcNum());
+        }
+        jtfAmount.setVisible(false);
+        jtfChange.setVisible(false);
+        jbtCredit.setVisible(false);
+    }
+    
     public void initFields(){
         jtfCcNum.setVisible(false);
         jlblCCNum.setVisible(false);
         jtfAmountPayable.setEditable(false);
        jbtCredit.setVisible(false);
+       jtfTransID.setVisible(false);
        ArrayList<Transaction> transactionList = transControl.searchRecord("", 0);
        ArrayList<Payment> paymentList = paymentControl.searchRecord("",0);
        
@@ -525,6 +553,7 @@ public class PaymentPanel extends javax.swing.JPanel {
                 Object[][] data = new Object[100][8];
                 for(int i=0; i<paymentList.size();i++){
                     data[i] = paymentList.get(i).getObjects();
+                    
                     if(paymentList.get(i).getCc()!=null){
                         CreditCard cc = (CreditCard)data[i][6];
                         data[i][6] = cc.getCcNum();
@@ -533,7 +562,8 @@ public class PaymentPanel extends javax.swing.JPanel {
                     }
                     Staff ic = (Staff)data[i][5];
                     data[i][5] = ic.getStaffIC();
-
+                    Transaction t = (Transaction) data[i][4];
+                    data[i][4] = t.getTransID();
                 } 
                 String[] columnNames = {"Payment ID","Amount Paid","Method of Payment","Date","Transaction ID","Staff IC","Credit Card No."};
                 TableModel tModel = new TableModel(data, columnNames);
@@ -548,6 +578,24 @@ public class PaymentPanel extends javax.swing.JPanel {
 
     private void jbtViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtViewActionPerformed
         // TODO add your handling code here:
+         MainMenu.action="viewSelected";
+       Payment selectedPayment=null;
+       if(jtPayment.getSelectedRow()>=0 ) {
+           String id  = (String) jtPayment.getValueAt(jtPayment.getSelectedRow(),0);
+           selectedPayment = paymentControl.searchRecord(id);
+           if(selectedPayment!=null){
+                setDynamicPanel();
+                fillFields(selectedPayment);
+                disableFields();
+           }
+           else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to view.","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+       }
+       else{
+           JOptionPane.showMessageDialog(null,"Please search and select the record you wish to view.","Empty selection",JOptionPane.ERROR_MESSAGE);
+       }
+                            
         
     }//GEN-LAST:event_jbtViewActionPerformed
 
@@ -718,5 +766,6 @@ public class PaymentPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jtfPayId;
     private javax.swing.JTextField jtfSearch;
     private javax.swing.JTextField jtfStaff;
+    private javax.swing.JTextField jtfTransID;
     // End of variables declaration//GEN-END:variables
 }

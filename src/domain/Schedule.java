@@ -5,10 +5,12 @@
  */
 package domain;
 
-
-
 import java.sql.Time;
-import java.util.*;
+import java.util.Date;
+
+
+
+
 
 /**
  *
@@ -16,39 +18,44 @@ import java.util.*;
  */
 public class Schedule {
     
-    private String staffIC;
-    private int timeSlotNum;
+    private String appID;
     private Time appTime;
     private Date appDate;
     private String custName;
     private String custPhoneNum;
+    private String status;
+    private Transaction transID;
 
     public Schedule() {
     }
-
-    public Schedule(String staffIC, int timeSlotNum, Time appTime, Date appDate, String custName, String custPhoneNum) {
-        this.staffIC = staffIC;
-        this.timeSlotNum = timeSlotNum;
+    
+    //for add
+    public Schedule(String appID, Time appTime, Date appDate, String custName, String custPhoneNum, String status) {
+        this.appID = appID;
         this.appTime = appTime;
         this.appDate = appDate;
         this.custName = custName;
         this.custPhoneNum = custPhoneNum;
+        this.status = status;
     }
 
-    public String getStaffIC() {
-        return staffIC;
+    //for update
+    public Schedule(String appID, Time appTime, Date appDate, String custName, String custPhoneNum, String status, Transaction transID) {
+        this.appID = appID;
+        this.appTime = appTime;
+        this.appDate = appDate;
+        this.custName = custName;
+        this.custPhoneNum = custPhoneNum;
+        this.status = status;
+        this.transID = transID;
     }
 
-    public void setStaffIC(String staffIC) {
-        this.staffIC = staffIC;
+    public String getAppID() {
+        return appID;
     }
 
-    public int getTimeSlotNum() {
-        return timeSlotNum;
-    }
-
-    public void setTimeSlotNum(int timeSlotNum) {
-        this.timeSlotNum = timeSlotNum;
+    public void setAppID(String appID) {
+        this.appID = appID;
     }
 
     public Time getAppTime() {
@@ -83,11 +90,22 @@ public class Schedule {
         this.custPhoneNum = custPhoneNum;
     }
 
-    public Object[] getObjects() {
-        Object[] objList ={staffIC,timeSlotNum,appTime,appDate,custName,custPhoneNum};
-        
-        return objList;
+    public String getStatus() {
+        return status;
     }
-    
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Transaction getTransID() {
+        return transID;
+    }
+
+    public void setTransID(Transaction transID) {
+        this.transID = transID;
+    }
+
+   
     
 }
