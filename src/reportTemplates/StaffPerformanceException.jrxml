@@ -2,8 +2,14 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="17e9b7c9-9691-43f9-84fe-8d6ba9623a35">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="21"/>
-	<queryString language="SQL">
+	<property name="ireport.y" value="24"/>
+	<parameter name="rStartDate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="rEndDate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
 		<![CDATA[SELECT
      count(TRANSACTION_SERVICE."SERVICEID") AS Number_of_Services,
      SUM(SERVICE."UNITPRICE") AS TotalRevenue,
@@ -13,10 +19,16 @@
 FROM
      "NBUSER"."STAFF" STAFF INNER JOIN "NBUSER"."TRANSACTION_SERVICE" TRANSACTION_SERVICE ON STAFF."STAFFIC" = TRANSACTION_SERVICE."STAFFIC"
      INNER JOIN "NBUSER"."SERVICE" SERVICE ON TRANSACTION_SERVICE."SERVICEID" = SERVICE."SERVICEID"
+     INNER JOIN "NBUSER"."TRANSACTION1" TRANSACTION1 ON TRANSACTION_SERVICE."TRANSID" = TRANSACTION1."TRANSID"
+WHERE TRANSACTION1."TRANSDATE" > $P{rStartDate}
+AND TRANSACTION1."TRANSDATE" < $P{rEndDate}
 GROUP BY
      STAFF."STAFFIC",
-      STAFF."STAFFNAME",
-     STAFF."STAFFPOSITION"]]>
+     STAFF."STAFFNAME",
+     STAFF."STAFFPOSITION"
+ORDER BY 
+     SUM(SERVICE."UNITPRICE") DESC
+FETCH FIRST 10 ROWS ONLY]]>
 	</queryString>
 	<field name="NUMBER_OF_SERVICES" class="java.lang.Integer"/>
 	<field name="TOTALREVENUE" class="java.math.BigDecimal"/>
@@ -43,7 +55,7 @@ GROUP BY
 Phone no: 607-3676531]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="0" y="77" width="355" height="35" forecolor="#FFFFFF" uuid="de828de3-dd94-43ac-a8d6-974f8dff2488"/>
+					<reportElement x="26" y="77" width="355" height="35" forecolor="#FFFFFF" uuid="de828de3-dd94-43ac-a8d6-974f8dff2488"/>
 					<textElement textAlignment="Left">
 						<font size="20" isBold="true"/>
 					</textElement>
@@ -65,6 +77,13 @@ Phone no: 607-3676531]]></text>
 						<text><![CDATA[Printed on]]></text>
 					</staticText>
 				</elementGroup>
+				<textField pattern="MMM yyyy">
+					<reportElement x="381" y="77" width="121" height="35" forecolor="#FFFFFF" uuid="0ea9622c-67dc-4e1e-99aa-aaf8d516ab38"/>
+					<textElement>
+						<font size="20" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{rEndDate}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</title>
@@ -170,14 +189,14 @@ Phone no: 607-3676531]]></text>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00">
-				<reportElement x="454" y="85" width="100" height="20" uuid="02c87c2a-05a3-4241-8a4d-b0ee104b9160"/>
+				<reportElement x="455" y="65" width="100" height="20" uuid="02c87c2a-05a3-4241-8a4d-b0ee104b9160"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{TotalSales}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="356" y="85" width="98" height="20" uuid="a21c1a3a-20f8-4f4c-bb35-c61384f714ea"/>
+				<reportElement x="356" y="65" width="98" height="20" uuid="a21c1a3a-20f8-4f4c-bb35-c61384f714ea"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>

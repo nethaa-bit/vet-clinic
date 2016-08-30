@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c6f540ac-b723-4754-8724-c5958b13453f">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="89"/>
+	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="rStartDate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="rEndDate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
      TRANSACTION1."TRANSID" AS TRANSACTION_ID,
@@ -16,7 +22,10 @@
 FROM
      "NBUSER"."TRANSACTION1" TRANSACTION1 INNER JOIN "NBUSER"."PAYMENT" PAYMENT ON TRANSACTION1."TRANSID" = PAYMENT."TRANSID"
      INNER JOIN "NBUSER"."PET" PET ON TRANSACTION1."PETID" = PET."PETID"
-     INNER JOIN "NBUSER"."CUSTOMER" CUSTOMER ON PET."CUSTIC" = CUSTOMER."CUSTIC"]]>
+     INNER JOIN "NBUSER"."CUSTOMER" CUSTOMER ON PET."CUSTIC" = CUSTOMER."CUSTIC"
+WHERE PAYMENT."PAYMENTDATE" > $P{rStartDate}
+AND PAYMENT."PAYMENTDATE" < $P{rEndDate}
+ORDER BY TRANSACTION1."TRANSID"]]>
 	</queryString>
 	<field name="TRANSACTION_ID" class="java.lang.String"/>
 	<field name="DATE" class="java.sql.Date"/>
@@ -39,7 +48,7 @@ FROM
 			<frame>
 				<reportElement mode="Opaque" x="0" y="0" width="802" height="175" backcolor="#006699" uuid="17819e2b-e234-49d0-985e-69c7f8829564"/>
 				<staticText>
-					<reportElement x="138" y="14" width="507" height="63" forecolor="#FFFFFF" uuid="288543d2-c040-4944-92d8-e529dd6a9057"/>
+					<reportElement x="121" y="14" width="507" height="63" forecolor="#FFFFFF" uuid="288543d2-c040-4944-92d8-e529dd6a9057"/>
 					<textElement textAlignment="Center" verticalAlignment="Top">
 						<font size="14" isBold="true"/>
 					</textElement>
@@ -48,11 +57,11 @@ FROM
 Phone no: 607-3676531]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="69" y="77" width="355" height="35" forecolor="#FFFFFF" uuid="b3d52ada-de34-4f4a-9b80-1db376323820"/>
+					<reportElement x="178" y="77" width="282" height="35" forecolor="#FFFFFF" uuid="b3d52ada-de34-4f4a-9b80-1db376323820"/>
 					<textElement textAlignment="Left">
 						<font size="20" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Transaction Detail Report for ]]></text>
+					<text><![CDATA[Transaction Detail Report for  ]]></text>
 				</staticText>
 				<elementGroup>
 					<textField pattern="d/M/yyyy">
@@ -70,6 +79,13 @@ Phone no: 607-3676531]]></text>
 						<text><![CDATA[Printed on]]></text>
 					</staticText>
 				</elementGroup>
+				<textField pattern="MMM yyyy">
+					<reportElement x="460" y="77" width="140" height="35" forecolor="#FFFFFF" uuid="828c16c8-78cd-4aec-bd06-80bcb0475d77"/>
+					<textElement>
+						<font size="20" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{rStartDate}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</title>
@@ -94,13 +110,6 @@ Phone no: 607-3676531]]></text>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DATE]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="207" y="1" width="69" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="6682245e-6a9f-47f9-84e3-805de9928fad"/>
-				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[TIME]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="276" y="0" width="92" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="dea22c5d-1b96-4c6e-8f0f-c69a2eaa2dda"/>
@@ -136,6 +145,13 @@ Phone no: 607-3676531]]></text>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CUSTOMER NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="207" y="0" width="69" height="19" forecolor="#006699" backcolor="#E6E6E6" uuid="6682245e-6a9f-47f9-84e3-805de9928fad"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TIME]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -216,7 +232,7 @@ Phone no: 607-3676531]]></text>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00">
 				<reportElement x="702" y="9" width="100" height="20" uuid="efe47769-0b44-4956-b6bb-8d966d82f831"/>
 				<textElement>
 					<font size="12"/>
