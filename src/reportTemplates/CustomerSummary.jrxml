@@ -2,8 +2,17 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bc8797c8-d6fd-4fc6-be8c-3713fd83a68c">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="31"/>
-	<queryString language="SQL">
+	<property name="ireport.y" value="0"/>
+	<parameter name="rStartDate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="rEndDate" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="rYear" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
 		<![CDATA[SELECT
      count(PAYMENT."PAYMENTID") AS AverageSpendperTransaction,
      sum(PAYMENT."AMOUNTPAID") AS TotalAmount,
@@ -16,6 +25,8 @@ FROM
      "NBUSER"."CUSTOMER" CUSTOMER INNER JOIN "NBUSER"."PET" PET ON CUSTOMER."CUSTIC" = PET."CUSTIC"
      INNER JOIN "NBUSER"."TRANSACTION1" TRANSACTION1 ON PET."PETID" = TRANSACTION1."PETID"
      INNER JOIN "NBUSER"."PAYMENT" PAYMENT ON TRANSACTION1."TRANSID" = PAYMENT."TRANSID"
+WHERE PAYMENT."PAYMENTDATE" > $P{rStartDate}
+AND PAYMENT."PAYMENTDATE" < $P{rEndDate}
 GROUP BY
      PET."PETID",
      PET."PETNAME",
@@ -23,13 +34,13 @@ GROUP BY
      CUSTOMER."CUSTNAME",
      CUSTOMER."CUSTIC"]]>
 	</queryString>
-	<field name="CUSTOMER_CUSTIC" class="java.lang.String"/>
-	<field name="CUSTOMER_CUSTNAME" class="java.lang.String"/>
+	<field name="AVERAGESPENDPERTRANSACTION" class="java.lang.Integer"/>
+	<field name="TOTALAMOUNT" class="java.math.BigDecimal"/>
 	<field name="PET_PETID" class="java.lang.String"/>
 	<field name="PET_PETNAME" class="java.lang.String"/>
 	<field name="PET_ANIMALTYPE" class="java.lang.String"/>
-	<field name="TOTALAMOUNT" class="java.math.BigDecimal"/>
-	<field name="AVERAGESPENDPERTRANSACTION" class="java.lang.Integer"/>
+	<field name="CUSTOMER_CUSTNAME" class="java.lang.String"/>
+	<field name="CUSTOMER_CUSTIC" class="java.lang.String"/>
 	<variable name="TotalSales" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{TOTALAMOUNT}]]></variableExpression>
 	</variable>
@@ -48,7 +59,7 @@ GROUP BY
 					<text><![CDATA[CUSTOMER IC]]></text>
 				</staticText>
 				<textField>
-					<reportElement mode="Opaque" x="141" y="0" width="414" height="32" forecolor="#006699" backcolor="#E6E6E6" uuid="07643123-baef-43a2-ba24-25f5cf65e7ac"/>
+					<reportElement mode="Opaque" x="141" y="1" width="414" height="32" forecolor="#006699" backcolor="#E6E6E6" uuid="07643123-baef-43a2-ba24-25f5cf65e7ac"/>
 					<textElement>
 						<font size="12" isBold="true"/>
 					</textElement>
@@ -104,11 +115,11 @@ GROUP BY
 Phone no: 607-3676531]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="30" y="77" width="262" height="35" forecolor="#FFFFFF" uuid="52849b5e-c448-4b9e-9e1b-5c3e2bba8f4d"/>
+					<reportElement x="91" y="77" width="303" height="35" forecolor="#FFFFFF" uuid="52849b5e-c448-4b9e-9e1b-5c3e2bba8f4d"/>
 					<textElement textAlignment="Left">
 						<font size="20" isBold="true"/>
 					</textElement>
-					<text><![CDATA[Customer Summary Report for ]]></text>
+					<text><![CDATA[Customer Summary Report for]]></text>
 				</staticText>
 				<elementGroup>
 					<textField pattern="d/M/yyyy">
@@ -126,6 +137,13 @@ Phone no: 607-3676531]]></text>
 						<text><![CDATA[Printed on]]></text>
 					</staticText>
 				</elementGroup>
+				<textField pattern="yyyy">
+					<reportElement x="394" y="77" width="100" height="35" forecolor="#FFFFFF" uuid="c4975edb-27e3-4c90-947e-dae772ff74c7"/>
+					<textElement>
+						<font size="20" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{rYear}]]></textFieldExpression>
+				</textField>
 			</frame>
 		</band>
 	</title>
@@ -133,7 +151,7 @@ Phone no: 607-3676531]]></text>
 		<band/>
 	</pageHeader>
 	<columnHeader>
-		<band height="21">
+		<band height="24">
 			<line>
 				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="e66c89c0-3e66-44d7-bb06-cbf1e52c0a75"/>
 			</line>
@@ -145,7 +163,7 @@ Phone no: 607-3676531]]></text>
 				<text><![CDATA[PET ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="141" y="1" width="151" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="776cb6f7-b149-4185-8e6c-9468f3b76c71"/>
+				<reportElement mode="Opaque" x="141" y="1" width="151" height="19" forecolor="#006699" backcolor="#E6E6E6" uuid="776cb6f7-b149-4185-8e6c-9468f3b76c71"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -159,7 +177,7 @@ Phone no: 607-3676531]]></text>
 				<text><![CDATA[ANIMALTYPE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="419" y="1" width="136" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="c7dfc0bc-43d1-4d09-be4d-313bb892f3c7"/>
+				<reportElement mode="Opaque" x="419" y="1" width="136" height="19" forecolor="#006699" backcolor="#E6E6E6" uuid="c7dfc0bc-43d1-4d09-be4d-313bb892f3c7"/>
 				<textElement textAlignment="Center">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -206,39 +224,39 @@ Phone no: 607-3676531]]></text>
 		<band/>
 	</columnFooter>
 	<pageFooter>
-		<band height="72">
+		<band height="105">
 			<textField>
-				<reportElement mode="Opaque" x="0" y="59" width="515" height="13" backcolor="#E6E6E6" uuid="7b5e7e3f-0062-44c7-bce5-9797b8ae7d89"/>
+				<reportElement mode="Opaque" x="0" y="92" width="515" height="13" backcolor="#E6E6E6" uuid="7b5e7e3f-0062-44c7-bce5-9797b8ae7d89"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement mode="Opaque" x="515" y="59" width="40" height="13" backcolor="#E6E6E6" uuid="45648643-dac7-4200-ab28-71882248de76"/>
+				<reportElement mode="Opaque" x="515" y="92" width="40" height="13" backcolor="#E6E6E6" uuid="45648643-dac7-4200-ab28-71882248de76"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0.00">
-				<reportElement x="433" y="39" width="122" height="20" uuid="a2d68448-1540-4e19-a79c-0e2a2e0e65e1"/>
+			<textField pattern="###0.00;-###0.00">
+				<reportElement x="419" y="39" width="122" height="20" uuid="a2d68448-1540-4e19-a79c-0e2a2e0e65e1"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{TotalSales}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="433" y="19" width="122" height="20" uuid="396b157e-17ab-4279-94be-3b797bb6841f"/>
+				<reportElement x="419" y="19" width="122" height="20" uuid="396b157e-17ab-4279-94be-3b797bb6841f"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{TotalPets}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="308" y="19" width="125" height="20" uuid="40e4d0c9-8c05-41d8-8300-8b18a7332d2b"/>
+				<reportElement x="267" y="19" width="127" height="20" uuid="40e4d0c9-8c05-41d8-8300-8b18a7332d2b"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[ Total Number of Pet :]]></text>
+				<text><![CDATA[ Total Number of Pets :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="340" y="39" width="93" height="20" uuid="3673f7cb-3f48-4a54-8ff6-008abac376aa"/>
+				<reportElement x="322" y="39" width="97" height="20" uuid="3673f7cb-3f48-4a54-8ff6-008abac376aa"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
