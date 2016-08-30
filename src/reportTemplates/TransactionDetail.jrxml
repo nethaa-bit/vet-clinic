@@ -28,6 +28,9 @@ FROM
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="CUSTOMER_CUSTNAME" class="java.lang.String"/>
+	<variable name="TotalSales" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{AMOUNT_PAID}]]></variableExpression>
+	</variable>
 	<background>
 		<band/>
 	</background>
@@ -137,7 +140,7 @@ Phone no: 607-3676531]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="39">
+		<band height="33">
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="802" height="1" uuid="1a9c455f-9081-483d-b145-bbab60290ec3"/>
 			</line>
@@ -203,16 +206,30 @@ Phone no: 607-3676531]]></text>
 		<band/>
 	</columnFooter>
 	<pageFooter>
-		<band height="17">
+		<band height="46">
 			<textField evaluationTime="Report">
-				<reportElement mode="Opaque" x="762" y="0" width="40" height="17" backcolor="#E6E6E6" uuid="c506cdab-5b1f-4735-8cb3-d1536ac6e7de"/>
+				<reportElement mode="Opaque" x="762" y="29" width="40" height="17" backcolor="#E6E6E6" uuid="c506cdab-5b1f-4735-8cb3-d1536ac6e7de"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement mode="Opaque" x="0" y="0" width="762" height="17" backcolor="#E6E6E6" uuid="2bee0e9a-e300-455c-997f-a15498e8197c"/>
+				<reportElement mode="Opaque" x="0" y="29" width="762" height="17" backcolor="#E6E6E6" uuid="2bee0e9a-e300-455c-997f-a15498e8197c"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="702" y="9" width="100" height="20" uuid="efe47769-0b44-4956-b6bb-8d966d82f831"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{TotalSales}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="621" y="9" width="81" height="20" uuid="c6e92c0b-cd3c-4c0a-bfee-6467062db165"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Total Amount :]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
 	<summary>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a0dbd71c-ddaa-4f9a-87ea-91c71bc46c48">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="16"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.x" value="87"/>
+	<property name="ireport.y" value="104"/>
 	<parameter name="rStartDate" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -38,6 +38,9 @@ GROUP BY
 	<field name="SERVICEID" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<variable name="variable1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL_REVENUE_FROM_SERVICE}]]></variableExpression>
+	</variable>
 	<background>
 		<band/>
 	</background>
@@ -206,16 +209,30 @@ Phone no: 607-3676531]]></text>
 		<band/>
 	</columnFooter>
 	<pageFooter>
-		<band height="17">
+		<band height="168">
 			<textField>
-				<reportElement mode="Opaque" x="0" y="4" width="741" height="13" backcolor="#E6E6E6" uuid="1b49a069-0ae8-48a6-8690-371bb2e626f4"/>
+				<reportElement mode="Opaque" x="0" y="145" width="741" height="23" backcolor="#E6E6E6" uuid="1b49a069-0ae8-48a6-8690-371bb2e626f4"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement mode="Opaque" x="741" y="4" width="61" height="13" backcolor="#E6E6E6" uuid="154ba921-83e1-4a8b-8a92-bba13fa5009e"/>
+				<reportElement mode="Opaque" x="741" y="145" width="61" height="23" backcolor="#E6E6E6" uuid="154ba921-83e1-4a8b-8a92-bba13fa5009e"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="702" y="125" width="100" height="20" uuid="171ecc9d-b619-4db9-90ac-4d8534849d3d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{variable1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="615" y="125" width="87" height="20" uuid="f3957b1c-6407-448d-83c6-b541aa85f632"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Total Revenue :]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
 	<summary>
