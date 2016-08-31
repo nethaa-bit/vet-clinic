@@ -19,7 +19,7 @@ import java.awt.Toolkit;
  *
  * @author Cheng
  */
-public class AddCreditCardDialog extends javax.swing.JDialog {
+public class ManageCreditCardDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form AddCreditCardDialog
@@ -28,7 +28,7 @@ public class AddCreditCardDialog extends javax.swing.JDialog {
     MaintainCreditCard creditControl;
     private static CreditCard card;
     
-    public AddCreditCardDialog(java.awt.Frame parent, boolean modal) {
+    public ManageCreditCardDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         custControl = new MaintainCustomer();
         creditControl = new MaintainCreditCard();
@@ -67,6 +67,7 @@ public class AddCreditCardDialog extends javax.swing.JDialog {
         jbtClose = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Manage Credit Card - ");
@@ -150,6 +151,7 @@ public class AddCreditCardDialog extends javax.swing.JDialog {
         jLabel3.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
         jLabel3.setText("Manage Credit Card");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 280, 100, 80));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -338,20 +340,21 @@ public class AddCreditCardDialog extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddCreditCardDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageCreditCardDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddCreditCardDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageCreditCardDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddCreditCardDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageCreditCardDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddCreditCardDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ManageCreditCardDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AddCreditCardDialog dialog = new AddCreditCardDialog(new javax.swing.JFrame(), true);
+                ManageCreditCardDialog dialog = new ManageCreditCardDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -368,6 +371,7 @@ public class AddCreditCardDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JButton jbtAdd;
     private javax.swing.JButton jbtClose;
     private javax.swing.JButton jbtDelete;
@@ -390,6 +394,6 @@ public class AddCreditCardDialog extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     public static void setCard(CreditCard card) {
-        AddCreditCardDialog.card = card;
+        ManageCreditCardDialog.card = card;
     }
 }

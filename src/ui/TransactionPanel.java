@@ -203,17 +203,18 @@ public class TransactionPanel extends javax.swing.JPanel {
              jlblTrans.setText("Delete Transaction");
              
         }else if(MainMenu.action.equals("modify")){
-                targetPanel=jpTrans1;
-                jbtDeleteTrans.setVisible(false);
-                jbtModifyTrans.setVisible(true);
-                jlblTrans.setText("Modify Transaction");
+            targetPanel=jpTrans1;
+            jbtDeleteTrans.setVisible(false);
+            jbtModifyTrans.setVisible(true);
+            jbtView.setVisible(false);
+            jlblTrans.setText("Modify Transaction");
         }
         else if(MainMenu.action.equals("delete")){
-                targetPanel=jpTrans1;
-                jbtDeleteTrans.setVisible(true);
-                jbtModifyTrans.setVisible(false);
-                jbtView.setVisible(false);
-                jlblTrans.setText("Delete Transaction");
+            targetPanel=jpTrans1;
+            jbtDeleteTrans.setVisible(true);
+            jbtModifyTrans.setVisible(false);
+            jbtView.setVisible(false);
+            jlblTrans.setText("Delete Transaction");
                 
         }else if(MainMenu.action.equals("viewSelected")){
              targetPanel=jpAdd;

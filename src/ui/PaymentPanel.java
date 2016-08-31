@@ -711,7 +711,7 @@ public class PaymentPanel extends javax.swing.JPanel {
     private void jbtCreditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtCreditActionPerformed
         // TODO add your handling code here:
         
-        AddCreditCardDialog addCC = new AddCreditCardDialog(null, false);
+        ManageCreditCardDialog addCC = new ManageCreditCardDialog(null, false);
         addCC.setVisible(true);
        
         
