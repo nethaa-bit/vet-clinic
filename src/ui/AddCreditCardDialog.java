@@ -66,6 +66,7 @@ public class AddCreditCardDialog extends javax.swing.JDialog {
         jbtDelete = new javax.swing.JButton();
         jbtClose = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Manage Credit Card - ");
@@ -73,34 +74,34 @@ public class AddCreditCardDialog extends javax.swing.JDialog {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlblCCNum.setText("Credit Card No. :");
-        getContentPane().add(jlblCCNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
-        getContentPane().add(jtfCCNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 90, -1));
+        getContentPane().add(jlblCCNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
+        getContentPane().add(jtfCCNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 90, -1));
 
         jLabel1.setText("Expiry Date :");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
 
         jlblAgent.setText("Issuing Agent :");
-        getContentPane().add(jlblAgent, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
-        getContentPane().add(jmcMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, -1, -1));
-        getContentPane().add(jycYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, -1, -1));
+        getContentPane().add(jlblAgent, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
+        getContentPane().add(jmcMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, -1, -1));
+        getContentPane().add(jycYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, -1, -1));
 
         jcbAgent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MasterCard", "Visa" }));
-        getContentPane().add(jcbAgent, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, -1, -1));
+        getContentPane().add(jcbAgent, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, -1, -1));
 
         jlblCvc.setText("CVC :");
-        getContentPane().add(jlblCvc, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
-        getContentPane().add(jtfCvc, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 40, -1));
+        getContentPane().add(jlblCvc, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
+        getContentPane().add(jtfCvc, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, 40, -1));
 
         jlblHolder.setText("Card Holder Name :");
-        getContentPane().add(jlblHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, -1, -1));
-        getContentPane().add(jtfHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 60, 180, -1));
+        getContentPane().add(jlblHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, -1, -1));
+        getContentPane().add(jtfHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, 180, -1));
 
         jlblName.setText("Card Name :");
-        getContentPane().add(jlblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 100, -1, -1));
+        getContentPane().add(jlblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, -1, -1));
 
         jlblCustIC.setText("Customer IC :");
-        getContentPane().add(jlblCustIC, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, -1, -1));
-        getContentPane().add(jtfCustIC, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 110, -1));
+        getContentPane().add(jlblCustIC, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, -1, -1));
+        getContentPane().add(jtfCustIC, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 180, 110, -1));
 
         jbtAdd.setText("Add");
         jbtAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -108,10 +109,10 @@ public class AddCreditCardDialog extends javax.swing.JDialog {
                 jbtAddActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, -1, -1));
+        getContentPane().add(jbtAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, -1, -1));
 
         jcbCardName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alliance Bank Malaysia Berhad", "AmBank (M) Berhad", "Bank of China (Malaysia) Berhad", "CIMB Bank Berhad", "HSBC Bank Malaysia Berhad", "Hong leong Bank Berhad", "OCBC Bank (Malaysia) Berhad", "Public Bank Berhad", "RHB Bank Berhad", "United Overseas Bank (Malaysia) Bhd.", " " }));
-        getContentPane().add(jcbCardName, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, 180, -1));
+        getContentPane().add(jcbCardName, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 180, -1));
 
         jbtSearch.setText("Search ");
         jbtSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -119,7 +120,7 @@ public class AddCreditCardDialog extends javax.swing.JDialog {
                 jbtSearchActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, -1, -1));
+        getContentPane().add(jbtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
 
         jbtModify.setText("Modify");
         jbtModify.addActionListener(new java.awt.event.ActionListener() {
@@ -127,7 +128,7 @@ public class AddCreditCardDialog extends javax.swing.JDialog {
                 jbtModifyActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, -1, -1));
+        getContentPane().add(jbtModify, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, -1, -1));
 
         jbtDelete.setText("Delete");
         jbtDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -135,7 +136,7 @@ public class AddCreditCardDialog extends javax.swing.JDialog {
                 jbtDeleteActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, -1, -1));
+        getContentPane().add(jbtDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, -1, -1));
 
         jbtClose.setText("Use This Card");
         jbtClose.addActionListener(new java.awt.event.ActionListener() {
@@ -143,8 +144,12 @@ public class AddCreditCardDialog extends javax.swing.JDialog {
                 jbtCloseActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 250, -1, -1));
+        getContentPane().add(jbtClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 290, -1, -1));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 270, 70, 30));
+
+        jLabel3.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel3.setText("Manage Credit Card");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -362,6 +367,7 @@ public class AddCreditCardDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton jbtAdd;
     private javax.swing.JButton jbtClose;
     private javax.swing.JButton jbtDelete;

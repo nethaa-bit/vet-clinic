@@ -28,6 +28,14 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         staffControl = new MaintainStaff();
+        jPanel1.removeAll();
+        jPanel1.repaint();
+        jPanel1.revalidate();
+            
+        //Adding Pannel
+        jPanel1.add(jPanel3);
+        jPanel1.repaint();
+        jPanel1.revalidate();
         this.setLocationRelativeTo(null);
         
     }
@@ -59,6 +67,7 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jtfUsername = new javax.swing.JTextField();
         jlblReQues = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jlblNewPass = new javax.swing.JLabel();
         jlblConfirmNewPass = new javax.swing.JLabel();
@@ -66,6 +75,7 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         jbtBack = new javax.swing.JButton();
         jpfConfirm = new javax.swing.JPasswordField();
         jpfPass = new javax.swing.JPasswordField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Password Recovery");
@@ -78,20 +88,20 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jcbRecoverQues.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is your first pet's name?", "What is your favourite colour?", "Where is your hometown?" }));
-        jPanel3.add(jcbRecoverQues, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 170, -1));
+        jPanel3.add(jcbRecoverQues, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 170, -1));
 
         jtfRecoverAns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfRecoverAnsActionPerformed(evt);
             }
         });
-        jPanel3.add(jtfRecoverAns, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 170, -1));
+        jPanel3.add(jtfRecoverAns, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 170, -1));
 
         jlblUsername.setText(" Username : ");
-        jPanel3.add(jlblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 70, -1));
+        jPanel3.add(jlblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 70, -1));
 
         jlblReAns.setText("Recovery Answer   : ");
-        jPanel3.add(jlblReAns, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
+        jPanel3.add(jlblReAns, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
 
         jbtNext.setText("Next");
         jbtNext.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -104,7 +114,7 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
                 jbtNextActionPerformed(evt);
             }
         });
-        jPanel3.add(jbtNext, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, -1, -1));
+        jPanel3.add(jbtNext, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, -1, -1));
 
         jbtCancel.setText("Cancel");
         jbtCancel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -112,30 +122,34 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
                 jbtCancelMouseClicked(evt);
             }
         });
-        jPanel3.add(jbtCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, -1, -1));
+        jPanel3.add(jbtCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, -1, -1));
 
         jLabel3.setText("Please choose your recovery question and enter your answer: ");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, -1));
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, -1, -1));
 
         jtfUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfUsernameActionPerformed(evt);
             }
         });
-        jPanel3.add(jtfUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, 170, -1));
+        jPanel3.add(jtfUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 170, -1));
 
         jlblReQues.setText("Recovery Question : ");
-        jPanel3.add(jlblReQues, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
+        jPanel3.add(jlblReQues, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel2.setText("Password Recovery");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 20, 200, 30));
 
         jPanel1.add(jPanel3, "card3");
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlblNewPass.setText("New Password :");
-        jPanel2.add(jlblNewPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
+        jPanel2.add(jlblNewPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, -1, -1));
 
         jlblConfirmNewPass.setText("Confirm New Password :");
-        jPanel2.add(jlblConfirmNewPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
+        jPanel2.add(jlblConfirmNewPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
 
         jbtConfirm.setText("Confirm");
         jbtConfirm.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -143,7 +157,7 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
                 jbtConfirmMouseClicked(evt);
             }
         });
-        jPanel2.add(jbtConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, -1, -1));
+        jPanel2.add(jbtConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, -1, -1));
 
         jbtBack.setText("Back");
         jbtBack.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -156,19 +170,23 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
                 jbtBackActionPerformed(evt);
             }
         });
-        jPanel2.add(jbtBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, -1, -1));
+        jPanel2.add(jbtBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, -1, -1));
 
         jpfConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jpfConfirmActionPerformed(evt);
             }
         });
-        jPanel2.add(jpfConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 150, -1));
-        jPanel2.add(jpfPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 150, -1));
+        jPanel2.add(jpfConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 150, -1));
+        jPanel2.add(jpfPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 150, -1));
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel1.setText("Password Recovery");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 210, -1));
 
         jPanel1.add(jPanel2, "card2");
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 250));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 410, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -328,6 +346,8 @@ public class PasswordRecoveryDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

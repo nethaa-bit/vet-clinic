@@ -49,6 +49,8 @@ public class StaffPanel extends javax.swing.JPanel {
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(false);
              jbtAdd.setVisible(true);
+             
+             jlblStaff.setText("Add Staff");
  
         }
         else if (MainMenu.action.equals("search")){
@@ -56,6 +58,8 @@ public class StaffPanel extends javax.swing.JPanel {
             jbtDeleteStaff.setVisible(false);
             jbtModifyStaff.setVisible(false);
             jbtView.setVisible(true);
+            
+            jlblStaff.setText("Search Staff");
 
 
         }else if(MainMenu.action.equals("modifySelected")){
@@ -64,6 +68,7 @@ public class StaffPanel extends javax.swing.JPanel {
              jbtConfirmDelete.setVisible(false);
              jbtAdd.setVisible(false);
              jtfIc.setEnabled(false);
+             jlblStaff.setText("Modify Staff");
  
         
         }else if(MainMenu.action.equals("deleteSelected")){
@@ -71,12 +76,14 @@ public class StaffPanel extends javax.swing.JPanel {
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(true);
              jbtAdd.setVisible(false);
+             jlblStaff.setText("Delete Staff");
 
         }else if(MainMenu.action.equals("modify")){
                 targetPanel=jpSearch;
                 jbtDeleteStaff.setVisible(false);
                 jbtModifyStaff.setVisible(true);
                 jbtView.setVisible(false);
+                jlblStaff.setText("Modify Staff");
  
         }
         else if(MainMenu.action.equals("delete")){
@@ -84,12 +91,14 @@ public class StaffPanel extends javax.swing.JPanel {
                 jbtDeleteStaff.setVisible(true);
                 jbtModifyStaff.setVisible(false);
                 jbtView.setVisible(false);
+                jlblStaff.setText("Delete Staff");
 
         }else if(MainMenu.action.equals("viewSelected")){
              targetPanel=jpAddUpdate;
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(false);
              jbtAdd.setVisible(false);
+             jlblStaff.setText("View Staff");
 
         }
         
@@ -318,7 +327,7 @@ public class StaffPanel extends javax.swing.JPanel {
 
         jlblStaff.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jlblStaff.setText("Staff");
-        jPanel2.add(jlblStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 40, -1));
+        jPanel2.add(jlblStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 18, 170, 30));
 
         jtfSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

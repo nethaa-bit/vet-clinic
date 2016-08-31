@@ -47,12 +47,14 @@ public class CustomerPanel extends javax.swing.JPanel {
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(false);
              jbtAddCus.setVisible(true);
+             jlblCustomer.setText("Add Customer");
         }
         else if (MainMenu.action.equals("search")){
             targetPanel=jpSearch;
             jbtDeleteCus.setVisible(false);
             jbtModifyCus.setVisible(false);
             jbtView.setVisible(true);
+            jlblCustomer.setText("Search Customer");
         }
         else if(MainMenu.action.equals("modifySelected")){
              targetPanel=jpAdd;
@@ -60,30 +62,34 @@ public class CustomerPanel extends javax.swing.JPanel {
              jbtConfirmDelete.setVisible(false);
              jbtAddCus.setVisible(false);
              jtfIc.setEnabled(false);
+             jlblCustomer.setText("Modify Customer");
         
         }else if(MainMenu.action.equals("deleteSelected")){
              targetPanel=jpAdd;
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(true);
              jbtAddCus.setVisible(false);
+             jlblCustomer.setText("Delete Customer");
         }else if(MainMenu.action.equals("modify")){
                 targetPanel=jpSearch;
                 jbtDeleteCus.setVisible(false);
                 jbtModifyCus.setVisible(true);
                 jbtView.setVisible(false);
-
+                jlblCustomer.setText("Modify Customer");
         }
         else if(MainMenu.action.equals("delete")){
                 targetPanel=jpSearch;
                 jbtDeleteCus.setVisible(true);
                 jbtModifyCus.setVisible(false);
                 jbtView.setVisible(false);
+                jlblCustomer.setText("Delete Customer");
 
         }else if(MainMenu.action.equals("viewSelected")){
              targetPanel=jpAdd;
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(false);
              jbtAddCus.setVisible(false);
+             jlblCustomer.setText("View Customer");
 
         }
         
@@ -263,7 +269,7 @@ public class CustomerPanel extends javax.swing.JPanel {
 
         jlblCustomer.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jlblCustomer.setText("Customer");
-        jPanel2.add(jlblCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
+        jPanel2.add(jlblCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 50, 200, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1010, 110));
 

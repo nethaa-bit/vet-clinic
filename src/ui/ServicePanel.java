@@ -47,42 +47,49 @@ public class ServicePanel extends javax.swing.JPanel {
              jbtConfirmDelete.setVisible(false);
              jbtAddService.setVisible(true);
              jtfServiceId.setText(generateServiceId());
+             jlblService.setText("Add Service");
         }
         else if (MainMenu.action.equals("search")){
             targetPanel=jpSearch;
             jbtModifyService.setVisible(false);
             jbtDeleteService.setVisible(false);
             jbtView.setVisible(true);
+            jlblService.setText("Search Service");
         }
         else if(MainMenu.action.equals("modifySelected")){
              targetPanel=jpAdd;
              jbtConfirmChange.setVisible(true);
              jbtConfirmDelete.setVisible(false);
              jbtAddService.setVisible(false);
+             jlblService.setText("Modify Service");
         
         }else if(MainMenu.action.equals("deleteSelected")){
              targetPanel=jpAdd;
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(true);
              jbtAddService.setVisible(false);
+             jlblService.setText("Delete Service");
              
         }else if(MainMenu.action.equals("modify")){
                 targetPanel=jpSearch;
                 jbtDeleteService.setVisible(false);
                 jbtModifyService.setVisible(true);
                 jbtView.setVisible(false);
+                jlblService.setText("Modify Service");
         }
         else if(MainMenu.action.equals("delete")){
                 targetPanel=jpSearch;
                 jbtModifyService.setVisible(false);
                 jbtDeleteService.setVisible(true);
                 jbtView.setVisible(false);
+                jlblService.setText("Delete Service");
                 
         }else if(MainMenu.action.equals("viewSelected")){
              targetPanel=jpAdd;
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(false);
              jbtAddService.setVisible(false);
+             jlblService.setText("View Service");
 
         }
         
@@ -239,7 +246,7 @@ public class ServicePanel extends javax.swing.JPanel {
 
         jlblService.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jlblService.setText("Service");
-        jPanel2.add(jlblService, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 60, -1));
+        jPanel2.add(jlblService, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 180, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 70));
 

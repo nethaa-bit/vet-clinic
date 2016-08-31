@@ -56,41 +56,48 @@ public class SchedulePanel extends javax.swing.JPanel {
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(false);
              jbtAddApp.setVisible(true);
+             jlblSchedule.setText("Add Appointment");
         }
         else if (MainMenu.action.equals("search")){
             targetPanel=jpSearch;
             jbtDeleteAppointment.setVisible(false);
             jbtModifyAppointment.setVisible(false);
             jbtView.setVisible(true);
+            jlblSchedule.setText("Search Appointment");
         }
         else if(MainMenu.action.equals("modifySelected")){
              targetPanel=jpAdd;
              jbtConfirmChange.setVisible(true);
              jbtConfirmDelete.setVisible(false);
              jbtAddApp.setVisible(false);
+             jlblSchedule.setText("Modify Appointment");
         
         }else if(MainMenu.action.equals("deleteSelected")){
              targetPanel=jpAdd;
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(true);
              jbtAddApp.setVisible(false);
+             jlblSchedule.setText("Delete Appointment");
              
         }else if(MainMenu.action.equals("modify")){
                 targetPanel=jpSearch;
                 jbtDeleteAppointment.setVisible(false);
                 jbtModifyAppointment.setVisible(true);
                 jbtView.setVisible(false);
+                jlblSchedule.setText("Modify Appointment");
         }
         else if(MainMenu.action.equals("delete")){
                 targetPanel=jpSearch;
                 jbtDeleteAppointment.setVisible(true);
                 jbtModifyAppointment.setVisible(false);
                 jbtView.setVisible(false);
+                jlblSchedule.setText("Delete Appointment");
         }else if(MainMenu.action.equals("viewSelected")){
              targetPanel=jpAdd;
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(false);
              jbtAddApp.setVisible(false);
+             jlblSchedule.setText("View Appointment");
 
         }
         
@@ -275,7 +282,7 @@ public class SchedulePanel extends javax.swing.JPanel {
 
         jlblSchedule.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jlblSchedule.setText("Schedule");
-        jPanel2.add(jlblSchedule, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, -1, -1));
+        jPanel2.add(jlblSchedule, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 220, 30));
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 98));
 

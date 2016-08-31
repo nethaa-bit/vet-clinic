@@ -64,15 +64,16 @@ public class ChangePasswordPanel extends javax.swing.JPanel {
         jbtConfirm = new java.awt.Button();
         jlblConfirm = new javax.swing.JLabel();
         jlblNew = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(209, 169, 149));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlblOld.setText("Old Password :");
-        add(jlblOld, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, -1, -1));
-        add(jtfOldPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 180, -1));
-        add(jtfNewPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 180, -1));
-        add(jtfConfirmPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 180, -1));
+        add(jlblOld, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, -1));
+        add(jtfOldPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 180, -1));
+        add(jtfNewPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 180, -1));
+        add(jtfConfirmPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, 180, -1));
 
         jchkSetRecQ.setBackground(new java.awt.Color(209, 169, 149));
         jchkSetRecQ.setText("Set new recovery question and answer");
@@ -81,17 +82,17 @@ public class ChangePasswordPanel extends javax.swing.JPanel {
                 jchkSetRecQActionPerformed(evt);
             }
         });
-        add(jchkSetRecQ, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, -1, -1));
+        add(jchkSetRecQ, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, -1, -1));
 
         jcbRecoverQues.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What is your first pet's name?", "What is your favourite colour?", "Where is your hometown?" }));
-        add(jcbRecoverQues, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 210, 180, -1));
-        add(jtfRecoverAns, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 180, -1));
+        add(jcbRecoverQues, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 180, -1));
+        add(jtfRecoverAns, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 180, -1));
 
         jlblRecoveryA.setText("Recovery Answer   : ");
-        add(jlblRecoveryA, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
+        add(jlblRecoveryA, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, -1, -1));
 
         jlblRecoveryQ.setText("Recovery Question : ");
-        add(jlblRecoveryQ, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, -1, -1));
+        add(jlblRecoveryQ, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
 
         jbtConfirm.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         jbtConfirm.setLabel("Confirm");
@@ -100,13 +101,17 @@ public class ChangePasswordPanel extends javax.swing.JPanel {
                 jbtConfirmMouseClicked(evt);
             }
         });
-        add(jbtConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, 70, -1));
+        add(jbtConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 360, 70, -1));
 
         jlblConfirm.setText("Confirm New Password :");
-        add(jlblConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
+        add(jlblConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
 
         jlblNew.setText("New Password :");
-        add(jlblNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, -1));
+        add(jlblNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel1.setText("Change Password");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 33, -1, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jchkSetRecQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchkSetRecQActionPerformed
@@ -203,6 +208,7 @@ public class ChangePasswordPanel extends javax.swing.JPanel {
    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private java.awt.Button jbtConfirm;
     private javax.swing.JComboBox<String> jcbRecoverQues;
     private javax.swing.JCheckBox jchkSetRecQ;

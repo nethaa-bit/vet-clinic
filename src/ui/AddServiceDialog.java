@@ -75,6 +75,7 @@ public class AddServiceDialog extends javax.swing.JDialog {
         jtaRemarks = new javax.swing.JTextArea();
         jbtConfirm = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jlblTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add or Modify Service Item");
@@ -83,23 +84,23 @@ public class AddServiceDialog extends javax.swing.JDialog {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlblService.setText("Service :");
-        getContentPane().add(jlblService, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, -1, -1));
+        getContentPane().add(jlblService, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
 
         jlblStaff.setText("Staff :");
-        getContentPane().add(jlblStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, -1, -1));
+        getContentPane().add(jlblStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, -1, -1));
 
         jlblRemarks.setText(" Remarks :");
-        getContentPane().add(jlblRemarks, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
+        getContentPane().add(jlblRemarks, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, -1, -1));
 
-        getContentPane().add(jcbService, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 130, -1));
+        getContentPane().add(jcbService, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 130, -1));
 
-        getContentPane().add(jcbStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 130, -1));
+        getContentPane().add(jcbStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 130, -1));
 
         jtaRemarks.setColumns(20);
         jtaRemarks.setRows(5);
         jScrollPane1.setViewportView(jtaRemarks);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 180, 110));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 180, 110));
 
         jbtConfirm.setText("Confirm");
         jbtConfirm.addActionListener(new java.awt.event.ActionListener() {
@@ -107,10 +108,14 @@ public class AddServiceDialog extends javax.swing.JDialog {
                 jbtConfirmActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, -1, -1));
+        getContentPane().add(jbtConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 320, -1, -1));
 
         jLabel1.setText("                ");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 300, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 310, 80, 70));
+
+        jlblTitle.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jlblTitle.setText("Add Service");
+        getContentPane().add(jlblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 130, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -129,7 +134,11 @@ public class AddServiceDialog extends javax.swing.JDialog {
              JOptionPane.showMessageDialog(null,"Please click the refresh button to reflect the changes you've made.","Refresh!",JOptionPane.INFORMATION_MESSAGE);
             dispose();
     }//GEN-LAST:event_jbtConfirmActionPerformed
-
+    
+    public void setDTitle (String t){
+        jlblTitle.setText(t);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -181,6 +190,7 @@ public class AddServiceDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jlblRemarks;
     private javax.swing.JLabel jlblService;
     private javax.swing.JLabel jlblStaff;
+    private javax.swing.JLabel jlblTitle;
     private javax.swing.JTextArea jtaRemarks;
     // End of variables declaration//GEN-END:variables
 

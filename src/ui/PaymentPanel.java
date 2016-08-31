@@ -140,7 +140,7 @@ public class PaymentPanel extends javax.swing.JPanel {
 
         jlblPayment.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jlblPayment.setText("Payment");
-        jPanel2.add(jlblPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, -1));
+        jPanel2.add(jlblPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 220, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 103));
 
@@ -297,10 +297,12 @@ public class PaymentPanel extends javax.swing.JPanel {
         if(MainMenu.action.equals("add")){
              targetPanel=jpAdd;
              jtfPayId.setText(generatePaymentId());
+             jlblPayment.setText("Add Payment");
         }
         else if (MainMenu.action.equals("search")){
             targetPanel=jpSearch;
             jbtView.setVisible(true);
+            jlblPayment.setText("Search Payment");
         }else if(MainMenu.action.equals("bill")){
             targetPanel=jpAdd;
             jlblAmount.setVisible(false);
@@ -310,8 +312,6 @@ public class PaymentPanel extends javax.swing.JPanel {
             jlblDate.setVisible(false);
             jlblId.setVisible(false);
             jlblMethodPay.setVisible(false);
-            jlblPayment.setVisible(false);
-            jlblSearch.setVisible(false);
             jlblStaffName.setVisible(false);
             jbtAddPay.setVisible(false);
             jtfAmount.setVisible(false);
@@ -324,6 +324,8 @@ public class PaymentPanel extends javax.swing.JPanel {
             jdpPayDate.setVisible(false);
             jbtCredit.setVisible(false);
             jbtGenBill.setVisible(true);
+            
+            jlblPayment.setText("Generate Bill");
         
         }else if(MainMenu.action.equals("viewSelected")){
             targetPanel=jpAdd;
@@ -332,6 +334,7 @@ public class PaymentPanel extends javax.swing.JPanel {
             jlblChange.setVisible(false);
             jbtCredit.setVisible(false);
             jcbMethodPay.setEnabled(false);
+            jlblPayment.setText("View Payment");
         }
         
         dynamicPanel.removeAll();

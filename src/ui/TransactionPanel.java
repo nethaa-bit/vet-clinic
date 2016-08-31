@@ -176,12 +176,14 @@ public class TransactionPanel extends javax.swing.JPanel {
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(false);
              jbtAddTrans.setVisible(true);
+             jlblTrans.setText("Add Transaction");
         }
         else if (MainMenu.action.equals("search")){
             targetPanel=jpTrans1;
                 jbtDeleteTrans.setVisible(false);
                 jbtModifyTrans.setVisible(false);
                 jbtView.setVisible(true);
+                jlblTrans.setText("Search Transaction");
                 
         }else if(MainMenu.action.equals("modifySelected")){
              targetPanel=jpAdd;
@@ -189,6 +191,7 @@ public class TransactionPanel extends javax.swing.JPanel {
              jbtConfirmDelete.setVisible(false);
              jbtAddTrans.setVisible(false);
              jtfPetId.setEnabled(false);
+             jlblTrans.setText("Modify Transaction");
             
         
         }else if(MainMenu.action.equals("deleteSelected")){
@@ -197,23 +200,27 @@ public class TransactionPanel extends javax.swing.JPanel {
              jbtConfirmDelete.setVisible(true);
              jbtAddTrans.setVisible(false);
              jtfPetId.setEnabled(false);
+             jlblTrans.setText("Delete Transaction");
              
         }else if(MainMenu.action.equals("modify")){
                 targetPanel=jpTrans1;
                 jbtDeleteTrans.setVisible(false);
                 jbtModifyTrans.setVisible(true);
+                jlblTrans.setText("Modify Transaction");
         }
         else if(MainMenu.action.equals("delete")){
                 targetPanel=jpTrans1;
                 jbtDeleteTrans.setVisible(true);
                 jbtModifyTrans.setVisible(false);
                 jbtView.setVisible(false);
+                jlblTrans.setText("Delete Transaction");
                 
         }else if(MainMenu.action.equals("viewSelected")){
              targetPanel=jpAdd;
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(false);
              jbtAddTrans.setVisible(false);
+             jlblTrans.setText("View Transaction");
 
         }
         
@@ -331,7 +338,7 @@ public class TransactionPanel extends javax.swing.JPanel {
 
         jlblTrans.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jlblTrans.setText("Transaction");
-        jPanel2.add(jlblTrans, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, 20));
+        jPanel2.add(jlblTrans, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 220, 30));
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 70));
 
@@ -548,6 +555,7 @@ public class TransactionPanel extends javax.swing.JPanel {
         action="add";
         asd = new AddServiceDialog((JFrame)this.getParent().getParent().getParent().getParent().getParent().getParent(), false);
         asd.setVisible(true);
+        asd.setDTitle("Add Service");
     }//GEN-LAST:event_jbtAddServiceActionPerformed
 
     private void jbtEditServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtEditServiceActionPerformed
@@ -561,6 +569,7 @@ public class TransactionPanel extends javax.swing.JPanel {
             asd = new AddServiceDialog((JFrame)this.getParent().getParent().getParent().getParent().getParent().getParent(), false);
             asd.fillFields(serviceID, staffId, remarks);
             asd.setVisible(true);   
+            asd.setDTitle("Edit Service");
         }
         else{
            JOptionPane.showMessageDialog(null,"Please search and select the record you wish to modify","Empty selection",JOptionPane.ERROR_MESSAGE);

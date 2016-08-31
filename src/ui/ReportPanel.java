@@ -75,12 +75,13 @@ public class ReportPanel extends javax.swing.JPanel {
         jycYear = new com.toedter.calendar.JYearChooser();
         jmcMonth = new com.toedter.calendar.JMonthChooser();
         jlblPeriod = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(227, 234, 254));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlblReportType.setText("Report Type :");
-        add(jlblReportType, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
+        add(jlblReportType, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, -1, -1));
 
         jcbReportType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Transaction Detail", "Staff Performance Exception", "Customer Summary", "Services Summary" }));
         jcbReportType.addItemListener(new java.awt.event.ItemListener() {
@@ -88,15 +89,15 @@ public class ReportPanel extends javax.swing.JPanel {
                 jcbReportTypeItemStateChanged(evt);
             }
         });
-        add(jcbReportType, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 210, -1));
+        add(jcbReportType, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 210, -1));
 
         jlblStart.setText("Start Date :");
-        add(jlblStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, -1, -1));
+        add(jlblStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, -1));
 
         jlblEnd.setText("  End Date :");
-        add(jlblEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 60, -1));
-        add(jdpStartDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 140, -1));
-        add(jdpEndDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 140, -1));
+        add(jlblEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 60, -1));
+        add(jdpStartDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 140, -1));
+        add(jdpEndDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 140, -1));
 
         jbtGenerateReport.setText("Generate Report");
         jbtGenerateReport.addActionListener(new java.awt.event.ActionListener() {
@@ -104,12 +105,16 @@ public class ReportPanel extends javax.swing.JPanel {
                 jbtGenerateReportActionPerformed(evt);
             }
         });
-        add(jbtGenerateReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, -1));
-        add(jycYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, -1, -1));
-        add(jmcMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, -1, -1));
+        add(jbtGenerateReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, -1, -1));
+        add(jycYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, -1, -1));
+        add(jmcMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, -1, -1));
 
         jlblPeriod.setText("Period :");
-        add(jlblPeriod, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, -1));
+        add(jlblPeriod, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        jLabel1.setText("Generate Report ");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtGenerateReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtGenerateReportActionPerformed
@@ -239,6 +244,7 @@ public class ReportPanel extends javax.swing.JPanel {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton jbtGenerateReport;
     private javax.swing.JComboBox<String> jcbReportType;
     private com.toedter.calendar.JDateChooser jdpEndDate;

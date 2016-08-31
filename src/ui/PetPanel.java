@@ -122,41 +122,48 @@ public class PetPanel extends javax.swing.JPanel {
              jbtConfirmDelete.setVisible(false);
              jbtAddPet.setVisible(true);
              jtfPetId.setText(generatePetId());
+             jlblPet.setText("Add Pet");
         }
         else if (MainMenu.action.equals("search")){
             targetPanel=jpSearch;
             jbtDeletePet.setVisible(false);
             jbtModifyPet.setVisible(false);
             jbtView.setVisible(true);
+            jlblPet.setText("Search Pet");
         }
         else if(MainMenu.action.equals("modifySelected")){
              targetPanel=jpAdd;
              jbtConfirmChange.setVisible(true);
              jbtConfirmDelete.setVisible(false);
              jbtAddPet.setVisible(false);
+             jlblPet.setText("Modify Pet");
         
         }else if(MainMenu.action.equals("deleteSelected")){
              targetPanel=jpAdd;
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(true);
              jbtAddPet.setVisible(false);
+             jlblPet.setText("Delete Pet");
         }else if(MainMenu.action.equals("modify")){
                 targetPanel=jpSearch;
                 jbtDeletePet.setVisible(false);
                 jbtModifyPet.setVisible(true);
                 jbtView.setVisible(false);
+                jlblPet.setText("Modify Pet");
         }
         else if(MainMenu.action.equals("delete")){
                 targetPanel=jpSearch;
                 jbtDeletePet.setVisible(true);
                 jbtModifyPet.setVisible(false);
                 jbtView.setVisible(false);
+                jlblPet.setText("Delete Pet");
                 
         }else if(MainMenu.action.equals("viewSelected")){
              targetPanel=jpAdd;
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(false);
              jbtAddPet.setVisible(false);
+             jlblPet.setText("View Pet");
 
         }
         
@@ -259,7 +266,7 @@ public class PetPanel extends javax.swing.JPanel {
 
         jlblPet.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jlblPet.setText("Pet");
-        jPanel2.add(jlblPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, -1, -1));
+        jPanel2.add(jlblPet, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 20, 180, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 70));
 
