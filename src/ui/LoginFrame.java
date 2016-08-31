@@ -6,11 +6,11 @@
 package ui;
 
 import domain.PasswordHash;
-import java.awt.Color;
-import javafx.scene.layout.Background;
 import java.awt.Toolkit;
 import control.MaintainStaff;
 import domain.*;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class LoginFrame extends javax.swing.JFrame {
@@ -22,12 +22,24 @@ public class LoginFrame extends javax.swing.JFrame {
     /**
      * Creates new form LoginFrame
      */
-    MaintainStaff staffControl;
+    private MaintainStaff staffControl;
     private static Staff currentstaff;
+    private static Date systemDate;
+
+    public static Date getSystemDate() {
+        return systemDate;
+    }
     
     public LoginFrame() {
         initComponents();
         staffControl = new MaintainStaff();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.set(Calendar.HOUR_OF_DAY, 00);
+        cal.set(Calendar.MINUTE, 00);
+        cal.set(Calendar.SECOND, 00);
+        cal.set(Calendar.MILLISECOND, 000);
+        systemDate = cal.getTime();
         this.setLocationRelativeTo(null);
     }
     

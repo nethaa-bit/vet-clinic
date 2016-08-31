@@ -32,6 +32,8 @@ public class TransactionPanel extends javax.swing.JPanel {
     private MaintainStaff staffControl;
     private MaintainPet petControl;
     private MaintainTransactionService transServControl;
+    private MaintainAppointment appControl;
+    private MaintainCustomer custControl;
     private ArrayList<ServiceDetail> servList;
     private String action;
     private AddServiceDialog asd;
@@ -51,6 +53,8 @@ public class TransactionPanel extends javax.swing.JPanel {
         petControl = new MaintainPet();
         transServControl = new MaintainTransactionService();
         servList = new ArrayList<ServiceDetail>();
+        appControl = new MaintainAppointment();
+        custControl = new MaintainCustomer();
         serviceDetail=null;
         jtfSearch.setOpaque(false);
         jtfSearch.setBackground(new Color(255,255,255,127));
@@ -248,7 +252,23 @@ public class TransactionPanel extends javax.swing.JPanel {
         } 
         return "T"+idNo;
     }
- 
+    
+    private void updateAppointment(Transaction t){
+    
+        ArrayList<Appointment> appList= appControl.searchRecord("Open", 5);
+        Pet pet = petControl.searchRecord(t.getPet().getPetID());
+        Customer c = custControl.searchRecord(pet.getCustomer().getCustIC());
+        String phoneNo = c.getCustPhoneNum();
+        
+        for(int i=0; i<appList.size();i++){
+            Appointment app = appList.get(i);
+           if( app.getCustPhoneNum().equals(phoneNo)){
+               app.setTransID(t);
+               app.setStatus("Completed");
+               appControl.updateRecord(app);
+           }
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -638,6 +658,7 @@ public class TransactionPanel extends javax.swing.JPanel {
         
         if(trans!=null){
             Transaction t = transControl.searchRecord(trans.getTransID());
+
                 
                 if(t != null)
                 {
@@ -650,6 +671,7 @@ public class TransactionPanel extends javax.swing.JPanel {
                     transControl.addRecord(t);
                     transServControl.addRecord(t);
                     resetFields();
+                    updateAppointment(t);
                     JOptionPane.showMessageDialog(null,"New transaction has been created.","Success",JOptionPane.INFORMATION_MESSAGE);
                     jtfTransId.setText(generateTransId());
                     }

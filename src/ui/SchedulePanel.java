@@ -43,6 +43,7 @@ public class SchedulePanel extends javax.swing.JPanel {
         jtfSearch.setOpaque(false);
         jtfSearch.setBackground(new Color(255,255,255,127));
         jdpAppDate.setDateFormatString("dd-MM-yyyy");
+        jdpAppDate.setMinSelectableDate(new Date());
 //        jtfSearch.setBorder(null);
         setDynamicPanel();
     }
@@ -147,7 +148,7 @@ public class SchedulePanel extends javax.swing.JPanel {
     
     valid = custName.equals("")?false:true; //need
     valid = appID.equals("")?false:true;
-    valid = appDate.before(new Date())?false:true;
+//    valid = appDate.before(at)?false:true;
     if(!Pattern.matches("\\d{2,4}-\\d{7,8}", custPhoneNum)){valid =false;} //need if got phone number
     
      if(valid==true){
@@ -182,11 +183,16 @@ public class SchedulePanel extends javax.swing.JPanel {
             String idStr = appList.get(i).getAppID();
             int idNo = Integer.parseInt(idStr.split("M")[1]);
             idList.add(idNo);
-            
+            Date sysDate = LoginFrame.getSystemDate();
+            Date appDate = appList.get(i).getAppDate();
             //Automatically close open appoistment that have passed 
-            if (appList.get(i).getAppDate().before(new Date()) && appList.get(i).getStatus().equalsIgnoreCase("open")){
-                appList.get(i).setStatus("Missed");
-                appControl.updateRecord(appList.get(i));
+            
+            
+            if ( (appList.get(i).getStatus().equalsIgnoreCase("open"))){
+                if((appDate.before(sysDate)) && (!appDate.equals(sysDate))){
+                    appList.get(i).setStatus("Missed");
+                    appControl.updateRecord(appList.get(i));
+                }
             }
         }
         

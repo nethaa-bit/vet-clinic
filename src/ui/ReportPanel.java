@@ -50,6 +50,8 @@ public class ReportPanel extends javax.swing.JPanel {
             jcbReportType.setEnabled(false);
             jdpEndDate.setEnabled(false);
             jdpStartDate.setEnabled(false);
+            jmcMonth.setEnabled(false);
+            jycYear.setEnabled(false);
             JOptionPane.showMessageDialog(this, "Report module is only accessible by managers", "Access Denied!", JOptionPane.ERROR_MESSAGE);
         
         }
