@@ -16,7 +16,7 @@ import java.util.Date;
  *
  * @author lysan
  */
-public class Schedule {
+public class Appointment {
     
     private String appID;
     private Time appTime;
@@ -26,11 +26,11 @@ public class Schedule {
     private String status;
     private Transaction transID;
 
-    public Schedule() {
+    public Appointment() {
     }
     
     //for add
-    public Schedule(String appID, Time appTime, Date appDate, String custName, String custPhoneNum, String status) {
+    public Appointment(String appID, Time appTime, Date appDate, String custName, String custPhoneNum, String status) {
         this.appID = appID;
         this.appTime = appTime;
         this.appDate = appDate;
@@ -40,7 +40,7 @@ public class Schedule {
     }
 
     //for update
-    public Schedule(String appID, Time appTime, Date appDate, String custName, String custPhoneNum, String status, Transaction transID) {
+    public Appointment(String appID, Time appTime, Date appDate, String custName, String custPhoneNum, String status, Transaction transID) {
         this.appID = appID;
         this.appTime = appTime;
         this.appDate = appDate;

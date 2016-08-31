@@ -6,13 +6,13 @@
 package da;
 
 import control.MaintainTransaction;
-import domain.Schedule;
+import domain.Appointment;
 import domain.Transaction;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class ScheduleDA {
+public class AppointmentDA {
     
     private String host = "jdbc:derby://localhost:1527/vetdb";
     private String user = "nbuser";
@@ -23,7 +23,7 @@ public class ScheduleDA {
     private PreparedStatement stmt;
     private MaintainTransaction transControl;
     
-    public ScheduleDA()
+    public AppointmentDA()
     {
         createConnection();
         transControl = new MaintainTransaction();
@@ -42,7 +42,7 @@ public class ScheduleDA {
         }
     }
     
-     public void addRecord(Schedule schedule)
+     public void addRecord(Appointment schedule)
     {
         String insertStr = "INSERT INTO " + tableName + " VALUES(?,?,?,?,?,?,?)";
         try
@@ -66,7 +66,7 @@ public class ScheduleDA {
         }
     }
      
-      public void updateRecord(Schedule schedule)
+      public void updateRecord(Appointment schedule)
     {
         String updateStr = "UPDATE " + tableName + " SET appid = ?, apptime = ?, appdate = ?, custname = ?, custphonenum = ?, status = ? "+" WHERE appid = ? ";
         try
@@ -89,10 +89,10 @@ public class ScheduleDA {
         }
     }
       
-      public Schedule getRecord(String appID)
+      public Appointment getRecord(String appID)
     {
         String queryStr="SELECT * FROM "+ tableName +" WHERE appid = ?";
-        Schedule schedule = null;
+        Appointment schedule = null;
         try
         {
             stmt = conn.prepareStatement(queryStr);
@@ -103,10 +103,10 @@ public class ScheduleDA {
             {   
                 Transaction t = transControl.searchRecord(rs.getString("transid"));
                 if(t!=null){
-                    schedule = new Schedule(appID,rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status"),t); 
+                    schedule = new Appointment(appID,rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status"),t); 
                 }
                 else{
-                    schedule = new Schedule(appID,rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status")); 
+                    schedule = new Appointment(appID,rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status")); 
                 }
             }
         }
@@ -117,10 +117,10 @@ public class ScheduleDA {
         return schedule;
     }
  
-      public ArrayList<Schedule> getRecord(String searchStr, int option)
+      public ArrayList<Appointment> getRecord(String searchStr, int option)
     {
         String queryStr="SELECT * FROM "+ tableName +" WHERE appid = ?";
-        Schedule schedule = null;
+        Appointment schedule = null;
         String appID = "";
         switch(option){
             case 0: queryStr= "SELECT * FROM "+ tableName ;
@@ -137,21 +137,23 @@ public class ScheduleDA {
             break;
         }
         
-        ArrayList<Schedule> scheduleList = new ArrayList<Schedule>();
+        ArrayList<Appointment> scheduleList = new ArrayList<Appointment>();
         try
         {
             stmt = conn.prepareStatement(queryStr);
+            if(option!=0){
             stmt.setString(1,searchStr);
+            }
             ResultSet rs = stmt.executeQuery();
             
             while(rs.next())
             {
                 Transaction t = transControl.searchRecord(rs.getString("transid"));
                 if(t!=null){
-                    schedule = new Schedule(rs.getString("appid"),rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status"),t); 
+                    schedule = new Appointment(rs.getString("appid"),rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status"),t); 
                 }
                 else{
-                    schedule = new Schedule(rs.getString("appid"),rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status")); 
+                    schedule = new Appointment(rs.getString("appid"),rs.getTime("apptime"),rs.getDate("appdate"),rs.getString("custName"),rs.getString("custphonenum"),rs.getString("status")); 
                 }
                 scheduleList.add(schedule);
             }

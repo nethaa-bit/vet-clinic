@@ -224,9 +224,9 @@ public class TransactionPanel extends javax.swing.JPanel {
     }
     
     public String generateTransId(){
+        
         ArrayList<Transaction> transList = transControl.searchRecord("", 0);
         ArrayList<Integer> idList = new ArrayList<Integer>();
-        //implement sorting 
         
         for(int i=0; i<transList.size(); i++){
         String idStr = transList.get(i).getTransID();

@@ -71,7 +71,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="170" y="50" width="-1" height="-1"/>
+              <AbsoluteConstraints x="160" y="40" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -242,7 +242,7 @@
                 </Container>
                 <Component class="javax.swing.JButton" name="jbtModifyAppointment">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Modify Schedule"/>
+                    <Property name="text" type="java.lang.String" value="Modify Appointment"/>
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jbtModifyAppointmentMouseClicked"/>
@@ -250,33 +250,33 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="280" y="290" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="290" y="280" width="-1" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
                 <Component class="javax.swing.JButton" name="jbtDeleteAppointment">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Delete Schedule"/>
+                    <Property name="text" type="java.lang.String" value="Delete Appointment"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtDeleteAppointmentActionPerformed"/>
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="290" y="290" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="290" y="280" width="-1" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
                 <Component class="javax.swing.JButton" name="jbtView">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="View Schedule"/>
+                    <Property name="text" type="java.lang.String" value="View Appointment"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtViewActionPerformed"/>
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="300" y="290" width="-1" height="-1"/>
+                      <AbsoluteConstraints x="300" y="280" width="-1" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>

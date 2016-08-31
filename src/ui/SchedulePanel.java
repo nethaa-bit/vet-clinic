@@ -5,8 +5,8 @@
  */
 package ui;
 
-import control.MaintainSchedule;
-import domain.Schedule;
+import control.MaintainAppointment;
+import domain.Appointment;
 import domain.TableModel;
 import java.awt.Color;
 import java.sql.Time;
@@ -14,29 +14,44 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Cheng
- */
 public class SchedulePanel extends javax.swing.JPanel {
 
     
     
-        MaintainSchedule scheduleControl;
-        ArrayList<String> appStatuses;
+    private MaintainAppointment appControl;
+    private ArrayList<String> appStatuses;
     /**
      * Creates new form SchedulePanel
      */
-        public void setDynamicPanel() {
+
+        
+    public SchedulePanel() {
+        initComponents();
+        appStatuses = new ArrayList<String>();
+        appStatuses.add("open");
+        appStatuses.add("missed");
+        appStatuses.add("completed");
+        jtfAppID.setEditable(false);
+        appControl = new MaintainAppointment();
+        jtfSearch.setOpaque(false);
+        jtfSearch.setBackground(new Color(255,255,255,127));
+        jdpAppDate.setDateFormatString("dd-MM-yyyy");
+//        jtfSearch.setBorder(null);
+        setDynamicPanel();
+    }
+    
+    public void setDynamicPanel() {
         JPanel targetPanel = new JPanel();
         if(MainMenu.action.equals("add")){
              targetPanel=jpAdd;
+             jtfAppID.setText(generateAppId());
              jbtConfirmChange.setVisible(false);
              jbtConfirmDelete.setVisible(false);
              jbtAddApp.setVisible(true);
@@ -88,7 +103,7 @@ public class SchedulePanel extends javax.swing.JPanel {
         dynamicPanel.revalidate();
     }
         
-public void fillFields(Schedule schedule){
+    public void fillFields(Appointment schedule){
          
     jtfCusName.setText(schedule.getCustName());
     jtfCusPhoneNum.setText(schedule.getCustPhoneNum());
@@ -102,7 +117,7 @@ public void fillFields(Schedule schedule){
 
 }
          
-public void disableFields(){
+    public void disableFields(){
 
   jtfAppID.setEditable(false);
   jtfCusName.setEditable(false);
@@ -110,23 +125,10 @@ public void disableFields(){
   jtfCusName.setEditable(false);
   jtfCusPhoneNum.setEditable(false);
 }
-        
-    public SchedulePanel() {
-        initComponents();
-        appStatuses = new ArrayList<String>();
-        appStatuses.add("open");
-        appStatuses.add("cancelled");
-        appStatuses.add("completed");
-        scheduleControl = new MaintainSchedule();
-        jtfSearch.setOpaque(false);
-        jtfSearch.setBackground(new Color(255,255,255,127));
-//        jtfSearch.setBorder(null);
-        setDynamicPanel();
-    }
-
-    public Schedule validateInput(){
     
-    Schedule schedule=null;
+    public Appointment validateInput(){
+    
+    Appointment schedule=null;
     boolean valid =true; 
     
     String custName = jtfCusName.getText();
@@ -145,12 +147,13 @@ public void disableFields(){
     
     valid = custName.equals("")?false:true; //need
     valid = appID.equals("")?false:true;
+    valid = appDate.before(new Date())?false:true;
     if(!Pattern.matches("\\d{2,4}-\\d{7,8}", custPhoneNum)){valid =false;} //need if got phone number
     
      if(valid==true){
         
            
-           schedule = new Schedule(appID,appTime, appDate, custName,custPhoneNum,"Open");
+           schedule = new Appointment(appID,appTime, appDate, custName,custPhoneNum,"Open");
     }
     else{
        schedule=null;
@@ -165,6 +168,41 @@ public void disableFields(){
     jtfCusPhoneNum.setText("");
     jtfSearch.setText("");
     jtfAppID.setText("");
+    jcbHours.setSelectedIndex(0);
+    jcbMin.setSelectedIndex(0);
+    jdpAppDate.setDate(new Date());
+    }
+    
+    public String generateAppId(){
+        
+        ArrayList<Appointment> appList = appControl.searchRecord("", 0);
+        ArrayList<Integer> idList = new ArrayList<Integer>();
+        
+        for(int i=0; i<appList.size(); i++){
+            String idStr = appList.get(i).getAppID();
+            int idNo = Integer.parseInt(idStr.split("M")[1]);
+            idList.add(idNo);
+            
+            //Automatically close open appoistment that have passed 
+            if (appList.get(i).getAppDate().before(new Date()) && appList.get(i).getStatus().equalsIgnoreCase("open")){
+                appList.get(i).setStatus("Missed");
+                appControl.updateRecord(appList.get(i));
+            }
+        }
+        
+        Collections.sort(idList);
+        int idNo = 1; 
+        for(int i=0; i<idList.size(); i++){
+            if(idList.get(i)!=i+1){
+                idNo=i+1; 
+                break;
+            }
+            if(i==idList.size()-1){
+                idNo=idList.size()+1; 
+            }
+            
+        } 
+        return "M"+idNo;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -231,7 +269,7 @@ public void disableFields(){
 
         jlblSchedule.setFont(new java.awt.Font("Verdana", 1, 14)); // NOI18N
         jlblSchedule.setText("Schedule");
-        jPanel2.add(jlblSchedule, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, -1, -1));
+        jPanel2.add(jlblSchedule, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, -1, -1));
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 98));
 
@@ -297,7 +335,7 @@ public void disableFields(){
 
         jpSearch.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 620, 180));
 
-        jbtModifyAppointment.setText("Modify Schedule");
+        jbtModifyAppointment.setText("Modify Appointment");
         jbtModifyAppointment.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtModifyAppointmentMouseClicked(evt);
@@ -308,23 +346,23 @@ public void disableFields(){
                 jbtModifyAppointmentActionPerformed(evt);
             }
         });
-        jpSearch.add(jbtModifyAppointment, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 290, -1, -1));
+        jpSearch.add(jbtModifyAppointment, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, -1, -1));
 
-        jbtDeleteAppointment.setText("Delete Schedule");
+        jbtDeleteAppointment.setText("Delete Appointment");
         jbtDeleteAppointment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtDeleteAppointmentActionPerformed(evt);
             }
         });
-        jpSearch.add(jbtDeleteAppointment, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, -1, -1));
+        jpSearch.add(jbtDeleteAppointment, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, -1, -1));
 
-        jbtView.setText("View Schedule");
+        jbtView.setText("View Appointment");
         jbtView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtViewActionPerformed(evt);
             }
         });
-        jpSearch.add(jbtView, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 290, -1, -1));
+        jpSearch.add(jbtView, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, -1, -1));
 
         dynamicPanel.add(jpSearch, "card2");
 
@@ -443,7 +481,7 @@ public void disableFields(){
             }else{
                 option=4;
             }
-            ArrayList<Schedule> scheduleList = scheduleControl.searchRecord(queryStr,option);
+            ArrayList<Appointment> scheduleList = appControl.searchRecord(queryStr,option);
 
     //        MainMenu.action="search";
             setDynamicPanel();
@@ -477,9 +515,9 @@ public void disableFields(){
 
     private void jbtConfirmDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmDeleteActionPerformed
         // TODO add your handling code here:
-        Schedule schedule = validateInput();
+        Appointment schedule = validateInput();
         if(schedule!=null){
-            Schedule s = scheduleControl.searchRecord(schedule.getAppID());
+            Appointment s = appControl.searchRecord(schedule.getAppID());
 
             if(s == null)
             {
@@ -492,7 +530,7 @@ public void disableFields(){
 
                 if(reply==JOptionPane.YES_OPTION){
                     try{
-                        scheduleControl.deleteRecord(s.getAppID());
+                        appControl.deleteRecord(s.getAppID());
                         resetFields();
                         JOptionPane.showMessageDialog(null,"Appointment "+ schedule.getAppID()+" has been deleted.","Success",JOptionPane.INFORMATION_MESSAGE);
                     }
@@ -515,11 +553,11 @@ public void disableFields(){
 
     private void jbtAddAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtAddAppActionPerformed
         // TODO add your handling code here:
-        Schedule schedule = validateInput();
+        Appointment schedule = validateInput();
         if(schedule!=null){
             //write to database
 
-            Schedule s = scheduleControl.searchRecord(schedule.getAppID());
+            Appointment s = appControl.searchRecord(schedule.getAppID());
 
             if(s != null)
             {
@@ -529,9 +567,10 @@ public void disableFields(){
             {
                 s = schedule;
                 try{
-                    scheduleControl.addRecord(s);
+                    appControl.addRecord(s);
                     resetFields();
                     JOptionPane.showMessageDialog(null,"New appointment has been added.","Success",JOptionPane.INFORMATION_MESSAGE);
+                    jtfAppID.setText(generateAppId());
                 }
                 catch (Exception ex){
                     JOptionPane.showMessageDialog(null,ex.getMessage(),"Failure",JOptionPane.ERROR_MESSAGE);
@@ -563,10 +602,10 @@ public void disableFields(){
     private void jbtViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtViewActionPerformed
         // TODO add your handling code here:
         MainMenu.action="viewSelected";
-        Schedule selectedSchedule=null;
+        Appointment selectedSchedule=null;
         if(jtSchedule.getSelectedRow()>=0 ) {
             String ic  = (String) jtSchedule.getValueAt(jtSchedule.getSelectedRow(),0);
-            selectedSchedule = scheduleControl.searchRecord(ic);
+            selectedSchedule = appControl.searchRecord(ic);
             if(selectedSchedule!=null){
                 setDynamicPanel();
                 fillFields(selectedSchedule);
@@ -584,10 +623,10 @@ public void disableFields(){
     private void jbtDeleteAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtDeleteAppointmentActionPerformed
         // TODO add your handling code here:
        MainMenu.action="deleteSelected";
-       Schedule selectedSchedule=null;
+       Appointment selectedSchedule=null;
        if(jtSchedule.getSelectedRow()>=0 ) {
            String id  = (String) jtSchedule.getValueAt(jtSchedule.getSelectedRow(),0);
-           selectedSchedule = scheduleControl.searchRecord(id);
+           selectedSchedule = appControl.searchRecord(id);
            if(selectedSchedule!=null){
                 setDynamicPanel();
                 fillFields(selectedSchedule); 
@@ -603,10 +642,10 @@ public void disableFields(){
     private void jbtModifyAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtModifyAppointmentActionPerformed
         // TODO add your handling code here:
         MainMenu.action="modifySelected";
-       Schedule selectedschedule=null;
+       Appointment selectedschedule=null;
        if(jtSchedule.getSelectedRow()>=0 ) {
            String id  = (String) jtSchedule.getValueAt(jtSchedule.getSelectedRow(),0);
-           selectedschedule = scheduleControl.searchRecord(id);
+           selectedschedule = appControl.searchRecord(id);
            if(selectedschedule!=null){
                 setDynamicPanel();
                 fillFields(selectedschedule);
@@ -624,10 +663,10 @@ public void disableFields(){
     private void jbtModifyAppointmentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtModifyAppointmentMouseClicked
         // TODO add your handling code here:
         MainMenu.action="modifySelected";
-        Schedule selectedSchedule=null;
+        Appointment selectedSchedule=null;
         if(jtSchedule.getSelectedRow()>=0 ) {
             String ic  = (String) jtSchedule.getValueAt(jtSchedule.getSelectedRow(),0);
-            selectedSchedule= scheduleControl.searchRecord(ic);
+            selectedSchedule= appControl.searchRecord(ic);
             if(selectedSchedule!=null){
                 setDynamicPanel();
                 fillFields(selectedSchedule);
@@ -641,10 +680,10 @@ public void disableFields(){
 
     private void jbtConfirmChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtConfirmChangeActionPerformed
         // TODO add your handling code here:
-         Schedule schedule = validateInput();
+         Appointment schedule = validateInput();
         if(schedule!=null){
          //write to database ****
-                Schedule s = scheduleControl.searchRecord(schedule.getAppID());
+                Appointment s = appControl.searchRecord(schedule.getAppID());
                 
                 if(s == null)
                 {
@@ -657,7 +696,7 @@ public void disableFields(){
             
                     if(reply==JOptionPane.YES_OPTION){
                         try{
-                            scheduleControl.updateRecord(schedule);
+                            appControl.updateRecord(schedule);
                             resetFields();
                             JOptionPane.showMessageDialog(null,"Schedule details of schedule "+ schedule.getAppID()+" has been updated.","Success",JOptionPane.INFORMATION_MESSAGE);
                         }
