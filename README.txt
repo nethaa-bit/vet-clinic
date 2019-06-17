@@ -75,5 +75,5 @@ Full list of dependent libraries can be found at \VeterinaryClinicSystem\dist\li
 Authors
 -------------
 
-Krishnapriya A/P Ranga Nathan 	(krishnapriyaranganathan@gmail.com)
-Chen Li San			(lysanchen928@gmail.com)
+Krishnapriya A/P Ranga Nathan 
+Chen Li San			
